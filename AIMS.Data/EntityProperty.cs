@@ -9,7 +9,9 @@ namespace AIMS.Data
 {
     public class EntityProperty
     {
+        [Key]
         public int EntityId { get; set; }
+        [Key]
         public int PropertyDefId { get; set; }
         [MaxLength(256)]
         public string Value { get; set; }

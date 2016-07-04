@@ -13,7 +13,9 @@ namespace AIMS.Data
         public int? EntityId { get; set; }
         public enum TypeEnum
         {
-
+            Phone,
+            Email,
+            Emergency
         }
         public TypeEnum Type { get; set; }
         public bool IsPrimary { get; set; }
