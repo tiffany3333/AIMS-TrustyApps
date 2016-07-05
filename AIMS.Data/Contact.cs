@@ -11,12 +11,6 @@ namespace AIMS.Data
     {
         public int Id { get; set; }
         public int? EntityId { get; set; }
-        public enum TypeEnum
-        {
-            Phone,
-            Email,
-            Emergency
-        }
         public TypeEnum Type { get; set; }
         public bool IsPrimary { get; set; }
         [MaxLength(45)]
@@ -27,6 +21,12 @@ namespace AIMS.Data
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
         public virtual Entity Entity { get; set; }
+        public enum TypeEnum
+        {
+            Phone,
+            Email,
+            Emergency
+        }
 
     }
 }

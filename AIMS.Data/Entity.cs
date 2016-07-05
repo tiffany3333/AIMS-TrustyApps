@@ -10,15 +10,11 @@ namespace AIMS.Data
 {
     public class Entity
     {
-        public int Id { get; set; }
-        public enum MemberTypeEnum
-        {
-            User,
-            Group,
-            Organization
-
-        }
         [Key]
+        [Column(Order = 1)]
+        public int Id { get; set; }
+        [Key]
+        [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public MemberTypeEnum MemberType { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
@@ -26,5 +22,12 @@ namespace AIMS.Data
         public virtual User User { get; set; }
         public virtual Group Group { get; set; }
         public virtual Organization Organiztion { get; set; }
+        public enum MemberTypeEnum
+        {
+            User,
+            Group,
+            Organization
+
+        }
     }
 }

@@ -31,7 +31,26 @@ namespace AIMS.Data
         }
 
         //public DbSet<ShoppingList> ShoppingLists { get; set; }
-
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Entity> Entities { get; set; }
+        public DbSet<EntityLocation> EntityLocations { get; set; }
+        public DbSet<EntityProperty> EntityProperties { get; set; }
+        public DbSet<EntityRole> EntityRoles { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<PropertyDef> PropertyDefs { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<SurveyGroup> SurveyGroups { get; set; }
+        public DbSet<SurveyInstance> SurveyInstances { get; set; }
+        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        //Users for variable name already existed
+        public DbSet<User> User { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<UserTimesheet> UserTimesheets { get; set; }
     }
 
     public class IdentityUserLoginConfiguration : EntityTypeConfiguration<IdentityUserLogin>
