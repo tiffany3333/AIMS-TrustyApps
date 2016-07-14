@@ -9,7 +9,7 @@ namespace AIMS.Data
     public class SurveyInstance
     {
         public int Id { get; set; }
-        public int? SurveyId { get; set; }
+        public int SurveyId { get; set; }
         public int? UserId { get; set; }
         public bool IsComplete { get; set; }
         public DateTimeOffset CreatedAt { get; set; }

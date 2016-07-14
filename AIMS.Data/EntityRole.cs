@@ -17,18 +17,11 @@ namespace AIMS.Data
         public int EntityId { get; set; }
         [Key]
         [Column(Order = 2)]
-        [ForeignKey("Entity")]
-        public MemberTypeEnum MemberType { get; set; }
-        [Key]
-        [Column(Order = 3)]
+        [ForeignKey("Role")]
         public int RoleId { get; set; }
-        //Circular Relationship
         [ForeignKey("ReferredEntity")]
-        [Column(Order = 4)]
-        public int? ForEntity { get; set; }
-        [ForeignKey("ReferredEntity")]
-        [Column(Order = 5)]
-        public MemberTypeEnum? ForEntityMemberType { get; set; }
+        [Column(Order = 3)]
+        public int ReferredEntityId { get; set; }
         public virtual Entity ReferredEntity { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public virtual Entity Entity { get; set; }

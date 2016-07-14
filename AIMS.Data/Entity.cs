@@ -11,10 +11,8 @@ namespace AIMS.Data
     public class Entity
     {
         [Key]
-        [Column(Order = 1)]
         public int Id { get; set; }
-        [Key]
-        [Column(Order = 2)]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public MemberTypeEnum MemberType { get; set; }
         public DateTimeOffset CreatedAt { get; set; }

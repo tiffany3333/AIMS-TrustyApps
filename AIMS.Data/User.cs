@@ -13,12 +13,7 @@ namespace AIMS.Data
     {
         [Key]
         [ForeignKey("Entity")]
-        [Column(Order = 1)]
         public int UserId { get; set; }
-        [Key]
-        [ForeignKey("Entity")]
-        [Column(Order = 2)]
-        public MemberTypeEnum MemberType { get; set; }
         [MaxLength(45)]
         public string FirstName { get; set; }
         [MaxLength(45)]

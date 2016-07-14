@@ -15,10 +15,6 @@ namespace AIMS.Data
         [ForeignKey("Entity")]
         [Column(Order = 1)]
         public int OrganizationId { get; set; }
-        [Key]
-        [ForeignKey("Entity")]
-        [Column(Order = 2)]
-        public MemberTypeEnum MemberType { get; set; }
         [MaxLength(256)]
         public string Name { get; set; }
         [MaxLength(512)]

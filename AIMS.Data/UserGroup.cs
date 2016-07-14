@@ -10,10 +10,13 @@ namespace AIMS.Data
 {
     public class UserGroup
     {
+        //Uncomment if neccessary
         [Key]
+        //[ForeignKey("User")]
         [Column(Order = 1)]
         public int UserId { get; set; }
         [Key]
+        //[ForeignKey("Group")]
         [Column(Order = 2)]
         public int GroupId { get; set; }
         public DateTimeOffset CreatedAt { get; set; }

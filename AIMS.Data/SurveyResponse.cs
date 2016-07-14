@@ -12,7 +12,7 @@ namespace AIMS.Data
     {
         [Key]
         public int SurveyInstanceId { get; set; }
-        public int? SurveyQuestionId { get; set; }
+        public int SurveyQuestionId { get; set; }
         public int Rating { get; set; }
         [MaxLength(512)]
         public string TestResponse { get; set; }
