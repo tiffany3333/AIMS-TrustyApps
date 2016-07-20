@@ -9,6 +9,28 @@ namespace AIMS.Services
 {
     public class UserService
     {
+        public IEnumerable<User> GetUsers(int Id)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                return
+                    ctx
+                    .User
+                    .Where(e => e.UserId == Id)
+                    .Select(e => new User
+                    {
+                        UserId = e.UserId,
+                        Avatar = e.Avatar,
+                        CreatedAt = e.CreatedAt,
+                        FirstName = e.FirstName,
+                        LastName = e.LastName,
+                        UpdatedAt = e.UpdatedAt,
+                        UserGroups = e.UserGroups,
+                        UserType = e.UserType
+                    })
+                    .ToArray();
+            }
+        }
 
         public bool CreateUser(Entity entity, User user)
         {
