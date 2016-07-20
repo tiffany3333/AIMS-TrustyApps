@@ -67,10 +67,6 @@ namespace AIMS.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -123,6 +119,8 @@ namespace AIMS.Models
         [MaxLength(140)]
         public string PhoneContactDetail { get; set; }
 
+        [Required]
+        [EmailAddress]
         [MaxLength(140)]
         public string EmailContactDetail { get; set; }
 
