@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AIMS.Data.Contact;
 
 namespace AIMS.Services
 {
     public class ContactService
     {
+        private readonly EntityService _entitySvc = new EntityService();
+
         public IEnumerable<Contact> GetContactInfo()
         {
             using (var ctx = new AIMSDbContext())
@@ -32,21 +35,19 @@ namespace AIMS.Services
             }
         }
 
-        public bool CreateContact(Entity entity, Contact contact)
+        public bool CreateContact(int entityId, string contactDetail, string label, TypeEnum type)
         {
             using (var ctx = new AIMSDbContext())
             {
                 var newContact =
                     new Contact
                     {
-                        Id = contact.Id,
-                        EntityId = entity.Id,
-                        ContactDetail = contact.ContactDetail,
+                        EntityId = entityId,
+                        ContactDetail = contactDetail,
                         CreatedAt = DateTimeOffset.UtcNow,
-                        IsPrimary = false,
-                        Label = contact.Label,
-                        Type = contact.Type,
-                        UpdatedAt = contact.UpdatedAt
+                        IsPrimary = true,
+                        Label = label,
+                        Type = type,
                     };
                 ctx.Contacts.Add(newContact);
                 return ctx.SaveChanges() == 1;

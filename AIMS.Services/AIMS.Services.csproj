@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="AddressService.cs" />
     <Compile Include="ContactService.cs" />
+    <Compile Include="EntityService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +99,10 @@
     <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">
       <Project>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</Project>
       <Name>AIMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS\AIMS.csproj">
+      <Project>{277F1ECB-6DBB-4258-93C2-ADE4BB349AD0}</Project>
+      <Name>AIMS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

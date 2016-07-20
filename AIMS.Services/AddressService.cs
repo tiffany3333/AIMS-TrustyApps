@@ -37,24 +37,23 @@ namespace AIMS.Services
             }
         }
 
-        public bool CreateAddress(Entity entity, Address address)
+        public bool CreateAddress(int entityId, string address1, string address2, string address3, string city, string country, string state, string zipCode)
         {
             using (var ctx = new AIMSDbContext())
             {
                 var newAddress =
                     new Address
                     {
-                        Id = address.Id,
-                        EntityId = entity.Id,
-                        Address1 = address.Address1,
-                        Address2 = address.Address2,
-                        Address3 = address.Address3,
-                        City = address.City,
-                        Country = address.Country,
+                        EntityId = entityId,
+                        Address1 = address1,
+                        Address2 = address2,
+                        Address3 = address3,
+                        City = city,
+                        Country = country,
                         CreatedAt = DateTimeOffset.UtcNow,
                         IsPrimary = true,
-                        State = address.State,
-                        Zipcode = address.Zipcode,
+                        State = state,
+                        Zipcode = zipCode,
 
                     };
                 ctx.Addresses.Add(newAddress);
