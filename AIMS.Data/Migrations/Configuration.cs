@@ -19,12 +19,10 @@ namespace AIMS.Data.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
+            context.UserRoles.AddOrUpdate(
+              p => p.Id,
+              new Role { Id = 0, RoleName = "member", Description = "member", CreatedAt = DateTimeOffset.UtcNow }
+            );
             //
         }
     }
