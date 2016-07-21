@@ -1,5 +1,6 @@
 ﻿using AIMS.Data;
 using AIMS.Models;
+using AIMS.Models.cs;
 using AIMS.Services;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace AIMS.Services
             }
         }
 
-        public bool CreateUser(RegisterViewModel registerVM)
+        public bool CreateUser(RegisterUserViewModel registerVM)
         {
             using (var ctx = new AIMSDbContext())
             {

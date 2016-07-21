@@ -97,12 +97,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">
-      <Project>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</Project>
+      <Project>{ffbf8743-6097-4f05-a0b3-dd4456b064c3}</Project>
       <Name>AIMS.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AIMS\AIMS.csproj">
-      <Project>{277F1ECB-6DBB-4258-93C2-ADE4BB349AD0}</Project>
-      <Name>AIMS</Name>
+    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.cs.csproj">
+      <Project>{0fc860f2-6fd5-44e3-9b8b-6df95009bfea}</Project>
+      <Name>AIMS.Models.cs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

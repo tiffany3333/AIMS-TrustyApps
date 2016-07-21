@@ -102,6 +102,10 @@
     <Compile Include="Migrations\201607201315181_updatedEntityRole.Designer.cs">
       <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.cs" />
+    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.Designer.cs">
+      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607201315181_updatedEntityRole.resx">
       <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607211849367_updatedMultipleDataModels.resx">
+      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

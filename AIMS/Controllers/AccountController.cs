@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AIMS.Models;
+using AIMS.Services;
+using AIMS.Models.cs;
 
 namespace AIMS.Controllers
 {
@@ -18,8 +20,11 @@ namespace AIMS.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private readonly UserService _svc;
+
         public AccountController()
         {
+            _svc = new UserService();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -147,16 +152,17 @@ namespace AIMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterUserViewModel model)
         {
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser { UserName = model.EmailContactDetail, Email = model.EmailContactDetail };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    _svc.CreateUser(model);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -167,6 +173,7 @@ namespace AIMS.Controllers
                 }
                 AddErrors(result);
             }
+          
 
             // If we got this far, something failed, redisplay form
             return View(model);
