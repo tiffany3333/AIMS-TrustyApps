@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</ProjectGuid>
+    <ProjectGuid>{338E9287-93AA-4721-8041-DACD4878AFAF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIMS.Data</RootNamespace>
-    <AssemblyName>AIMS.Data</AssemblyName>
+    <RootNamespace>AIMS.Services</RootNamespace>
+    <AssemblyName>AIMS.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +54,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -85,55 +89,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Contact.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityLocation.cs" />
-    <Compile Include="EntityProperty.cs" />
-    <Compile Include="EntityRole.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="Group.cs" />
-    <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201607191951117_initialMigration.cs" />
-    <Compile Include="Migrations\201607191951117_initialMigration.Designer.cs">
-      <DependentUpon>201607191951117_initialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607201315181_updatedEntityRole.cs" />
-    <Compile Include="Migrations\201607201315181_updatedEntityRole.Designer.cs">
-      <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.cs" />
-    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.Designer.cs">
-      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Organization.cs" />
+    <Compile Include="AddressService.cs" />
+    <Compile Include="ContactService.cs" />
+    <Compile Include="EntityService.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyDef.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="Survey.cs" />
-    <Compile Include="SurveyGroup.cs" />
-    <Compile Include="SurveyInstance.cs" />
-    <Compile Include="SurveyQuestion.cs" />
-    <Compile Include="SurveyResponse.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserGroup.cs" />
-    <Compile Include="UserTimesheet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">
+      <Project>{ffbf8743-6097-4f05-a0b3-dd4456b064c3}</Project>
+      <Name>AIMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.cs.csproj">
+      <Project>{0fc860f2-6fd5-44e3-9b8b-6df95009bfea}</Project>
+      <Name>AIMS.Models.cs</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607191951117_initialMigration.resx">
-      <DependentUpon>201607191951117_initialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607201315181_updatedEntityRole.resx">
-      <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607211849367_updatedMultipleDataModels.resx">
-      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

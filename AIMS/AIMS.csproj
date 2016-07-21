@@ -247,6 +247,20 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">
+      <Project>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</Project>
+      <Name>AIMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.cs.csproj">
+      <Project>{0fc860f2-6fd5-44e3-9b8b-6df95009bfea}</Project>
+      <Name>AIMS.Models.cs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services\AIMS.Services.csproj">
+      <Project>{338e9287-93aa-4721-8041-dacd4878afaf}</Project>
+      <Name>AIMS.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
