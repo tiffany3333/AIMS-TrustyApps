@@ -10,7 +10,6 @@ namespace AIMS.Services
 {
     public class ContactService
     {
-        private readonly EntityService _entitySvc = new EntityService();
 
         public IEnumerable<Contact> GetContactInfo()
         {

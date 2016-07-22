@@ -68,5 +68,9 @@ namespace AIMS.Models.cs
         [MaxLength(140)]
         public string EmailContactDetail { get; set; }
 
+        public int RoleId { get; set; }
+
+        public int ReferredEntityId { get; set; }
+
     }
 }

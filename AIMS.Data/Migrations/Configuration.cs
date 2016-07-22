@@ -20,10 +20,51 @@ namespace AIMS.Data.Migrations
             //  to avoid creating duplicate seed data. E.g.
             //
             context.UserRoles.AddOrUpdate(
-              p => p.Id,
-              new Role { Id = 0, RoleName = "member", Description = "member", CreatedAt = DateTimeOffset.UtcNow }
+                p => p.RoleName,
+                new Role
+                {
+                  Id = 1,
+                  RoleName = "member",
+                  Description = "member",
+                  CreatedAt = DateTimeOffset.UtcNow
+                }
             );
-            //
+
+            context.Entities.AddOrUpdate(
+                p => p.MemberType,
+                new Entity
+                {
+                    MemberType = Entity.MemberTypeEnum.Organization,
+                    CreatedAt = DateTimeOffset.UtcNow,
+                });
+
+            context.Organizations.AddOrUpdate(
+                e => e.Name,
+                new Organization
+                {
+                    OrganizationId = 1,
+                    Name = "Pending",
+                    CreatedAt = DateTimeOffset.UtcNow,
+                    Description = "Pending",
+                });
+
+            context.Entities.AddOrUpdate(
+                e => e.MemberType,
+                new Entity
+                {
+                    MemberType = Entity.MemberTypeEnum.Group,
+                    CreatedAt = DateTimeOffset.UtcNow
+                });
+
+            context.Groups.AddOrUpdate(
+                e => e.Name,
+                new Group
+                {
+                    GroupId = 2,
+                    Name = "Pending",
+                    CreatedAt = DateTimeOffset.UtcNow,
+                    OrganizationId = 1,
+                });
         }
     }
 }

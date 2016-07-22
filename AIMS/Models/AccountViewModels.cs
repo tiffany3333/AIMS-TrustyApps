@@ -117,12 +117,17 @@ namespace AIMS.Models
         public string EmailLabel { get; set; }
 
         [MaxLength(140)]
+        [Phone]
         public string PhoneContactDetail { get; set; }
 
         [Required]
         [EmailAddress]
         [MaxLength(140)]
         public string EmailContactDetail { get; set; }
+
+        public int RoleId { get; set; }
+
+        public int ReferredEntityId { get; set; }
 
     }
 
