@@ -106,6 +106,10 @@
     <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.Designer.cs">
       <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607221552518_tookOutReferredEntity.cs" />
+    <Compile Include="Migrations\201607221552518_tookOutReferredEntity.Designer.cs">
+      <DependentUpon>201607221552518_tookOutReferredEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607211849367_updatedMultipleDataModels.resx">
       <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221552518_tookOutReferredEntity.resx">
+      <DependentUpon>201607221552518_tookOutReferredEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

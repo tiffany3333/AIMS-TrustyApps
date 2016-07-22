@@ -15,8 +15,10 @@ namespace AIMS.Services
     public class UserService
     {
         private readonly EntityService _entitySvc = new EntityService();
+        private readonly RoleService _roleSvc = new RoleService();
         private readonly AddressService _addressSvc = new AddressService();
         private readonly ContactService _contactSvc = new ContactService();
+        private readonly EntityRoleService _entityRoleSvc = new EntityRoleService();
 
         public IEnumerable<User> GetUsers(int Id)
         {
@@ -40,11 +42,14 @@ namespace AIMS.Services
             }
         }
 
+        //Keep in mind, when a new user is created, a new entity must be created first, and via the wireframes, a new phone contact, email contact, and address must be created too
         public bool CreateUser(RegisterUserViewModel registerVM)
         {
             using (var ctx = new AIMSDbContext())
             {
+                //Create a new entity
                 int entityId = _entitySvc.CreateEntity(MemberTypeEnum.User);
+                int roleId = _roleSvc.CreateRole();
                 
                 var newUser =
                     new User
@@ -59,11 +64,15 @@ namespace AIMS.Services
 
                 //Create Email Contact
                 _contactSvc.CreateContact(entityId, registerVM.EmailContactDetail, registerVM.EmailLabel, registerVM.Type);
+
                 //Create Phone Contact
                 _contactSvc.CreateContact(entityId, registerVM.PhoneContactDetail, registerVM.PhoneLabel, registerVM.Type);
+
                 //Create Address
                 _addressSvc.CreateAddress(entityId, registerVM.Address1, registerVM.Address2, registerVM.Address3, registerVM.City, registerVM.Country, registerVM.State, registerVM.Zipcode);
+
                 //Create Entity Roles
+                _entityRoleSvc.CreateEntityRole(entityId, roleId, registerVM.ReferredEntityId);
 
                 return ctx.SaveChanges() == 1;
 

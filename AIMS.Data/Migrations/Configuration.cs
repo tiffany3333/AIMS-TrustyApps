@@ -23,6 +23,7 @@ namespace AIMS.Data.Migrations
                 p => p.RoleName,
                 new Role
                 {
+                  Id = 1,
                   RoleName = "member",
                   Description = "member",
                   CreatedAt = DateTimeOffset.UtcNow

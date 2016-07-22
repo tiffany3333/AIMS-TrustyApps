@@ -4,25 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static AIMS.Data.Entity;
-using static AIMS.Data.User;
 
 namespace AIMS.Services
 {
-    class EntityService
+    class RoleService
     {
-        public int CreateEntity(MemberTypeEnum type)
+        public int CreateRole()
         {
             using (var ctx = new AIMSDbContext())
             {
-                var entity = new Entity
+                var role = new Role
                 {
                     CreatedAt = DateTimeOffset.UtcNow,
-                    MemberType = type
                 };
-                ctx.Entities.Add(entity);
+                ctx.UserRoles.Add(role);
                 ctx.SaveChanges();
-                return entity.Id;
+                return role.Id;
             }
         }
     }
