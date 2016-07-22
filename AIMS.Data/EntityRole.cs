@@ -19,8 +19,11 @@ namespace AIMS.Data
         [Column(Order = 2)]
         [ForeignKey("Role")]
         public int RoleId { get; set; }
+        [ForeignKey("ReferredEntity")]
+        [Column(Order = 3)]
         public int? ReferredEntityId { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
+        public virtual Entity ReferredEntity { get; set; }
         public virtual Entity Entity { get; set; }
         public virtual Role Role { get; set; }
     }

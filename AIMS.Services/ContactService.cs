@@ -10,30 +10,6 @@ namespace AIMS.Services
 {
     public class ContactService
     {
-
-        public IEnumerable<Contact> GetContactInfo()
-        {
-            using (var ctx = new AIMSDbContext())
-            {
-                return
-                    ctx
-                    .Contacts
-                    .Where(e => e.Id == e.EntityId)
-                    .Select(e => new Contact
-                    {
-                        Id = e.Id,
-                        EntityId = e.EntityId,
-                        ContactDetail = e.ContactDetail,
-                        IsPrimary = e.IsPrimary,
-                        Label = e.Label,
-                        CreatedAt = e.CreatedAt,
-                        Type = e.Type,
-                        UpdatedAt = e.UpdatedAt
-                    })
-                    .ToArray();
-            }
-        }
-
         public bool CreateContact(int entityId, string contactDetail, string label, TypeEnum type)
         {
             using (var ctx = new AIMSDbContext())

@@ -79,55 +79,10 @@ namespace AIMS.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [MaxLength(45)]
-        public string FirstName { get; set; }
-
-        [MaxLength(45)]
-        public string LastName { get; set; }
-
-        public UserTypeEnum UserType { get; set; }
-
-        [MaxLength(256)]
-        public string Address1 { get; set; }
-
-        [MaxLength(256)]
-        public string Address2 { get; set; }
-
-        [MaxLength(256)]
-        public string Address3 { get; set; }
-
-        [MaxLength(128)]
-        public string City { get; set; }
-
-        [MaxLength(128)]
-        public string State { get; set; }
-
-        [MaxLength(128)]
-        public string Country { get; set; }
-
-        [MaxLength(128)]
-        public string Zipcode { get; set; }
-
-        public TypeEnum Type { get; set; }
-
-        [MaxLength(45)]
-        public string PhoneLabel { get; set; }
-
-        [MaxLength(45)]
-        public string EmailLabel { get; set; }
-
-        [MaxLength(140)]
-        [Phone]
-        public string PhoneContactDetail { get; set; }
-
         [Required]
         [EmailAddress]
         [MaxLength(140)]
         public string EmailContactDetail { get; set; }
-
-        public int RoleId { get; set; }
-
-        public int ReferredEntityId { get; set; }
 
     }
 

@@ -102,9 +102,9 @@
       <Project>{ffbf8743-6097-4f05-a0b3-dd4456b064c3}</Project>
       <Name>AIMS.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.cs.csproj">
+    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.csproj">
       <Project>{0fc860f2-6fd5-44e3-9b8b-6df95009bfea}</Project>
-      <Name>AIMS.Models.cs</Name>
+      <Name>AIMS.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

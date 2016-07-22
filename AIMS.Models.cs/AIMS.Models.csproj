@@ -7,8 +7,8 @@
     <ProjectGuid>{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIMS.Models.cs</RootNamespace>
-    <AssemblyName>AIMS.Models.cs</AssemblyName>
+    <RootNamespace>AIMS.Models</RootNamespace>
+    <AssemblyName>AIMS.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

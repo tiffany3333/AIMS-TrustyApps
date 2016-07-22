@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static AIMS.Data.Contact;
 using static AIMS.Data.User;
 
-namespace AIMS.Models.cs
+namespace AIMS.Models
 {
     public class RegisterUserViewModel
     {
@@ -68,9 +68,9 @@ namespace AIMS.Models.cs
         [MaxLength(140)]
         public string EmailContactDetail { get; set; }
 
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
-        public int ReferredEntityId { get; set; }
+        public int? ReferredEntityId { get; set; }
 
     }
 }
