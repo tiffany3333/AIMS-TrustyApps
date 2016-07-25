@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Data", "AIMS.Data\AIMS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Services", "AIMS.Services\AIMS.Services.csproj", "{338E9287-93AA-4721-8041-DACD4878AFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Models.cs", "AIMS.Models.cs\AIMS.Models.cs.csproj", "{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Models", "AIMS.Models.cs\AIMS.Models.csproj", "{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

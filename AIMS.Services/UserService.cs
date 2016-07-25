@@ -1,6 +1,5 @@
 ﻿using AIMS.Data;
 using AIMS.Models;
-using AIMS.Models.cs;
 using AIMS.Services;
 using System;
 using System.Collections.Generic;
@@ -14,31 +13,49 @@ namespace AIMS.Services
 {
     public class UserService
     {
-        private readonly EntityService _entitySvc = new EntityService();
-        private readonly RoleService _roleSvc = new RoleService();
-        private readonly AddressService _addressSvc = new AddressService();
-        private readonly ContactService _contactSvc = new ContactService();
-        private readonly EntityRoleService _entityRoleSvc = new EntityRoleService();
+        private readonly Lazy<EntityService> _entitySvc = new Lazy<EntityService>();
+        private readonly Lazy<AddressService> _addressSvc = new Lazy<AddressService>();
+        private readonly Lazy<ContactService> _contactSvc = new Lazy<ContactService>();
+        private readonly Lazy<EntityRoleService> _entityRoleSvc = new Lazy<EntityRoleService>();
 
-        public IEnumerable<User> GetUsers(int Id)
+        /*
+            Using these lines of code when you want to create UserService for using
+
+            private readonly Lazy<UserService> _userSvc;
+            public WHATEVERController()
+            {
+                _userSvc =
+                    new Lazy<UserService>(
+                        () =>
+                        {
+                            var userName = User.Identity.GetUserName();
+                            return new UserService(userName);
+                        });
+            }
+
+        */
+
+        private readonly string _userName;
+
+        public UserService(string userName)
+        {
+            _userName = userName;
+        }
+
+        //Because the e-mail - username in this case is unique so it will return only one unique userId
+        public int? getCurrentUserId()
         {
             using (var ctx = new AIMSDbContext())
             {
-                return
-                    ctx
-                    .User
-                    .Where(e => e.UserId == Id)
-                    .Select(e => new User
-                    {
-                        UserId = e.UserId,
-                        CreatedAt = e.CreatedAt,
-                        FirstName = e.FirstName,
-                        LastName = e.LastName,
-                        UpdatedAt = e.UpdatedAt,
-                        UserGroups = e.UserGroups,
-                        UserType = e.UserType
-                    })
-                    .ToArray();
+                return ctx.Contacts.SingleOrDefault(c => c.ContactDetail == _userName).EntityId;
+            }
+        }
+
+        public User getUser(int id)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                return ctx.User.SingleOrDefault(c => c.UserId == id);
             }
         }
 
@@ -48,9 +65,8 @@ namespace AIMS.Services
             using (var ctx = new AIMSDbContext())
             {
                 //Create a new entity
-                int entityId = _entitySvc.CreateEntity(MemberTypeEnum.User);
-                int roleId = _roleSvc.CreateRole();
-                
+                int entityId = _entitySvc.Value.CreateEntity(MemberTypeEnum.User);
+
                 var newUser =
                     new User
                     {
@@ -63,22 +79,20 @@ namespace AIMS.Services
                 ctx.User.Add(newUser);
 
                 //Create Email Contact
-                _contactSvc.CreateContact(entityId, registerVM.EmailContactDetail, registerVM.EmailLabel, registerVM.Type);
+                _contactSvc.Value.CreateContact(entityId, registerVM.EmailContactDetail, registerVM.EmailLabel, registerVM.Type);
 
                 //Create Phone Contact
-                _contactSvc.CreateContact(entityId, registerVM.PhoneContactDetail, registerVM.PhoneLabel, registerVM.Type);
+                _contactSvc.Value.CreateContact(entityId, registerVM.PhoneContactDetail, registerVM.PhoneLabel, registerVM.Type);
 
                 //Create Address
-                _addressSvc.CreateAddress(entityId, registerVM.Address1, registerVM.Address2, registerVM.Address3, registerVM.City, registerVM.Country, registerVM.State, registerVM.Zipcode);
+                _addressSvc.Value.CreateAddress(entityId, registerVM.Address1, registerVM.Address2, registerVM.Address3, registerVM.City, registerVM.Country, registerVM.State, registerVM.Zipcode);
 
-                //Create Entity Roles
-                _entityRoleSvc.CreateEntityRole(entityId, roleId, registerVM.ReferredEntityId);
+                //Create Default Entity Roles with RoleId = 1, and GroupId = 2 if not specified by user input
+                _entityRoleSvc.Value.CreateEntityRole(entityId, registerVM.RoleId ?? 1, registerVM.ReferredEntityId ?? 2);
 
                 return ctx.SaveChanges() == 1;
 
             }
-        }
-
+        }   
     }
-
 }

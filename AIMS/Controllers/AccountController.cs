@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AIMS.Models;
 using AIMS.Services;
-using AIMS.Models.cs;
+using AIMS.Data;
 
 namespace AIMS.Controllers
 {
@@ -20,14 +20,20 @@ namespace AIMS.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        private readonly UserService _svc;
+        private readonly Lazy<UserService> _userSvc;
 
         public AccountController()
         {
-            _svc = new UserService();
+            _userSvc =
+                   new Lazy<UserService>(
+                       () =>
+                       {
+                           var userName = User.Identity.GetUserName();
+                           return new UserService(userName);
+                       });
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -39,9 +45,9 @@ namespace AIMS.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -125,7 +131,7 @@ namespace AIMS.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -144,6 +150,7 @@ namespace AIMS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+
             return View();
         }
 
@@ -156,13 +163,13 @@ namespace AIMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 var user = new ApplicationUser { UserName = model.EmailContactDetail, Email = model.EmailContactDetail };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    _svc.CreateUser(model);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    _userSvc.Value.CreateUser(model);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -173,9 +180,46 @@ namespace AIMS.Controllers
                 }
                 AddErrors(result);
             }
-          
+
 
             // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        public ActionResult RegisterUserByAdmin()
+        {
+            PopulateRolesDropDownList();
+            PopulateGroupsDropDownList();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterUserByAdmin(RegisterUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                const string DEFAULT_PASSWORD = "@Abc123";
+                var user = new ApplicationUser { UserName = model.EmailContactDetail, Email = model.EmailContactDetail };
+                var result = await UserManager.CreateAsync(user, DEFAULT_PASSWORD);
+                if (result.Succeeded)
+                {
+                    _userSvc.Value.CreateUser(model);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+
+            }
+
+
+            // If we got this far, something failed, redisplay form
+            PopulateRolesDropDownList(model.RoleId);
+            PopulateGroupsDropDownList(model.ReferredEntityId);
             return View(model);
         }
 
@@ -428,6 +472,24 @@ namespace AIMS.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private void PopulateRolesDropDownList(int? selectedRole = 1)
+        {
+            var ctx = new AIMSDbContext();
+            var rolesQuery = from r in ctx.UserRoles
+                             orderby r.RoleName
+                             select r;
+            ViewBag.RoleId = new SelectList(rolesQuery, "Id", "RoleName", selectedRole);
+
+        }
+        private void PopulateGroupsDropDownList(int? selectedGroup = 2)
+        {
+            var ctx = new AIMSDbContext();
+            var groupsQuery = from r in ctx.Groups
+                              orderby r.Name
+                              select r;
+            ViewBag.GroupId = new SelectList(groupsQuery, "GroupId", "Name", selectedGroup);
         }
 
         #region Helpers

@@ -19,6 +19,8 @@ namespace AIMS.Data.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
+
+            //Seeding default user role
             context.UserRoles.AddOrUpdate(
                 p => p.RoleName,
                 new Role
@@ -26,16 +28,17 @@ namespace AIMS.Data.Migrations
                   Id = 1,
                   RoleName = "member",
                   Description = "member",
-                  CreatedAt = DateTimeOffset.UtcNow
+                  CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 }
             );
 
+            //Seeding default organization
             context.Entities.AddOrUpdate(
                 p => p.MemberType,
                 new Entity
                 {
                     MemberType = Entity.MemberTypeEnum.Organization,
-                    CreatedAt = DateTimeOffset.UtcNow,
+                    CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 });
 
             context.Organizations.AddOrUpdate(
@@ -44,16 +47,17 @@ namespace AIMS.Data.Migrations
                 {
                     OrganizationId = 1,
                     Name = "Pending",
-                    CreatedAt = DateTimeOffset.UtcNow,
                     Description = "Pending",
+                    CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 });
 
+            //Seeding default group
             context.Entities.AddOrUpdate(
                 e => e.MemberType,
                 new Entity
                 {
                     MemberType = Entity.MemberTypeEnum.Group,
-                    CreatedAt = DateTimeOffset.UtcNow
+                    CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 });
 
             context.Groups.AddOrUpdate(
@@ -62,8 +66,8 @@ namespace AIMS.Data.Migrations
                 {
                     GroupId = 2,
                     Name = "Pending",
-                    CreatedAt = DateTimeOffset.UtcNow,
                     OrganizationId = 1,
+                    CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 });
         }
     }
