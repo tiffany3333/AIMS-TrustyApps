@@ -121,7 +121,6 @@
     <Compile Include="Role.cs" />
     <Compile Include="Survey.cs" />
     <Compile Include="SurveyGroup.cs" />
-    <Compile Include="SurveyInstance.cs" />
     <Compile Include="SurveyQuestion.cs" />
     <Compile Include="SurveyResponse.cs" />
     <Compile Include="User.cs" />

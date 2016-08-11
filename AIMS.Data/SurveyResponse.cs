@@ -18,7 +18,6 @@ namespace AIMS.Data
         public string TestResponse { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
-        public virtual SurveyInstance SurveyInstance { get; set; }
         public virtual SurveyQuestion SurveyQuestion { get; set; }
     }
 }
