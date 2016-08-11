@@ -3,7 +3,7 @@ namespace AIMS.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialMigration : DbMigration
+    public partial class UpdateDataLayer : DbMigration
     {
         public override void Up()
         {
@@ -101,18 +101,17 @@ namespace AIMS.Data.Migrations
                 "dbo.SurveyGroup",
                 c => new
                     {
-                        SurveyId = c.Int(nullable: false, identity: true),
+                        SurveyId = c.Int(nullable: false),
+                        GroupId = c.Int(nullable: false),
                         LastSent = c.DateTimeOffset(nullable: false, precision: 7),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
-                        Group_GroupId = c.Int(),
-                        Survey_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.SurveyId)
-                .ForeignKey("dbo.Group", t => t.Group_GroupId)
-                .ForeignKey("dbo.Survey", t => t.Survey_Id)
-                .Index(t => t.Group_GroupId)
-                .Index(t => t.Survey_Id);
+                .PrimaryKey(t => new { t.SurveyId, t.GroupId })
+                .ForeignKey("dbo.Group", t => t.GroupId, cascadeDelete: true)
+                .ForeignKey("dbo.Survey", t => t.SurveyId, cascadeDelete: true)
+                .Index(t => t.SurveyId)
+                .Index(t => t.GroupId);
             
             CreateTable(
                 "dbo.Survey",
@@ -120,45 +119,11 @@ namespace AIMS.Data.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(maxLength: 45),
+                        IsDeactivated = c.Boolean(nullable: false),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.SurveyInstance",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        SurveyId = c.Int(nullable: false),
-                        UserId = c.Int(),
-                        IsComplete = c.Boolean(nullable: false),
-                        CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
-                        UpdatedAt = c.DateTimeOffset(precision: 7),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Survey", t => t.SurveyId, cascadeDelete: true)
-                .ForeignKey("dbo.User", t => t.UserId)
-                .Index(t => t.SurveyId)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.SurveyResponse",
-                c => new
-                    {
-                        SurveyInstanceId = c.Int(nullable: false, identity: true),
-                        SurveyQuestionId = c.Int(nullable: false),
-                        Rating = c.Int(nullable: false),
-                        TestResponse = c.String(maxLength: 512),
-                        CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
-                        UpdatedAt = c.DateTimeOffset(precision: 7),
-                        SurveyInstance_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.SurveyInstanceId)
-                .ForeignKey("dbo.SurveyInstance", t => t.SurveyInstance_Id)
-                .ForeignKey("dbo.SurveyQuestion", t => t.SurveyQuestionId, cascadeDelete: true)
-                .Index(t => t.SurveyQuestionId)
-                .Index(t => t.SurveyInstance_Id);
             
             CreateTable(
                 "dbo.SurveyQuestion",
@@ -175,20 +140,19 @@ namespace AIMS.Data.Migrations
                 .Index(t => t.SurveyId);
             
             CreateTable(
-                "dbo.User",
+                "dbo.SurveyResponse",
                 c => new
                     {
-                        UserId = c.Int(nullable: false),
-                        FirstName = c.String(maxLength: 45),
-                        LastName = c.String(maxLength: 45),
-                        Avatar = c.Binary(),
-                        UserType = c.Int(nullable: false),
+                        SurveyInstanceId = c.Int(nullable: false, identity: true),
+                        SurveyQuestionId = c.Int(nullable: false),
+                        Rating = c.Int(nullable: false),
+                        TestResponse = c.String(maxLength: 512),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
                     })
-                .PrimaryKey(t => t.UserId)
-                .ForeignKey("dbo.Entity", t => t.UserId)
-                .Index(t => t.UserId);
+                .PrimaryKey(t => t.SurveyInstanceId)
+                .ForeignKey("dbo.SurveyQuestion", t => t.SurveyQuestionId, cascadeDelete: true)
+                .Index(t => t.SurveyQuestionId);
             
             CreateTable(
                 "dbo.UserGroup",
@@ -203,6 +167,21 @@ namespace AIMS.Data.Migrations
                 .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.GroupId);
+            
+            CreateTable(
+                "dbo.User",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false),
+                        FirstName = c.String(maxLength: 45),
+                        LastName = c.String(maxLength: 45),
+                        UserType = c.Int(nullable: false),
+                        CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
+                        UpdatedAt = c.DateTimeOffset(precision: 7),
+                    })
+                .PrimaryKey(t => t.UserId)
+                .ForeignKey("dbo.Entity", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.Contact",
@@ -263,12 +242,12 @@ namespace AIMS.Data.Migrations
                     {
                         EntityId = c.Int(nullable: false),
                         RoleId = c.Int(nullable: false),
-                        ReferredEntityId = c.Int(nullable: false),
+                        ReferredEntityId = c.Int(),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => new { t.EntityId, t.RoleId })
                 .ForeignKey("dbo.Entity", t => t.EntityId, cascadeDelete: true)
-                .ForeignKey("dbo.Entity", t => t.ReferredEntityId, cascadeDelete: false)
+                .ForeignKey("dbo.Entity", t => t.ReferredEntityId)
                 .ForeignKey("dbo.Role", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.EntityId)
                 .Index(t => t.RoleId)
@@ -394,16 +373,13 @@ namespace AIMS.Data.Migrations
             DropForeignKey("dbo.EntityLocation", "EntityId", "dbo.Entity");
             DropForeignKey("dbo.Contact", "EntityId", "dbo.Entity");
             DropForeignKey("dbo.Address", "EntityId", "dbo.Entity");
-            DropForeignKey("dbo.SurveyInstance", "UserId", "dbo.User");
             DropForeignKey("dbo.UserGroup", "UserId", "dbo.User");
-            DropForeignKey("dbo.UserGroup", "GroupId", "dbo.Group");
             DropForeignKey("dbo.User", "UserId", "dbo.Entity");
+            DropForeignKey("dbo.UserGroup", "GroupId", "dbo.Group");
+            DropForeignKey("dbo.SurveyGroup", "SurveyId", "dbo.Survey");
             DropForeignKey("dbo.SurveyResponse", "SurveyQuestionId", "dbo.SurveyQuestion");
             DropForeignKey("dbo.SurveyQuestion", "SurveyId", "dbo.Survey");
-            DropForeignKey("dbo.SurveyResponse", "SurveyInstance_Id", "dbo.SurveyInstance");
-            DropForeignKey("dbo.SurveyInstance", "SurveyId", "dbo.Survey");
-            DropForeignKey("dbo.SurveyGroup", "Survey_Id", "dbo.Survey");
-            DropForeignKey("dbo.SurveyGroup", "Group_GroupId", "dbo.Group");
+            DropForeignKey("dbo.SurveyGroup", "GroupId", "dbo.Group");
             DropForeignKey("dbo.Group", "OrganizationId", "dbo.Organization");
             DropForeignKey("dbo.Organization", "OrganizationId", "dbo.Entity");
             DropForeignKey("dbo.Group", "GroupId", "dbo.Entity");
@@ -422,16 +398,13 @@ namespace AIMS.Data.Migrations
             DropIndex("dbo.UserTimesheet", new[] { "userId" });
             DropIndex("dbo.EntityLocation", new[] { "EntityId" });
             DropIndex("dbo.Contact", new[] { "EntityId" });
+            DropIndex("dbo.User", new[] { "UserId" });
             DropIndex("dbo.UserGroup", new[] { "GroupId" });
             DropIndex("dbo.UserGroup", new[] { "UserId" });
-            DropIndex("dbo.User", new[] { "UserId" });
-            DropIndex("dbo.SurveyQuestion", new[] { "SurveyId" });
-            DropIndex("dbo.SurveyResponse", new[] { "SurveyInstance_Id" });
             DropIndex("dbo.SurveyResponse", new[] { "SurveyQuestionId" });
-            DropIndex("dbo.SurveyInstance", new[] { "UserId" });
-            DropIndex("dbo.SurveyInstance", new[] { "SurveyId" });
-            DropIndex("dbo.SurveyGroup", new[] { "Survey_Id" });
-            DropIndex("dbo.SurveyGroup", new[] { "Group_GroupId" });
+            DropIndex("dbo.SurveyQuestion", new[] { "SurveyId" });
+            DropIndex("dbo.SurveyGroup", new[] { "GroupId" });
+            DropIndex("dbo.SurveyGroup", new[] { "SurveyId" });
             DropIndex("dbo.Organization", new[] { "OrganizationId" });
             DropIndex("dbo.Group", new[] { "OrganizationId" });
             DropIndex("dbo.Group", new[] { "GroupId" });
@@ -449,11 +422,10 @@ namespace AIMS.Data.Migrations
             DropTable("dbo.UserTimesheet");
             DropTable("dbo.EntityLocation");
             DropTable("dbo.Contact");
-            DropTable("dbo.UserGroup");
             DropTable("dbo.User");
-            DropTable("dbo.SurveyQuestion");
+            DropTable("dbo.UserGroup");
             DropTable("dbo.SurveyResponse");
-            DropTable("dbo.SurveyInstance");
+            DropTable("dbo.SurveyQuestion");
             DropTable("dbo.Survey");
             DropTable("dbo.SurveyGroup");
             DropTable("dbo.Organization");

@@ -7,13 +7,13 @@ namespace AIMS.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class initialMigration : IMigrationMetadata
+    public sealed partial class UpdateDataLayer : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateDataLayer));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607191951117_initialMigration"; }
+            get { return "201608110613406_UpdateDataLayer"; }
         }
         
         string IMigrationMetadata.Source
