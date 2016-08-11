@@ -94,9 +94,9 @@
     <Compile Include="Event.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201608110613406_UpdateDataLayer.cs" />
-    <Compile Include="Migrations\201608110613406_UpdateDataLayer.Designer.cs">
-      <DependentUpon>201608110613406_UpdateDataLayer.cs</DependentUpon>
+    <Compile Include="Migrations\201608110733242_FinalDataLayer.cs" />
+    <Compile Include="Migrations\201608110733242_FinalDataLayer.Designer.cs">
+      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Organization.cs" />
@@ -116,8 +116,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608110613406_UpdateDataLayer.resx">
-      <DependentUpon>201608110613406_UpdateDataLayer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608110733242_FinalDataLayer.resx">
+      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

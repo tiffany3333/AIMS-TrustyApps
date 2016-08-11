@@ -3,7 +3,7 @@ namespace AIMS.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdateDataLayer : DbMigration
+    public partial class FinalDataLayer : DbMigration
     {
         public override void Up()
         {
@@ -143,14 +143,13 @@ namespace AIMS.Data.Migrations
                 "dbo.SurveyResponse",
                 c => new
                     {
-                        SurveyInstanceId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         SurveyQuestionId = c.Int(nullable: false),
-                        Rating = c.Int(nullable: false),
-                        TestResponse = c.String(maxLength: 512),
+                        TextResponse = c.String(maxLength: 512),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
                     })
-                .PrimaryKey(t => t.SurveyInstanceId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SurveyQuestion", t => t.SurveyQuestionId, cascadeDelete: true)
                 .Index(t => t.SurveyQuestionId);
             

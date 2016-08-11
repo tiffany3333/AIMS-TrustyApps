@@ -50,6 +50,7 @@ namespace AIMS.Data
         public DbSet<User> User { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<UserTimesheet> UserTimesheets { get; set; }
+
     }
 
     public class IdentityUserLoginConfiguration : EntityTypeConfiguration<IdentityUserLogin>
