@@ -94,25 +94,9 @@
     <Compile Include="Event.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201607191951117_initialMigration.cs" />
-    <Compile Include="Migrations\201607191951117_initialMigration.Designer.cs">
-      <DependentUpon>201607191951117_initialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607201315181_updatedEntityRole.cs" />
-    <Compile Include="Migrations\201607201315181_updatedEntityRole.Designer.cs">
-      <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.cs" />
-    <Compile Include="Migrations\201607211849367_updatedMultipleDataModels.Designer.cs">
-      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607221552518_tookOutReferredEntity.cs" />
-    <Compile Include="Migrations\201607221552518_tookOutReferredEntity.Designer.cs">
-      <DependentUpon>201607221552518_tookOutReferredEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607222055378_RestoreReferredEntity.cs" />
-    <Compile Include="Migrations\201607222055378_RestoreReferredEntity.Designer.cs">
-      <DependentUpon>201607222055378_RestoreReferredEntity.cs</DependentUpon>
+    <Compile Include="Migrations\201608110733242_FinalDataLayer.cs" />
+    <Compile Include="Migrations\201608110733242_FinalDataLayer.Designer.cs">
+      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Organization.cs" />
@@ -121,7 +105,6 @@
     <Compile Include="Role.cs" />
     <Compile Include="Survey.cs" />
     <Compile Include="SurveyGroup.cs" />
-    <Compile Include="SurveyInstance.cs" />
     <Compile Include="SurveyQuestion.cs" />
     <Compile Include="SurveyResponse.cs" />
     <Compile Include="User.cs" />
@@ -133,20 +116,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607191951117_initialMigration.resx">
-      <DependentUpon>201607191951117_initialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607201315181_updatedEntityRole.resx">
-      <DependentUpon>201607201315181_updatedEntityRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607211849367_updatedMultipleDataModels.resx">
-      <DependentUpon>201607211849367_updatedMultipleDataModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607221552518_tookOutReferredEntity.resx">
-      <DependentUpon>201607221552518_tookOutReferredEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607222055378_RestoreReferredEntity.resx">
-      <DependentUpon>201607222055378_RestoreReferredEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608110733242_FinalDataLayer.resx">
+      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

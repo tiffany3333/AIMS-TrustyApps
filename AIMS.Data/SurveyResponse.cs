@@ -10,15 +10,12 @@ namespace AIMS.Data
 {
     public class SurveyResponse
     {
-        [Key]
-        public int SurveyInstanceId { get; set; }
+        public int Id { get; set; }
         public int SurveyQuestionId { get; set; }
-        public int Rating { get; set; }
         [MaxLength(512)]
-        public string TestResponse { get; set; }
+        public string TextResponse { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
-        public virtual SurveyInstance SurveyInstance { get; set; }
         public virtual SurveyQuestion SurveyQuestion { get; set; }
     }
 }

@@ -26,8 +26,8 @@ namespace AIMS.Data.Migrations
                 new Role
                 {
                   Id = 1,
-                  RoleName = "member",
-                  Description = "member",
+                  RoleName = "Member",
+                  Description = "Member",
                   CreatedAt = DateTimeOffset.Parse("07/22/2016 +0:00")
                 }
             );

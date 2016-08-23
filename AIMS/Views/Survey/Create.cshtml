@@ -1,0 +1,50 @@
+﻿@model AIMS.Models.SurveyViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Survey</h2>
+
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                <b>Name<br /></b>
+                <input type="text" name="surveyName" required /><br /><br />
+                <b>Questions</b>
+            </div>
+            <div id="questions"></div>
+            <div>
+                <br/>
+                Number of Response
+                <input id="responseNum" type="number" min="1" value="1" required />
+                <button id="btnAddQuestion">Add Question</button>
+            </div>
+            <button>Create</button>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            var questions = $('#questions');
+            var responses = $('#responses');
+            $('#btnAddQuestion').click(function (e) {
+                e.preventDefault();
+                var repsoneNum = $('#responseNum').val()
+                questions.append('Question: <br/>');
+                $('<input type="text" name="dynamicQuestion" required /><br/>Responses<br/>').appendTo(questions);
+                //Hidden field to store number of reponse for each question
+                $('<input id =1 type="hidden" name="repsoneNum" value="' + repsoneNum + '"/>').appendTo(questions);
+                for (i = 0; i < repsoneNum; i++) {
+                    $('<input type="text" name="dynamicResponse" required /><br/>').appendTo(questions);
+                }
+            });
+        });
+    </script>
+}
+
