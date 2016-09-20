@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using AIMS.Services;
+using System;
 using System.Web.Mvc;
-using AIMS.Data;
-using AIMS.Models;
-using AIMS.Services;
 
 namespace AIMS.Controllers
 {
@@ -36,6 +28,11 @@ namespace AIMS.Controllers
         //    }
         //    return View(surveyViewModel);
         //}
+
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         // GET: Survey/Create
         public ActionResult Create()
