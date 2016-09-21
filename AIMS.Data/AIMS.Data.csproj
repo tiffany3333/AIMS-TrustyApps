@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="SurveyInstance.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityLocation.cs" />

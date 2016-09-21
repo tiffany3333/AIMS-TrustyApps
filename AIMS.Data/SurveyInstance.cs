@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace AIMS.Data
 {
-    public class SurveyQuestion
+    class SurveyInstance
     {
         public int Id { get; set; }
 
         public int SurveyId { get; set; }
 
-        [MaxLength(256)]
-        public string Question { get; set; }
+        public int UserId { get; set; }
+
+        public bool IsCompleted { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset? UpdatedAt { get; set; }
-
-        public virtual Survey Survey { get; set; }
 
         public virtual ICollection<SurveyResponse> SurveyResponses { get; set; }
     }
