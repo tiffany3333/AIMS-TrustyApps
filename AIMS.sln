@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Services", "AIMS.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Models", "AIMS.Models.cs\AIMS.Models.csproj", "{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.WebApi", "AIMS.WebApi\AIMS.WebApi.csproj", "{DA8910AF-3FB2-4DC0-BBE1-267C31A302A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8910AF-3FB2-4DC0-BBE1-267C31A302A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8910AF-3FB2-4DC0-BBE1-267C31A302A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8910AF-3FB2-4DC0-BBE1-267C31A302A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8910AF-3FB2-4DC0-BBE1-267C31A302A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
