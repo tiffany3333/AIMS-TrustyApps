@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
+﻿using AIMS.Data;
+using AIMS.WebApi.Models;
+using AIMS.WebApi.Providers;
+using AIMS.WebApi.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using AIMS.WebApi.Models;
-using AIMS.WebApi.Providers;
-using AIMS.WebApi.Results;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace AIMS.WebApi.Controllers
 {
@@ -25,6 +27,7 @@ namespace AIMS.WebApi.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private AIMSDbContext _db = new AIMSDbContext();
 
         public AccountController()
         {
@@ -72,6 +75,26 @@ namespace AIMS.WebApi.Controllers
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
+        }
+
+        // POST api/v1/login
+        [Route("login")]
+        [ResponseType(typeof(ResponseJSON))]
+        public IHttpActionResult Login(LoginInformation info)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = _db.Users.Where(u => u.UserName.Equals(info.Username, StringComparison.OrdinalIgnoreCase) && u.PasswordHash.Equals(info.Password)).SingleOrDefault();
+            if (user != null)
+            {
+                var repsonse = new ResponseJSON { Token = "Bearer " + user.UserName.ToString(), Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
+                return Ok(repsonse);
+            }
+            else
+                return Ok("Either your username or password is incorrect. Please try again!");
         }
 
         // GET api/v1/ManageInfo?returnUrl=%2F&generateState=true

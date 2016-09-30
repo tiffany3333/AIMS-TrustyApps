@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
 namespace AIMS.WebApi.Models
 {
@@ -80,5 +79,16 @@ namespace AIMS.WebApi.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class LoginInformation
+    {
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
     }
 }
