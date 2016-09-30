@@ -13,6 +13,7 @@ namespace AIMS.Data
         public string Description { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
+
         public virtual ICollection<EntityRole> EntityRoles { get; set; }
     }
 }
