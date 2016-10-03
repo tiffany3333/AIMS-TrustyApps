@@ -12,6 +12,7 @@ namespace AIMS.WebApi.Controllers
 
         private AIMSDbContext _db = new AIMSDbContext();
 
+        // GET api/v1/groups
         [Route("groups/{organization_id:int}")]
         public IHttpActionResult GetGroups(GroupModels model)
         {
@@ -28,7 +29,7 @@ namespace AIMS.WebApi.Controllers
                 return Ok(repsonse);
             }
             else
-                return Ok("Make sure you have a valid Organization Id.");
+            return Ok("Make sure you have a valid Organization Id.");
         }
 
     }

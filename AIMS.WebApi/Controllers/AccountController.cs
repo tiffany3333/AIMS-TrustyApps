@@ -69,8 +69,8 @@ namespace AIMS.WebApi.Controllers
             };
         }
 
-        // POST api/v1/Logout
-        [Route("Logout")]
+        // POST api/v1/logout
+        [Route("logout")]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -79,7 +79,7 @@ namespace AIMS.WebApi.Controllers
 
         // POST api/v1/login
         [Route("login")]
-        [ResponseType(typeof(ResponseJSON))]
+        [ResponseType(typeof(LoginResponseJSON))]
         public IHttpActionResult Login(LoginInformation info)
         {
             if (!ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace AIMS.WebApi.Controllers
             var user = _db.Users.Where(u => u.UserName.Equals(info.Username, StringComparison.OrdinalIgnoreCase) && u.PasswordHash.Equals(info.Password)).SingleOrDefault();
             if (user != null)
             {
-                var repsonse = new ResponseJSON { Token = "Bearer " + user.UserName.ToString(), Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
+                var repsonse = new LoginResponseJSON { Token = "Bearer " + user.UserName.ToString(), Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
                 return Ok(repsonse);
             }
             else

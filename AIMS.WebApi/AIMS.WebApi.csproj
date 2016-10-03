@@ -209,6 +209,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -218,7 +219,8 @@
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OrganizationModels.cs" />
-    <Compile Include="Models\ResponseJSON.cs" />
+    <Compile Include="Models\LoginResponseJSON.cs" />
+    <Compile Include="Models\SurveyModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -294,6 +296,10 @@
     <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">
       <Project>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</Project>
       <Name>AIMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services\AIMS.Services.csproj">
+      <Project>{338E9287-93AA-4721-8041-DACD4878AFAF}</Project>
+      <Name>AIMS.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
