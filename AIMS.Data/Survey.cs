@@ -12,6 +12,7 @@ namespace AIMS.Data
         public int Id { get; set; }
 
         [MaxLength(45)]
+        [Display(Name = "Survey Name")]
         public string Name { get; set; }
 
         public bool IsDeactivated { get; set; }

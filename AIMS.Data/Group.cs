@@ -15,8 +15,11 @@ namespace AIMS.Data
         [ForeignKey("Entity")]
         public int GroupId { get; set; }
         public int? OrganizationId { get; set; }
+
         [MaxLength(128)]
+        [Display(Name = "Group Name")]
         public string Name { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
         public virtual Organization Organization { get; set; }

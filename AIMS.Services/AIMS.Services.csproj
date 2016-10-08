@@ -90,9 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressService.cs" />
+    <Compile Include="GroupService.cs" />
     <Compile Include="ContactService.cs" />
     <Compile Include="EntityRoleService.cs" />
     <Compile Include="EntityService.cs" />
+    <Compile Include="OrganizationService.cs" />
     <Compile Include="RoleService.cs" />
     <Compile Include="SurveyService.cs" />
     <Compile Include="UserService.cs" />

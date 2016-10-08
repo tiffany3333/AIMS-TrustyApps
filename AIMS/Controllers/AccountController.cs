@@ -15,22 +15,20 @@ using AIMS.Data;
 namespace AIMS.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        private readonly Lazy<UserService> _userSvc;
-
         public AccountController()
         {
-            _userSvc =
-                   new Lazy<UserService>(
-                       () =>
-                       {
-                           var userName = User.Identity.GetUserName();
-                           return new UserService(userName);
-                       });
+            //_userSvc =
+            //       new Lazy<UserService>(
+            //           () =>
+            //           {
+            //               var userName = User.Identity.GetUserName();
+            //               return new UserService(userName);
+            //           });
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
