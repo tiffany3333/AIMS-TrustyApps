@@ -5,7 +5,6 @@ using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/v1")]
     public class OrganizationController : ApiController
     {
