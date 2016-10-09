@@ -8,9 +8,9 @@ using static AIMS.Data.Group;
 
 namespace AIMS.Services
 {
-    class GroupService
+    public class GroupService
     {
-        public bool CreateGroup(int? organizationId, string name)
+        public int? CreateGroup(int? organizationId, string name)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -23,7 +23,8 @@ namespace AIMS.Services
                         UpdatedAt = DateTimeOffset.UtcNow,
                     };
                 ctx.Groups.Add(newGroup);
-                return ctx.SaveChanges() == 1;
+                ctx.SaveChanges();
+                return organizationId;
             }
         }
     }

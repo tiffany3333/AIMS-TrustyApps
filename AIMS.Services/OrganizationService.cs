@@ -8,9 +8,9 @@ using static AIMS.Data.Organization;
 
 namespace AIMS.Services
 {
-    class OrganizationService
+    public class OrganizationService
     {
-        public bool CreateOrganization(int entityId, string name, string description)
+        public int CreateOrganization(string name, string description)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -22,7 +22,8 @@ namespace AIMS.Services
                     UpdatedAt = DateTimeOffset.UtcNow,
                 };
                 ctx.Organizations.Add(newOrganization);
-                return ctx.SaveChanges() == 1;
+                ctx.SaveChanges();
+                return newOrganization.OrganizationId;
             }
         }
     }
