@@ -55,19 +55,20 @@ namespace AIMS.Controllers
             return RedirectToAction("../Organization/Index");
         }
 
-        //// GET: Organizations/Edit/5
-        //public ActionResult Edit(int? id)
+        // GET: Organizations/Edit/5
+        //public ActionResult Edit(int? organizationId)
         //{
-        //    if (id == null)
+        //    if (organizationId == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    OrganizationViewModel organizationViewModel = db.OrganizationsViewModel.Find(id);
+        //    OrganizationViewModel organizationViewModel =   new OrganizationViewModel(organizationId);
+        //    db.OrganizationsViewModel.Find(organizationId);
         //    if (organizationViewModel == null)
         //    {
         //        return HttpNotFound();
         //    }
-            
+
         //    return View(organizationViewModel);
         //}
 
@@ -84,7 +85,7 @@ namespace AIMS.Controllers
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-            
+
         //    return View(organizationViewModel);
         //}
 

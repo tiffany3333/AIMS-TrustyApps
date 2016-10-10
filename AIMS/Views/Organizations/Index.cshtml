@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AIMS.Data.Organization>
+﻿@model IEnumerable<AIMS.Models.OrganizationViewModel>
 
 @{
     ViewBag.Title = "Organization List";
@@ -29,7 +29,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.ActionLink(item.Name, "Edit", new { organizationId = item.OrganizationId })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
@@ -41,9 +41,7 @@
             @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrganizationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrganizationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrganizationId })
+            @Html.ActionLink("Delete", "Delete", new { organizationId = item.OrganizationId })
         </td>
     </tr>
 }

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AIMS.Models
 {
@@ -20,5 +18,19 @@ namespace AIMS.Models
         public DateTimeOffset? UpdatedAt { get; set; }
         public IEnumerable<SurveyQuestion> SurveyQuestions { get; set; }
         public IEnumerable<SurveyResponse> SurveyResponses { get; set; }
+
+        public SurveyViewModel(Survey survey)
+        {
+            this.Id = survey.Id;
+            this.Name = survey.Name;
+            this.IsDeactivated = survey.IsDeactivated;
+            this.CreatedAt = survey.CreatedAt;
+            this.UpdatedAt = survey.UpdatedAt;
+            this.SurveyQuestions = survey.SurveyQuestions;
+            foreach (SurveyQuestion question in this.SurveyQuestions)
+            {
+                this.SurveyResponses = question.SurveyResponses;
+            }
+        }
     }
 }

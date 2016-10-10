@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AIMS.Models;
 using AIMS.Services;
+using System.Collections.Generic;
 
 namespace AIMS.Controllers
 {
@@ -12,7 +13,7 @@ namespace AIMS.Controllers
         //// GET: Survey
         public ActionResult Index()
         {
-            SurveyViewModel mySurveys = new SurveyViewModel();
+            List<SurveyViewModel> mySurveys = _surveySvc.Value.GetSurveys();             
 
             return View(mySurveys);
             //return View(db.SurveyViewModels.ToList());
@@ -70,20 +71,17 @@ namespace AIMS.Controllers
             return RedirectToAction("../Survey/Index");
         }
 
-        //// GET: Survey/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SurveyViewModel surveyViewModel = db.SurveyViewModels.Find(id);
-        //    if (surveyViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(surveyViewModel);
-        //}
+        // GET: Survey/Edit/5
+        public ActionResult Edit(int surveyId)
+        {
+            SurveyViewModel surveyViewModel = _surveySvc.Value.CreateSurveyVM(surveyId);
+
+            if (surveyViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(surveyViewModel);
+        }
 
         //// POST: Survey/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

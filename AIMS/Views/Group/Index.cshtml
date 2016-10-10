@@ -1,19 +1,16 @@
-﻿@model IEnumerable<AIMS.Data.Group>
+﻿@model IEnumerable<AIMS.Models.GroupViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Group List";
 }
 
-<h2>Index</h2>
+<h2>Group List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity.Id)
-        </th>
+    <tr>      
         <th>
             @Html.DisplayNameFor(model => model.Organization.Name)
         </th>
@@ -31,9 +28,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Entity.Id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Organization.Name)
         </td>
