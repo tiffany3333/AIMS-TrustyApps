@@ -3,6 +3,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using AIMS.Models;
 using AIMS.Services;
 
@@ -16,8 +17,8 @@ namespace AIMS.Controllers
         public ActionResult Index()
         {
             //var organizations = db.Organizations.Include(o => o.Entity);
-            OrganizationViewModel myOrganizations = new OrganizationViewModel();
-            //return View(organizations.ToList());
+            List<OrganizationViewModel> myOrganizations = _organizationSvc.Value.GetOrganizations();
+            
             return View(myOrganizations);
         }
 
@@ -56,21 +57,17 @@ namespace AIMS.Controllers
         }
 
         // GET: Organizations/Edit/5
-        //public ActionResult Edit(int? organizationId)
-        //{
-        //    if (organizationId == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    OrganizationViewModel organizationViewModel =   new OrganizationViewModel(organizationId);
-        //    db.OrganizationsViewModel.Find(organizationId);
-        //    if (organizationViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
+        public ActionResult Edit(int organizationId)
+        {
+            OrganizationViewModel organizationViewModel = _organizationSvc.Value.CreateOrganizationVM(organizationId);
+            
+            if (organizationViewModel == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    return View(organizationViewModel);
-        //}
+            return View(organizationViewModel);
+        }
 
         //// POST: Organizations/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

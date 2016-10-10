@@ -16,7 +16,6 @@ namespace AIMS.Controllers
             List<SurveyViewModel> mySurveys = _surveySvc.Value.GetSurveys();             
 
             return View(mySurveys);
-            //return View(db.SurveyViewModels.ToList());
         }
 
         //// GET: Survey/Details/5
