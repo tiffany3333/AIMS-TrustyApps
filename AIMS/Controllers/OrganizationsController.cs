@@ -40,7 +40,7 @@ namespace AIMS.Controllers
         // GET: Organizations/Create
         public ActionResult Create()
         {
-            //ViewBag.OrganizationId = new SelectList(db.Entities, "Id", "Id");
+            //TODO Cannot create org unless you're an admin user
             return View();
         }
 
@@ -51,6 +51,8 @@ namespace AIMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Description")] OrganizationViewModel organizationViewModel)
         {
+            //TODO Cannot create org unless you're an admin user
+
             int organizationId = _organizationSvc.Value.CreateOrganization(organizationViewModel.Name, organizationViewModel.Description);
 
             return RedirectToAction("../Organization/Index");

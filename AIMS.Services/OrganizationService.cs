@@ -11,6 +11,7 @@ namespace AIMS.Services
 {
     public class OrganizationService
     {
+        //??!!TODO need to deal with Entity linking here.  Currently throws foreign key exception.
         public int CreateOrganization(string name, string description)
         {
             using (var ctx = new AIMSDbContext())

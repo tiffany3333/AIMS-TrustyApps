@@ -16,6 +16,10 @@ namespace AIMS.Models
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
 
+        public OrganizationViewModel()
+        {
+        }
+
         public OrganizationViewModel (Organization organization)
         {
             this.OrganizationId = organization.OrganizationId;
