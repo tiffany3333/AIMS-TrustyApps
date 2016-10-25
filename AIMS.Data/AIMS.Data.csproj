@@ -86,6 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="Migrations\201610251656434_OrganizationAdds.cs" />
+    <Compile Include="Migrations\201610251656434_OrganizationAdds.Designer.cs">
+      <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurveyInstance.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Entity.cs" />
@@ -119,6 +123,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608110733242_FinalDataLayer.resx">
       <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610251656434_OrganizationAdds.resx">
+      <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,9 +15,6 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
         <th>
@@ -29,10 +26,15 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "Edit", new { organizationId = item.OrganizationId })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @if (item.OrganizationId == 1)
+            {
+                <!--Don't allow the default organization "Pending" to be deleted-->
+                @Html.DisplayFor(modelItem => item.Name);
+            }
+            else
+            {
+                @Html.ActionLink(item.Name, "Details", new { id = item.OrganizationId })
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -41,7 +43,11 @@
             @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
-            @Html.ActionLink("Delete", "Delete", new { organizationId = item.OrganizationId })
+            @if (item.OrganizationId != 1)
+            {
+                <!--Don't allow the default organization "Pending" to be deleted-->
+                @Html.ActionLink("Delete", "Delete", new { organizationId = item.OrganizationId })
+            }
         </td>
     </tr>
 }
