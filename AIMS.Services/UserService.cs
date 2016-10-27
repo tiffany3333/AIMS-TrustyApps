@@ -51,7 +51,7 @@ namespace AIMS.Services
             }
         }
 
-        public User getUser(int id)
+        public User GetUser(int id)
         {
             using (var ctx = new AIMSDbContext())
             {
