@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AIMS.Models.OrganizationViewModel>
+
+@{
+    ViewBag.Title = "Organization List";
+}
+
+<h2>Organization List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.OrganizationId == 1)
+            {
+                <!--Don't allow the default organization "Pending" to be deleted-->
+                @Html.DisplayFor(modelItem => item.Name);
+            }
+            else
+            {
+                @Html.ActionLink(item.Name, "Details", new { id = item.OrganizationId })
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        <td>
+            @if (item.OrganizationId != 1)
+            {
+                <!--Don't allow the default organization "Pending" to be deleted-->
+                @Html.ActionLink("Delete", "Delete", new { organizationId = item.OrganizationId })
+            }
+        </td>
+    </tr>
+}
+
+</table>

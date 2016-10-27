@@ -14,16 +14,24 @@ namespace AIMS.Data
         [Key]
         [ForeignKey("Entity")]
         public int UserId { get; set; }
+
         [MaxLength(45)]
         public string FirstName { get; set; }
+
         [MaxLength(45)]
         public string LastName { get; set; }
+
         public UserTypeEnum UserType { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
+
         public DateTimeOffset? UpdatedAt { get; set; }
+
         [System.ComponentModel.DefaultValue("Member")]
         public virtual ICollection<UserGroup> UserGroups { get; set; }
+
         public virtual Entity Entity { get; set; }
+
         public enum UserTypeEnum
         {
             Student,

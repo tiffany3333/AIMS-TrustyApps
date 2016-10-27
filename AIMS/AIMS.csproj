@@ -169,9 +169,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="Controllers\SurveyGroupsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -243,9 +247,25 @@
     <Content Include="Views\Survey\Details.cshtml" />
     <Content Include="Views\Survey\Edit.cshtml" />
     <Content Include="Views\Survey\Index.cshtml" />
+    <Content Include="Views\SurveyGroups\Create.cshtml" />
+    <Content Include="Views\SurveyGroups\Delete.cshtml" />
+    <Content Include="Views\SurveyGroups\Details.cshtml" />
+    <Content Include="Views\SurveyGroups\Edit.cshtml" />
+    <Content Include="Views\SurveyGroups\Index.cshtml" />
+    <Content Include="Views\Organization\Create.cshtml" />
+    <Content Include="Views\Organization\Delete.cshtml" />
+    <Content Include="Views\Organization\Details.cshtml" />
+    <Content Include="Views\Organization\Edit.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Delete.cshtml" />
+    <Content Include="Views\Group\Details.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

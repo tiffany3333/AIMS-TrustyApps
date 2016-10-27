@@ -1,5 +1,10 @@
 ﻿using AIMS.Data;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AIMS.Models;
 
 namespace AIMS.Services
 {
@@ -52,5 +57,32 @@ namespace AIMS.Services
             }
         }
 
+        public List<SurveyViewModel> GetSurveys()
+        {
+            List<SurveyViewModel> mySurveys = new List<SurveyViewModel>();
+
+            using (var ctx = new AIMSDbContext())
+            {
+                foreach (Survey survey in ctx.Surveys.ToList())
+                {
+                    SurveyViewModel mySurvey = new SurveyViewModel(survey);
+                    mySurveys.Add(mySurvey);
+                }
+
+                return mySurveys;
+            }
+        }
+
+        public SurveyViewModel CreateSurveyVM(int surveyId)
+        {
+            SurveyViewModel mySurveyVM;
+
+            using (var ctx = new AIMSDbContext())
+            {
+                //TODO need more error handling here
+                mySurveyVM = new SurveyViewModel(ctx.Surveys.Find(surveyId));
+            }
+            return mySurveyVM;
+        }
     }
 }

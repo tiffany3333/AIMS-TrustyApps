@@ -1,18 +1,28 @@
-﻿using AIMS.Services;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using AIMS.Models;
+using AIMS.Services;
+using System.Collections.Generic;
 
 namespace AIMS.Controllers
 {
-    public class SurveyController : Controller
+    public class SurveyController : BaseController
     {
         private readonly Lazy<SurveyService> _surveySvc = new Lazy<SurveyService>();
 
         //// GET: Survey
-        //public ActionResult Index()
-        //{
-        //    return View(db.SurveyViewModels.ToList());
-        //}
+        public ActionResult Index()
+        {
+            List<SurveyViewModel> mySurveys = _surveySvc.Value.GetSurveys();             
+
+            return View(mySurveys);
+        }
 
         //// GET: Survey/Details/5
         //public ActionResult Details(int? id)
@@ -29,14 +39,10 @@ namespace AIMS.Controllers
         //    return View(surveyViewModel);
         //}
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         // GET: Survey/Create
         public ActionResult Create()
         {
+            //TODO Cannot create survey unless you're an admin user
             return View();
         }
 
@@ -47,39 +53,40 @@ namespace AIMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse)
         {
+            //TODO Cannot create survey unless you're an admin user
+
             int surveyId = _surveySvc.Value.CreateSurvey(surveyName);
+
+            //TODO now that the survey has been created, tie it to the user's group via the survey_groups
+
             int count = 0;
             for (int i = 0; i < dynamicQuestion.Length; i++)
             {
                 int k = 0;
-                int j = count;
                 int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[i]);
                 while (k < repsoneNum[i])
                 {
-                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[j]);
-                    j++;
+                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count]);
                     count++;
                     k++;
                 }
             }
-            
-            return RedirectToAction("../Home/Index");
+
+                       
+            return RedirectToAction("../Survey/Index");
         }
 
-        //// GET: Survey/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SurveyViewModel surveyViewModel = db.SurveyViewModels.Find(id);
-        //    if (surveyViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(surveyViewModel);
-        //}
+        // GET: Survey/Edit/5
+        public ActionResult Edit(int surveyId)
+        {
+            SurveyViewModel surveyViewModel = _surveySvc.Value.CreateSurveyVM(surveyId);
+
+            if (surveyViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(surveyViewModel);
+        }
 
         //// POST: Survey/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
