@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIMS.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,5 +22,18 @@ namespace AIMS.Models
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset? UpdatedAt { get; set; }
+
+        public GroupViewModel()
+        {
+        }
+
+        public GroupViewModel(Group group)
+        {
+            this.GroupId = group.GroupId;
+            this.OrganizationId = group.OrganizationId;
+            this.Name = group.Name;
+            this.CreatedAt = group.CreatedAt;
+            this.UpdatedAt = group.UpdatedAt;
+        }
     }
 }

@@ -60,15 +60,15 @@ namespace AIMS.Services
 
         public OrganizationViewModel GetOrganization(int? id)
         {
-            OrganizationViewModel myOrganization = new OrganizationViewModel();
+            OrganizationViewModel myOrganizationVM = null;
 
             using (var ctx = new AIMSDbContext())
             {
                 Organization org = ctx.Organizations.Find(id);
                 if (org != null)
                 {
-                    myOrganization = new OrganizationViewModel(org);
-                    return myOrganization;
+                    myOrganizationVM = new OrganizationViewModel(org);
+                    return myOrganizationVM;
                 }
                 else
                 {

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AIMS.Models;
 using AIMS.Services;
+using System.Collections.Generic;
 
 namespace AIMS.Controllers
 {
@@ -9,11 +10,10 @@ namespace AIMS.Controllers
     {
         private readonly Lazy<GroupService> _groupSvc = new Lazy<GroupService>();
 
-        // GET: Group
-        public ActionResult Index()
+        // GET: Groups (all in a certain org)
+        public ActionResult Index(int organizationId)
         {
-            GroupViewModel myGroups = new GroupViewModel();
-
+            List<GroupViewModel> myGroups = _groupSvc.Value.GetGroups(organizationId);
             return View(myGroups);
         }
 

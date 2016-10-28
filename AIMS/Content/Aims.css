@@ -1,19 +1,16 @@
-﻿body {
-    font-family: 'Open Sans', sans-serif;
-    background:#fff; 
-    padding:50px;
-}
+﻿
 
 .nav { 
     margin:0 auto; 
-    width: 1000%;
+    width: 100%;
+    background:#000; 
 }
 
 .nav a {
-    display:block; 
     float: left; 
     padding:5px 0; 
-    color:#000; 
+    color:#ff0000;
+    background:#000; 
     text-decoration:none;
     margin:0 10px; 
     font-family:arial;
@@ -31,9 +28,3 @@ nav .right {
     float: right;
 }
 
-.p {
-  font-size: 15px !important;
-  line-height: 1.75;
-  font-family: 'Merriweather', serif;
-  color: #333;
-}
