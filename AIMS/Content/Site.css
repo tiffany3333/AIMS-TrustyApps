@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.col-inner:hover {
+    opacity: .8;
+}
