@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "AIMS";
+}
+
+<div class="jumbotron">
+    <h1>AIMS</h1>
+    <p class="lead">Apprentice Intern Management System</p>
+    <p>@Html.ActionLink("Learn More", "About")</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Users</h2>
+        <p><a href="/Account/Register" class="btn btn-default">Register User</a></p>
+        <p></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Groups</h2>
+        <p><a href="/Group/Create" class="btn btn-default">Create</a></p>
+        <p><a href="/Group/Index" class="btn btn-default">Find</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Organizations</h2>
+        <p><a href="/Organization/Create" class="btn btn-default">Create</a></p>
+        <p><a href="/Organization/Index" class="btn btn-default">Find</a></p>
+        <p></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Events</h2>
+        <p>Coming Soon...</p>
+        <p></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Surveys</h2>
+        <p><p><a href="/Survey/Create" class="btn btn-default">Create</a></p></p>
+        <p><p><a href="/Survey/Index" class="btn btn-default">Find</a></p></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Properties</h2>
+        <p>Coming Soon...</p>
+        <p></p>
+    </div>
+</div>
