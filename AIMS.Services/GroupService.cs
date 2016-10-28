@@ -42,7 +42,7 @@ namespace AIMS.Services
             }
         }
 
-        public List<GroupViewModel> GetGroups(int organizationId)
+        public List<GroupViewModel> GetGroups(int? organizationId)
         {
             List<GroupViewModel> myGroups = new List<GroupViewModel>();
 
@@ -110,7 +110,7 @@ namespace AIMS.Services
             return retVal;
         }
 
-        public GroupViewModel CreateGroupVM(int groupId)
+        public GroupViewModel CreateGroupVM(int? groupId)
         {
             GroupViewModel myGroupVM;
 

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AIMS.Models;
 using AIMS.Services;
 using System.Collections.Generic;
+using System.Net;
 
 namespace AIMS.Controllers
 {
@@ -11,26 +12,26 @@ namespace AIMS.Controllers
         private readonly Lazy<GroupService> _groupSvc = new Lazy<GroupService>();
 
         // GET: Groups (all in a certain org)
-        public ActionResult Index(int organizationId)
+        public ActionResult Index(int? organizationId)
         {
             List<GroupViewModel> myGroups = _groupSvc.Value.GetGroups(organizationId);
             return View(myGroups);
         }
 
-        //// GET: Group/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    GroupViewModel groupViewModel = db.GroupsViewModel.Find(id);
-        //    if (groupViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(groupViewModel);
-        //}
+        // GET: Group/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GroupViewModel groupViewModel = _groupSvc.Value.GetGroup(id);
+            if (groupViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(groupViewModel);
+        }
 
         // GET: Group/Create
         public ActionResult Create(int? organizationId)
