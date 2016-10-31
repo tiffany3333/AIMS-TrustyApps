@@ -23,6 +23,11 @@ textarea {
     max-width: 280px;
 }
 
+#bootstrap-overrides {
+    padding-left:0;
+    padding-right:0;
+}
+
 .cols {
     position:absolute;
     padding:0;
@@ -33,9 +38,14 @@ textarea {
     right:0;
 }
 
+div{
+    transition: opacity linear .25s;
+}
+
 .col-inner:hover {
     opacity: .85;
 }
+
 
 .col-inner > .btn-opaque {
     font-size: 40px;
@@ -43,7 +53,7 @@ textarea {
 
 .col-inner{
     position: relative;
-    width: 50vw;
+    min-width: 50%;
     height: 100vh;
     text-align: center;
     vertical-align: middle; 
