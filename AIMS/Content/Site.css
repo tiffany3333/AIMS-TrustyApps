@@ -23,6 +23,46 @@ textarea {
     max-width: 280px;
 }
 
+.cols {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
 .col-inner:hover {
     opacity: .8;
+}
+
+.col-inner{
+    width: 100%;
+    height: 900px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 500px; 
+
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+}
+
+.btn-center-vertical {
+    position:relative;
+    top:50%; 
+}
+
+.col-inner, 
+.fsr-container, 
+.section-job, 
+.cols {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
