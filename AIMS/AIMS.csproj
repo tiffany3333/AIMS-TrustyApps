@@ -188,6 +188,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\1150.jpg" />
+    <Content Include="img\1150Cropped.png" />
+    <Content Include="img\1150CroppedTransparent.png" />
+    <Content Include="img\aims-employees.jpg" />
+    <Content Include="img\aims-employers.jpg" />
     <Content Include="Content\Aims.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

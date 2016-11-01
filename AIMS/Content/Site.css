@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    margin: 0px 0px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,6 +25,117 @@ textarea {
     max-width: 280px;
 }
 
-.col-inner:hover {
-    opacity: .8;
+/*Landing Page - Start Region*/
+
+#bootstrap-overrides {
+    padding-left:0;
+    padding-right:0;
 }
+
+.cols {
+    position:absolute;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+    right:0;
+}
+
+div{
+    transition: opacity linear .25s;
+}
+
+.col-inner:hover {
+    opacity: .85;
+}
+
+
+.col-inner > .btn-opaque {
+    font-size: 40px;
+}
+
+.col-inner{
+    position: relative;
+    min-width: 50%;
+    height: 100vh;
+    text-align: center;
+    vertical-align: middle; 
+
+    padding:0;
+    margin:0;
+
+    top:40;
+    left:0;
+    right:0;
+}
+
+.btn-center-vertical {
+    position:relative;
+    top:50%; 
+}
+
+.col-inner, 
+.fsr-container, 
+.section-job, 
+.cols {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+/*Landing Page - End Region*/
+
+/*Nav Bar - Start Region*/
+
+.navbar-default{
+  background-color: white !important;
+  border-color: white !important;
+  margin: 0 20 0 20;
+}
+
+.navbar-nav > li > a{
+  text-transform: uppercase !important;
+  font-family: 'Open Sans', sans-serif;
+  color: black !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-bottom: 2px transparent; 
+}
+
+.img-logo{
+  display: inline-block;
+  max-width: 30px !important;
+  margin: -5 0 0 0;
+  padding-top: -5;
+}
+
+li.dropdown:hover > .dropdown-menu {
+    display: block;
+    background-color: #ee3333;
+    text-transform: uppercase !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    background-clip: padding-box;
+
+}
+
+.dropdown-menu > li > a{
+  color: white;
+  display: flex !important;
+}
+
+.dropdown-menu > li > a:hover{
+  display: list-item;
+  background-color: rgba(128,0,0,0.95);
+  color: white;
+
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    border-bottom: 2px solid !important
+}
+
+/*Nav Bar - End Region*/
