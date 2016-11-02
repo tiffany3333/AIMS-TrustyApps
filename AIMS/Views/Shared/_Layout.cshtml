@@ -27,7 +27,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Organizations", "Index", "Organization")</li>
-                    <li>@Html.ActionLink("Groups", "Index", "Group")</li>
+                    <li>@Html.ActionLink("Groups", "Index", "Group", new { organizationId = -1 }, null)</li>
                     <li>@Html.ActionLink("Users", "Index", "User")</li>
                     <li>@Html.ActionLink("Surveys", "Index", "Survey")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
