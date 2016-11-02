@@ -13,7 +13,8 @@ namespace AIMS.Models
     {
         public int GroupId { get; set; }
 
-        public int? OrganizationId { get; set; }
+        //the ONE organization that this group belongs to
+        public int OrganizationId { get; set; }
 
         [MaxLength(128)]
         [Display(Name = "Group Name")]

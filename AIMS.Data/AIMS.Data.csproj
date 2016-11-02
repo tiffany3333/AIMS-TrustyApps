@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201610251656434_OrganizationAdds.Designer.cs">
       <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611021510371_removed nullable in org model.cs" />
+    <Compile Include="Migrations\201611021510371_removed nullable in org model.Designer.cs">
+      <DependentUpon>201611021510371_removed nullable in org model.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurveyInstance.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Entity.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610251656434_OrganizationAdds.resx">
       <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021510371_removed nullable in org model.resx">
+      <DependentUpon>201611021510371_removed nullable in org model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

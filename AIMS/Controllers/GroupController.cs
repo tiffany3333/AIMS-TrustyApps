@@ -10,10 +10,13 @@ namespace AIMS.Controllers
     public class GroupController : Controller
     {
         private readonly Lazy<GroupService> _groupSvc = new Lazy<GroupService>();
+        private readonly Lazy<OrganizationService> _orgSvc = new Lazy<OrganizationService>();
 
         // GET: Groups (all in a certain org)
         public ActionResult Index(int? organizationId)
         {
+            // organizationId = -1 means show all groups
+            //TODO make that a constant so it's obvious
             List<GroupViewModel> myGroups = _groupSvc.Value.GetGroups(organizationId);
             return View(myGroups);
         }
@@ -34,11 +37,12 @@ namespace AIMS.Controllers
         }
 
         // GET: Group/Create
-        public ActionResult Create(int? organizationId)
+        public ActionResult Create(int organizationId)
         {
             //TODO Cannot create org unless you're an admin user
 
             ViewBag.OrganizationId = organizationId;
+            ViewBag.OrganizationName = _orgSvc.Value.GetOrganizationName(organizationId);
             return View();
         }
 
@@ -51,68 +55,70 @@ namespace AIMS.Controllers
         {
             int? groupId = _groupSvc.Value.CreateGroup(groupViewModel.OrganizationId, groupViewModel.Name);
 
-            return RedirectToAction("../Group/Index");
+            return RedirectToAction("../Organization/Details/" + groupViewModel.OrganizationId);
         }
 
         // GET: Group/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             GroupViewModel groupViewModel = _groupSvc.Value.CreateGroupVM(id);
             if (groupViewModel == null)
             {
                 return HttpNotFound();
             }
-            
+            ViewBag.OrganizationName = _orgSvc.Value.GetOrganizationName(groupViewModel.OrganizationId);
+
             return View(groupViewModel);
         }
 
-        //    // POST: Group/Edit/5
-        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Edit([Bind(Include = "GroupId,OrganizationId,Name,CreatedAt,UpdatedAt")] Group group)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            db.Entry(group).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //        ViewBag.GroupId = new SelectList(db.Entities, "Id", "Id", group.GroupId);
-        //        ViewBag.OrganizationId = new SelectList(db.Organizations, "OrganizationId", "Name", group.OrganizationId);
-        //        return View(group);
-        //    }
+        // POST: Group/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "GroupId,OrganizationId,Name,CreatedAt,UpdatedAt")] GroupViewModel groupViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool success = _groupSvc.Value.EditGroup(groupViewModel);
 
-        //    // GET: Group/Delete/5
-        //    public ActionResult Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Group group = db.Groups.Find(id);
-        //        if (group == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return View(group);
-        //    }
+                return RedirectToAction("../Organization/Details/" + groupViewModel.OrganizationId);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
 
-        //    // POST: Group/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult DeleteConfirmed(int id)
-        //    {
-        //        Group group = db.Groups.Find(id);
-        //        db.Groups.Remove(group);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        // GET: Group/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            GroupViewModel groupViewModel = _groupSvc.Value.GetGroup(id);
+            ViewBag.OrganizationName = _orgSvc.Value.GetOrganizationName(groupViewModel.OrganizationId);
+
+            if (groupViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(groupViewModel);
+        }
+
+        // POST: Group/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            GroupViewModel groupViewModel = _groupSvc.Value.GetGroup(id);
+
+            bool success = _groupSvc.Value.DeleteGroup(id);
+
+            return RedirectToAction("../Organization/Details/" + groupViewModel.OrganizationId);
+        }
 
         //    protected override void Dispose(bool disposing)
         //    {

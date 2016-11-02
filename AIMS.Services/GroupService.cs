@@ -20,7 +20,7 @@ namespace AIMS.Services
          * 
          * Returns GroupID
          **************************************************************/
-        public int? CreateGroup(int? organizationId, string name)
+        public int? CreateGroup(int organizationId, string name)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -32,11 +32,18 @@ namespace AIMS.Services
                     UpdatedAt = DateTimeOffset.UtcNow,
                 };
 
+                var newEntity = new Entity
+                {
+                    MemberType = Entity.MemberTypeEnum.Group,
+                    CreatedAt = DateTimeOffset.UtcNow
+                };
+                newEntity.Group = newGroup;
+                ctx.Entities.Add(newEntity);
+
                 Organization org = ctx.Organizations.Find(organizationId);
                 org.Groups.Add(newGroup);
-                //TODO org.Entity.Groups.Add
-
                 ctx.Groups.Add(newGroup);
+
                 ctx.SaveChanges();
                 return newGroup.GroupId;
             }
@@ -103,6 +110,7 @@ namespace AIMS.Services
                 if (group != null)
                 {
                     ctx.Groups.Remove(group);
+                    //TODO Do I need to delete gorup entity too?
                     ctx.SaveChanges();
                     retVal = true;
                 }

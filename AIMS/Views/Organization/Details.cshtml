@@ -78,8 +78,31 @@
         </dd>
 
     </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { organizationId = Model.OrganizationId }) |
+        @Html.ActionLink("Back to List", "Index") |
+        @Html.ActionLink("Delete", "Delete", new { organizationId = Model.OrganizationId })
+    </p>
+    <hr />
+    <h4>Groups</h4>
+    <p>
+        @Html.ActionLink("Create New Group", "Create", "Group", new { organizationId = Model.OrganizationId }, null)
+    </p>
+    <dl class="dl-horizontal">
+        @foreach (var group in Model.Groups)
+        {
+            <dt>
+                Group
+            </dt>
+
+            <dd>
+                @Html.ActionLink(@group.Name, "Edit", "Group", new { id = group.GroupId }, null)
+            </dd>
+
+            <dd>
+                @Html.ActionLink("Delete", "Delete", "Group", new { id = group.GroupId}, null)
+            </dd>
+        }
+     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { organizationId = Model.OrganizationId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

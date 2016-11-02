@@ -14,7 +14,7 @@ namespace AIMS.Data
         [Key]
         [ForeignKey("Entity")]
         public int GroupId { get; set; }
-        public int? OrganizationId { get; set; }
+        public int OrganizationId { get; set; }
 
         [MaxLength(128)]
         [Display(Name = "Group Name")]
