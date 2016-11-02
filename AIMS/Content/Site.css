@@ -23,6 +23,7 @@ textarea {
     max-width: 280px;
 }
 
-.nav a:hover { 
-    border-bottom:3px solid #000;
+.col-inner:hover {
+    opacity: .8;
+
 }
