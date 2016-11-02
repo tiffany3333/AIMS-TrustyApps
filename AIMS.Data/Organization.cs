@@ -40,6 +40,7 @@ namespace AIMS.Data
 
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
         public virtual Entity Entity { get; set; }
     }
 }

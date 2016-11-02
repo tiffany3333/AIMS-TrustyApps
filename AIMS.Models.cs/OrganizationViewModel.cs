@@ -26,6 +26,8 @@ namespace AIMS.Models
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
 
+        public virtual ICollection<Group> Groups { get; set; }
+
         public OrganizationViewModel()
         {
         }
@@ -42,6 +44,7 @@ namespace AIMS.Models
             this.PhoneNumber = organization.PhoneNumber;
             this.CreatedAt = organization.CreatedAt;
             this.UpdatedAt = organization.UpdatedAt;
+            this.Groups = organization.Groups;
         }
     }
 }

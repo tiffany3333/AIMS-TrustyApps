@@ -16,7 +16,6 @@ namespace AIMS.Controllers
         // GET: Organizations
         public ActionResult Index()
         {
-            //var organizations = db.Organizations.Include(o => o.Entity);
             List<OrganizationViewModel> myOrganizations = _organizationSvc.Value.GetOrganizations();
             
             return View(myOrganizations);

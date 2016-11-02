@@ -11,6 +11,8 @@ namespace AIMS.Services
 {
     public class OrganizationService
     {
+        private readonly Lazy<GroupService> _groupSvc = new Lazy<GroupService>();
+
         public int CreateOrganization(string name, string description, string address, string city, string state, string zip, string phone)
         {
             using (var ctx = new AIMSDbContext())
@@ -60,21 +62,33 @@ namespace AIMS.Services
 
         public OrganizationViewModel GetOrganization(int? id)
         {
-            OrganizationViewModel myOrganization = new OrganizationViewModel();
+            OrganizationViewModel myOrganizationVM = null;
 
             using (var ctx = new AIMSDbContext())
             {
                 Organization org = ctx.Organizations.Find(id);
                 if (org != null)
                 {
-                    myOrganization = new OrganizationViewModel(org);
-                    return myOrganization;
+                    myOrganizationVM = new OrganizationViewModel(org);
+                    return myOrganizationVM;
                 }
                 else
                 {
                     return null;
                 }
             }
+        }
+
+        public string GetOrganizationName(int organizationId)
+        {
+            string retVal = null;
+            OrganizationViewModel myOrganizationVM = GetOrganization(organizationId);
+            if (myOrganizationVM != null)
+            {
+                retVal = myOrganizationVM.Name;
+            }
+
+            return retVal;
         }
 
         public bool DeleteOrganization(int? id)
@@ -86,7 +100,23 @@ namespace AIMS.Services
                 Organization org = ctx.Organizations.Find(id);
                 if (org != null)
                 {
+                    if (org.Groups.Count() > 0)
+                    {
+                        List<Group> groupsToBeRemoved = new List<Group>();
+                        //delete groups first
+                        foreach (Group group in org.Groups)
+                        {
+                            //I wanted to just ct.Groups.Remove here, but the foreach
+                            //loop didn't like the dataset being altered dynamically
+                            groupsToBeRemoved.Add(group);
+                        }                        
+                        for (int i = 0; i < groupsToBeRemoved.Count(); i++)
+                        {
+                            ctx.Groups.Remove(groupsToBeRemoved.ElementAt(i));
+                        }
+                    }
                     ctx.Organizations.Remove(org);
+                    //TODO Do I need to delete org entity too?
                     ctx.SaveChanges();
                     retVal = true;
                 }
