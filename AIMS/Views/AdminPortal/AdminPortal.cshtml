@@ -1,45 +1,38 @@
 ﻿@{
     ViewBag.Title = "AIMS";
 }
+<body id="bootstrap-overrides">
+    <div class="grid1">
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employees.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #e01e26;">
+                <a href="../StudentPortal/StudentPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Organizations</b></a>
+            </div>
+        </div>
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employers.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #7aced6;">
+                <a href="../AdminPortal/AdminPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Groups</b></a>
+            </div>
+        </div>
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employees.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #e01e26;">
+                <a href="../StudentPortal/StudentPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Users</b></a>
+            </div>
+        </div>
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employees.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #7aced6;">
+                <a href="../StudentPortal/StudentPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Surveys</b></a>
+            </div>
+        </div>
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employers.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #e01e26;">
+                <a href="../AdminPortal/AdminPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Events</b></a>
+            </div>
+        </div>
+        <div class="col-lg-4 fsr-container-grid" id="bootstrap-overrides" style="background-image: url(../../img/aims-employees.jpg);">
+            <div class="col-lg-12 col-inner-grid" style="background-color: #7aced6;">
+                <a href="../StudentPortal/StudentPortal" class="btn btn-block btn-center-vertical btn-opaque" target="_self" style="color: white;"><b>Properties</b></a>
+            </div>
+        </div>
+    </div>
+</body>
 
-<div class="jumbotron">
-    <h1>AIMS</h1>
-    <p class="lead">Apprentice Intern Management System</p>
-    <p>@Html.ActionLink("Learn More", "About")</p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Users</h2>
-        <p><a href="/Account/Register" class="btn btn-default">Register User</a></p>
-        <p></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Groups</h2>
-        <p><a href="/Organization/Index" class="btn btn-default">Create</a></p>
-        <p>@Html.ActionLink("Find", "Index", "Group", new { organizationId = -1 }, null)
-    </div>
-    <div class="col-md-4">
-        <h2>Organizations</h2>
-        <p><a href="/Organization/Create" class="btn btn-default">Create</a></p>
-        <p><a href="/Organization/Index" class="btn btn-default">Find</a></p>
-        <p></p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Events</h2>
-        <p>Coming Soon...</p>
-        <p></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Surveys</h2>
-        <p><p><a href="/Survey/Create" class="btn btn-default">Create</a></p></p>
-        <p><p><a href="/Survey/Index" class="btn btn-default">Find</a></p></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Properties</h2>
-        <p>Coming Soon...</p>
-        <p></p>
-    </div>
-</div>

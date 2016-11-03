@@ -11,6 +11,16 @@
     padding-right: 15px;
 }
 
+body > div {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.container{
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 0 !important;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -28,8 +38,7 @@ textarea {
 /*Landing Page - Start Region*/
 
 #bootstrap-overrides {
-    padding-left:0;
-    padding-right:0;
+    padding: 0 0 0 0;
 }
 
 .cols {
@@ -46,12 +55,13 @@ div{
     transition: opacity linear .25s;
 }
 
-.col-inner:hover {
+.col-inner:hover,
+.col-inner-grid:hover {
     opacity: .65;
 }
 
 
-.col-inner > .btn-opaque {
+.col-inner > .btn-opaque, .col-inner-grid > .btn-opaque {
     font-size: 40px;
 }
 
@@ -60,12 +70,30 @@ div{
     min-width: 50%;
     height: 100vh;
     text-align: center;
-    vertical-align: middle; 
 
     padding:0;
     margin:0;
 
-    top:40;
+    top:0;
+    left:0;
+    right:0;
+}
+
+.grid1 {
+    width: 100vw;
+    padding-top: 8vh;
+}
+
+.col-inner-grid{
+    position: relative;
+    min-width: 33.3333vw;
+    height: 46vh;
+    text-align: center;
+
+    padding:0;
+    margin:0;
+
+    top:0;
     left:0;
     right:0;
 }
@@ -76,12 +104,19 @@ div{
 }
 
 .col-inner, 
+.col-inner-grid,
 .fsr-container, 
+.fsr-container-grid,
 .section-job, 
-.cols {
+.cols,
+.grid1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+}
+
+.fsr-container-grid {
+    float:left;
 }
 
 /*Landing Page - End Region*/
@@ -91,7 +126,7 @@ div{
 .navbar-default{
   background-color: white !important;
   border-color: white !important;
-  margin: 0 20 0 20;
+  margin: 0 0 0 0;
 }
 
 .navbar-nav > li > a{
