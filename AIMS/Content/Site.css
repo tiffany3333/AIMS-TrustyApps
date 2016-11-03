@@ -55,14 +55,25 @@ div{
     transition: opacity linear .25s;
 }
 
+h1{
+    font-size: 40px;
+}
+
 .col-inner:hover,
 .col-inner-grid:hover {
     opacity: .65;
 }
 
 
-.col-inner > .btn-opaque, .col-inner-grid > .btn-opaque {
+.col-inner > .btn-opaque {
     font-size: 40px;
+}
+.col-inner-grid > .btn-opaque {
+    font-size: 30px;
+}
+
+#actionLinkBold {
+    font-weight: bold;
 }
 
 .col-inner{
