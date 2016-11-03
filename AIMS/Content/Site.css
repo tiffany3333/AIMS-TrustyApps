@@ -103,6 +103,10 @@ div{
     top:50%; 
 }
 
+.btn-top-vertical {
+    top: 10%;
+}
+
 .col-inner, 
 .col-inner-grid,
 .fsr-container, 

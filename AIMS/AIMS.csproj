@@ -188,6 +188,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\agency.css" />
     <Content Include="img\1150CroppedTransparent.png" />
     <Content Include="img\aims-employees.jpg" />
     <Content Include="img\aims-employers.jpg" />
