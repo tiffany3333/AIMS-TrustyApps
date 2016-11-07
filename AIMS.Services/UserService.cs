@@ -1,12 +1,8 @@
 ﻿using AIMS.Data;
 using AIMS.Models;
-using AIMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AIMS.Data.Contact;
 using static AIMS.Data.Entity;
 
 namespace AIMS.Services
@@ -56,6 +52,22 @@ namespace AIMS.Services
             using (var ctx = new AIMSDbContext())
             {
                 return ctx.User.SingleOrDefault(c => c.UserId == id);
+            }
+        }
+
+        //Get all users
+        public List<User> GetUsers()
+        {
+            List<User> myUsers = new List<User>();
+
+            using (var ctx = new AIMSDbContext())
+            {
+                foreach (User myUser in ctx.User.ToList())
+                {
+                    myUsers.Add(myUser);
+                }
+
+                return myUsers;
             }
         }
 

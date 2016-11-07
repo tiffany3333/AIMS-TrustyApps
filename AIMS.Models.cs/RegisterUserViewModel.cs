@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static AIMS.Data.Contact;
 using static AIMS.Data.User;
 
@@ -55,9 +51,11 @@ namespace AIMS.Models
         public TypeEnum Type { get; set; }
 
         [MaxLength(45)]
+        [Display(Name = "Phone Number Type")]
         public string PhoneLabel { get; set; }
 
         [MaxLength(45)]
+        [Display(Name = "Email Type")]
         public string EmailLabel { get; set; }
 
         [MaxLength(140)]
