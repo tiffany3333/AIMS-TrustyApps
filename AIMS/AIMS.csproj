@@ -204,6 +204,7 @@
     <Content Include="img\AIMS-Organizations-bw.jpg" />
     <Content Include="img\AIMS-Surveys-bw.jpg" />
     <Content Include="img\AIMS-Users-bw.jpg" />
+    <Content Include="img\icon-image.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\aims-elevenfifty.pubxml" />

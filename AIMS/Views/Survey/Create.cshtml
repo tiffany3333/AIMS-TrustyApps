@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Create Survey";
 }
-
-<h2>Create Survey</h2>
+<div class="col-lg-12" style="background-color: #7aced6;">
+    <h1>Create Survey</h1>
+</div>
 
 <div class="container">
     <div class="col-md-6 col-md-offset-3">
@@ -12,18 +13,25 @@
         {
             @Html.AntiForgeryToken()
             <div>
-                <b>Name<br /></b>
+                <h2>Survey Title<br /></h2>
                 <input type="text" name="surveyName" required /><br /><br />
-                <b>Questions</b>
+                
             </div>
             <div id="questions"></div>
             <div>
                 <br/>
-                Number of Response
-                <input id="responseNum" type="number" min="1" value="1" required />
-                <button id="btnAddQuestion">Add Question</button>
+                <button id="btnAddQuestion" class="btn-aims">Add a new multiple choice question</button> with 
+                <input id="responseNum" type="number" min="1" value="1" style="width:45px" required />
+                responses
             </div>
-            <button>Create</button>
+            <div>
+                <br />
+                <button id="btnAddQuestionParagraph" class="btn-aims">Add a new paragraph question</button> 
+            </div>
+            <div>
+                <br /><br />
+                <button class="btn-aims-submit">Done</button>
+            </div>
         }
     </div>
 </div>
@@ -36,13 +44,22 @@
             $('#btnAddQuestion').click(function (e) {
                 e.preventDefault();
                 var repsoneNum = $('#responseNum').val()
-                questions.append('Question: <br/>');
+                questions.append('Question - Muliple Choice: <br/>');
                 $('<input type="text" name="dynamicQuestion" required /><br/>Responses<br/>').appendTo(questions);
-                //Hidden field to store number of reponse for each question
+                //Hidden field to store number of responses for each question
                 $('<input id =1 type="hidden" name="repsoneNum" value="' + repsoneNum + '"/>').appendTo(questions);
                 for (i = 0; i < repsoneNum; i++) {
-                    $('<input type="text" name="dynamicResponse" required /><br/>').appendTo(questions);
+                    $('<input type="text" name="dynamicResponse" required />&nbsp;<a href="/"><img alt="Add Image" src="../../img/icon-image.jpg" height="45" width="45" /></a><br/>').appendTo(questions);
                 }
+            });
+            $('#btnAddQuestionParagraph').click(function (e) {
+                e.preventDefault();
+                questions.append('Question - Paragraph: <br/>');
+                $('<input type="text" name="dynamicQuestion" required />').appendTo(questions);
+                //Hidden field to store number of responses for each question
+                $('<input id =1 type="hidden" name="repsoneNum" value="1"/><br/>').appendTo(questions);
+                $('<input type="hidden" name="dynamicResponse" value="paragraph" /><br/>').appendTo(questions);
+                
             });
         });
     </script>

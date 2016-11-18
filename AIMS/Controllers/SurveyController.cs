@@ -60,6 +60,7 @@ namespace AIMS.Controllers
                 int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[i]);
                 while (k < repsoneNum[i])
                 {
+                    //TODO handle paragraph questions
                     _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count]);
                     count++;
                     k++;
