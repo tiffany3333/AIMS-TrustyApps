@@ -2,9 +2,7 @@
 @{
     ViewBag.Title = "Create User";
 }
-<div class="col-lg-12" style="background-color: #7aced6;">
-    <h2>@ViewBag.Title.</h2>
-</div>
+
 @using (Html.BeginForm("RegisterUserByAdmin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

@@ -3,9 +3,7 @@
 @{
     ViewBag.Title = "Manage your external logins";
 }
-<div class="col-lg-12" style="background-color: #7aced6;">
-    <h2>@ViewBag.Title.</h2>
-</div>
+
 <p class="text-success">@ViewBag.StatusMessage</p>
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();

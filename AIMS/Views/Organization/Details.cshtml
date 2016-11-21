@@ -1,14 +1,10 @@
 ﻿@model AIMS.Models.OrganizationViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Organization Details";
 }
-<div class="col-lg-12" style="background-color: #7aced6;">
-    <h2>Details</h2>
-</div>
+
 <div>
-    <h4>Organization</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -79,14 +75,14 @@
 
     </dl>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { organizationId = Model.OrganizationId }) |
-        @Html.ActionLink("Back to List", "Index") |
-        @Html.ActionLink("Delete", "Delete", new { organizationId = Model.OrganizationId })
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Edit", "Organization", new { organizationId = Model.OrganizationId }, null)'">Edit</button> |
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Index")'">Go Back</button> |
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Delete", "Organization", new { organizationId = Model.OrganizationId }, null)'">Delete</button> 
     </p>
     <hr />
     <h4>Groups</h4>
     <p>
-        @Html.ActionLink("Create New Group", "Create", "Group", new { organizationId = Model.OrganizationId }, null)
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Create", "Group", new { organizationId = Model.OrganizationId }, null)'">Create New</button>
     </p>
     <dl class="dl-horizontal">
         @foreach (var group in Model.Groups)

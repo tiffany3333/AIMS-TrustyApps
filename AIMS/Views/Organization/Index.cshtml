@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = "Organization List";
 }
-<div class="col-lg-12" style="background-color: #7aced6;">
-    <h2>Organization List</h2>
-</div>
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn-aims-submit" onclick="location.href='@Url.Action("Create")'">Create New</button>
 </p>
 <table class="table">
     <tr>

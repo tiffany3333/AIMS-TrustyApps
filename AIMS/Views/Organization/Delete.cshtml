@@ -1,11 +1,9 @@
 ﻿@model AIMS.Models.OrganizationViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Organization";
 }
-<div class="col-lg-12" style="background-color: #7aced6;">
-    <h2>Delete Organization</h2>
-</div>
+
 <h3>Are you sure you want to delete this Organization and all of its Groups?</h3>
 <div>
     <hr />
@@ -48,8 +46,9 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <input type="button" value="Cancel" class="btn btn-default" onclick="window.history.back()" />
+
+            <input type="submit" value="Delete" class="btn-aims-submit" /> |
+            <input type="button" value="Cancel" class="btn-aims-submit" onclick="window.history.back()" />
         </div>
     }
 </div>
