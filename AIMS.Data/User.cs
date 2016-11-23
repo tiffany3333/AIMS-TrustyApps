@@ -38,7 +38,8 @@ namespace AIMS.Data
             Provider,
             Employer,
             Admin,
-            Teacher
+            Teacher, 
+            Pending
         }
     }
 }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignUserViewModel.cs" />
     <Compile Include="GroupViewModel.cs" />
     <Compile Include="OrganizationViewModel.cs" />
     <Compile Include="RegisterUserViewModel.cs" />

@@ -4,9 +4,7 @@
     ViewBag.Title = "Survey Details";
 }
 
-<div>
-    <h4>SurveyViewModel</h4>
-    <hr />
+<div class="container">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -41,8 +39,29 @@
         </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <p>
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Edit", "Survey", new { surveyId = Model.Id }, null)'">Edit</button> <br /><br />
+        <button class="btn-aims-submit" onclick="location.href='@Url.Action("Index")'">Go Back</button>
+    </p>
+    <hr />
+        @foreach (var question in Model.SurveyQuestions)
+        {
+            <div class="col-md-offset-1">
+                <p>
+                    <b>Question</b>
+                </p>
+                <p>
+                    @question.Question
+                </p>
+                <p>
+                    <b>Responses</b>
+                </p>
+                @foreach (var response in question.SurveyResponses)
+                {
+                    <p>@response.TextResponse</p>
+                }
+            </div>
+        }
+
+ </div>          

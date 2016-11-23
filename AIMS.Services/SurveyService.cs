@@ -18,6 +18,7 @@ namespace AIMS.Services
                 {
                     Name = name,
                     CreatedAt = DateTimeOffset.UtcNow,
+                    UpdatedAt = DateTimeOffset.UtcNow,
                     IsDeactivated = false
                 };
                 ctx.Surveys.Add(survey);
@@ -71,6 +72,74 @@ namespace AIMS.Services
 
                 return mySurveys;
             }
+        }
+
+        public SurveyViewModel GetSurvey(int surveyId)
+        {
+            SurveyViewModel mySurveyVM = null;
+
+            using (var ctx = new AIMSDbContext())
+            {
+                Survey survey = ctx.Surveys.Find(surveyId);
+                if (survey != null)
+                {
+                    mySurveyVM = new SurveyViewModel(survey);
+                    return mySurveyVM;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool EditSurvey(SurveyViewModel surveyVM)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                Survey survey = ctx.Surveys.Find(surveyVM.Id);
+
+                survey.Name = surveyVM.Name;
+                survey.IsDeactivated = surveyVM.IsDeactivated;
+                survey.UpdatedAt = DateTimeOffset.UtcNow;
+
+                ctx.Entry(survey).State = System.Data.Entity.EntityState.Modified;
+                ctx.SaveChanges();
+
+                //TODO need some error handling / logging here
+                return true;
+
+            }
+        }
+
+        //Get all users
+        public List<AssignUserViewModel> GetUsersAssignments(int surveyId)
+        {
+            List<AssignUserViewModel> myUsers = new List<AssignUserViewModel>();
+
+            using (var ctx = new AIMSDbContext())
+            {
+                foreach (User myUser in ctx.User.ToList())
+                {
+                    AssignUserViewModel assignUserVM = new AssignUserViewModel(myUser);
+                    //now find out if this user is assigned to this survey
+                    assignUserVM.IsAssigned = IsAssigned(myUser.UserId, surveyId);
+
+                    myUsers.Add(assignUserVM);
+                }
+
+                return myUsers;
+            }
+        }
+
+        //See if a user is assigned to a survey
+        public bool IsAssigned(int userId, int surveyId)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                //SurveyInstance surveyInstance = ctx.SurveyInstances.Where();
+            }
+            return false;
         }
 
         public SurveyViewModel CreateSurveyVM(int surveyId)

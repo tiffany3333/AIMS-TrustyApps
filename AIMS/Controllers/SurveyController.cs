@@ -3,6 +3,8 @@ using AIMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Net;
+using AIMS.Data;
 
 namespace AIMS.Controllers
 {
@@ -13,25 +15,10 @@ namespace AIMS.Controllers
         //// GET: Survey
         public ActionResult Index()
         {
-            List<SurveyViewModel> mySurveys = _surveySvc.Value.GetSurveys();             
+            List<SurveyViewModel> mySurveys = _surveySvc.Value.GetSurveys();
 
             return View(mySurveys);
         }
-
-        //// GET: Survey/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SurveyViewModel surveyViewModel = db.SurveyViewModels.Find(id);
-        //    if (surveyViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(surveyViewModel);
-        //}
 
         // GET: Survey/Create
         public ActionResult Create()
@@ -83,47 +70,55 @@ namespace AIMS.Controllers
             return View(surveyViewModel);
         }
 
-        //// POST: Survey/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Name,IsDeactivated,CreatedAt,UpdatedAt")] SurveyViewModel surveyViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(surveyViewModel).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(surveyViewModel);
-        //}
+        // POST: Survey/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,IsDeactivated")] SurveyViewModel surveyViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool success = _surveySvc.Value.EditSurvey(surveyViewModel);
+                
+                return RedirectToAction("Index");
+            }
+            return View(surveyViewModel);
+        }
 
-        //// GET: Survey/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SurveyViewModel surveyViewModel = db.SurveyViewModels.Find(id);
-        //    if (surveyViewModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(surveyViewModel);
-        //}
+        //// GET: Survey/Details/5
+        public ActionResult Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SurveyViewModel surveyViewModel = _surveySvc.Value.GetSurvey(id);
+            if (surveyViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(surveyViewModel);
+        }
 
-        //// POST: Survey/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    SurveyViewModel surveyViewModel = db.SurveyViewModels.Find(id);
-        //    db.SurveyViewModels.Remove(surveyViewModel);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        //// GET: Survey/Assign
+        public ActionResult Assign(int surveyId)
+        {
+            if (surveyId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SurveyViewModel surveyViewModel = _surveySvc.Value.GetSurvey(surveyId);
+            List<AssignUserViewModel> myUsers = _surveySvc.Value.GetUsersAssignments(surveyId);
+            ViewBag.surveyId = surveyId;
+            ViewBag.surveyName = surveyViewModel.Name;
+            
+            if (surveyViewModel == null || myUsers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(myUsers);
+        }
 
         //protected override void Dispose(bool disposing)
         //{

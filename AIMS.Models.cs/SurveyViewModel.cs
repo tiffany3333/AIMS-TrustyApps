@@ -32,5 +32,10 @@ namespace AIMS.Models
                 this.SurveyResponses = question.SurveyResponses;
             }
         }
+
+        public SurveyViewModel()
+        {
+
+        }
     }
 }

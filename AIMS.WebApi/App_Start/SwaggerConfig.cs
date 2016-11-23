@@ -111,7 +111,7 @@ namespace AIMS.WebApi
                     // hold additional metadata for an API. Version and title are required but you can also provide
                     // additional fields by chaining methods off SingleApiVersion.
                     //
-                    c.SingleApiVersion("v1", "Peoplemon.Api");
+                    c.SingleApiVersion("v1", "AIMS.Api");
 
                     // Enable adding the Authorization header to [Authorize]d endpoints.
                     c.OperationFilter(() => new AddAuthorizationHeaderParameterOperationFilter());
@@ -184,9 +184,9 @@ namespace AIMS.WebApi
 
                     if (
                         System.IO.File.Exists(
-                            System.Web.Hosting.HostingEnvironment.MapPath("~/bin/Peoplemon.Api.xml")))
+                            System.Web.Hosting.HostingEnvironment.MapPath("~/bin/AIMS.Api.xml")))
                     {
-                        c.IncludeXmlComments(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/Peoplemon.Api.xml"));
+                        c.IncludeXmlComments(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/AIMS.Api.xml"));
                     }
 
                     // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types

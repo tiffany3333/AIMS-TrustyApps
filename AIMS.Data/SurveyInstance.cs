@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.Data
 {
-    class SurveyInstance
+    public class SurveyInstance
     {
         public int Id { get; set; }
 

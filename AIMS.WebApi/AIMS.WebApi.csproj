@@ -307,6 +307,10 @@
       <Project>{FFBF8743-6097-4F05-A0B3-DD4456B064C3}</Project>
       <Name>AIMS.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AIMS.Models.cs\AIMS.Models.csproj">
+      <Project>{0FC860F2-6FD5-44E3-9B8B-6DF95009BFEA}</Project>
+      <Name>AIMS.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIMS.Services\AIMS.Services.csproj">
       <Project>{338E9287-93AA-4721-8041-DACD4878AFAF}</Project>
       <Name>AIMS.Services</Name>
