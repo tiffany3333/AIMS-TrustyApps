@@ -27,6 +27,8 @@ namespace AIMS.Models
 
         public bool IsAssigned { get; set; }
 
+        public bool assignmentChanged { get; set; }
+
         public virtual ICollection<UserGroup> UserGroups { get; set; }
 
         public AssignUserViewModel(User user)
@@ -38,6 +40,7 @@ namespace AIMS.Models
             this.CreatedAt = user.CreatedAt;
             this.UpdatedAt = user.UpdatedAt;
             this.UserGroups = user.UserGroups;
+            this.assignmentChanged = false;
         }
     }
 }

@@ -132,14 +132,31 @@ namespace AIMS.Services
             }
         }
 
+        //Assign / deassign survey(s) to user(s)
+        public bool AssignSurvey(List<AssignUserViewModel> assignUserVMs)
+        {
+            List<AssignUserViewModel> changedAssignUserVMs = assignUserVMs.Where(a => a.assignmentChanged == true).ToList();
+            if (changedAssignUserVMs != null)
+            {
+                //holy cow stop and test
+                int i = 0;
+            }
+
+            return true;
+        }
+
         //See if a user is assigned to a survey
         public bool IsAssigned(int userId, int surveyId)
         {
             using (var ctx = new AIMSDbContext())
             {
-                //SurveyInstance surveyInstance = ctx.SurveyInstances.Where();
+                SurveyInstance surveyInstance = ctx.SurveyInstances.Where(s => s.SurveyId == surveyId).Where(u => u.UserId == userId).SingleOrDefault();
+                if (surveyInstance == null)
+                    return false;
+                else
+                    return true;
             }
-            return false;
+            
         }
 
         public SurveyViewModel CreateSurveyVM(int surveyId)

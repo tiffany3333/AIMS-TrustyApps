@@ -46,6 +46,8 @@ namespace AIMS.Data
         public DbSet<SurveyGroup> SurveyGroups { get; set; }
         public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
         public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<SurveyInstance> SurveyInstances { get; set; }
+        public DbSet<APIToken> APITokens { get; set; }
         //Users for variable name already existed
         public DbSet<User> User { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }

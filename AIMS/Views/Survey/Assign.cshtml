@@ -4,45 +4,96 @@
     ViewBag.Title = "Assign Survey";
 }
 
-<h4>Survey Name - @ViewBag.surveyName</h4>
-<table class="table">
-    <tr>
-        <th>
-            Assigned
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-    </tr>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-    @foreach (var item in Model)
-    {
+    <h4>Survey Name - @ViewBag.surveyName</h4>
+    <table class="table">
         <tr>
-            <td>
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>       
+            <th>
+                Assigned
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
         </tr>
-    }
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            @Html.Hidden("AssignmentChanged"+i, Model.ElementAt(i).assignmentChanged)
+            @Html.Hidden("num", i)
 
-</table>
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => Model.ElementAt(i).IsAssigned, new { htmlAttributes = new { @onclick = "assignmentChanged(document.getElementById('num').value)" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).UserType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).CreatedAt)
+                </td>
+            </tr>
+        }
+        @*@foreach (var item in Model)
+        {
+           
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => item.IsAssigned, new { htmlAttributes = new { @onclick = "assignmentChanged(item)"}})
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>       
+            </tr>
+        }*@
+
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn-aims-submit" /><br />
+            <button class="btn-aims-submit" onclick="location.href='@Url.Action("Index")'">Go Back</button>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function assignmentChanged(i)
+        {
+            if (document.getElementById('AssignmentChanged' + i).value == false) {
+                alert("toggled to true");
+                document.getElementById('AssignmentChanged' + i).value = true;
+            }
+            else {
+                alert("toggled to false");
+                document.getElementById('AssignmentChanged' + i).value = false;
+            }
+        }
+    </script>
+}

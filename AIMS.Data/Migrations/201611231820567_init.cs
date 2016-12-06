@@ -3,7 +3,7 @@ namespace AIMS.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FinalDataLayer : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -72,14 +72,14 @@ namespace AIMS.Data.Migrations
                 c => new
                     {
                         GroupId = c.Int(nullable: false),
-                        OrganizationId = c.Int(),
+                        OrganizationId = c.Int(nullable: false),
                         Name = c.String(maxLength: 128),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
                     })
                 .PrimaryKey(t => t.GroupId)
                 .ForeignKey("dbo.Entity", t => t.GroupId)
-                .ForeignKey("dbo.Organization", t => t.OrganizationId)
+                .ForeignKey("dbo.Organization", t => t.OrganizationId, cascadeDelete: true)
                 .Index(t => t.GroupId)
                 .Index(t => t.OrganizationId);
             
@@ -90,6 +90,11 @@ namespace AIMS.Data.Migrations
                         OrganizationId = c.Int(nullable: false),
                         Name = c.String(maxLength: 256),
                         Description = c.String(maxLength: 512),
+                        Address = c.String(maxLength: 100),
+                        City = c.String(maxLength: 50),
+                        State = c.String(maxLength: 50),
+                        ZipCode = c.String(maxLength: 20),
+                        PhoneNumber = c.String(maxLength: 20),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         UpdatedAt = c.DateTimeOffset(precision: 7),
                     })

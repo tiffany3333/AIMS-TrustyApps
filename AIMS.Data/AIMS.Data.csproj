@@ -87,13 +87,13 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="APIToken.cs" />
-    <Compile Include="Migrations\201610251656434_OrganizationAdds.cs" />
-    <Compile Include="Migrations\201610251656434_OrganizationAdds.Designer.cs">
-      <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
+    <Compile Include="Migrations\201611231820567_init.cs" />
+    <Compile Include="Migrations\201611231820567_init.Designer.cs">
+      <DependentUpon>201611231820567_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611021510371_removed nullable in org model.cs" />
-    <Compile Include="Migrations\201611021510371_removed nullable in org model.Designer.cs">
-      <DependentUpon>201611021510371_removed nullable in org model.cs</DependentUpon>
+    <Compile Include="Migrations\201611232020111_addedKeyToAPIToken.cs" />
+    <Compile Include="Migrations\201611232020111_addedKeyToAPIToken.Designer.cs">
+      <DependentUpon>201611232020111_addedKeyToAPIToken.cs</DependentUpon>
     </Compile>
     <Compile Include="SurveyInstance.cs" />
     <Compile Include="Contact.cs" />
@@ -104,10 +104,6 @@
     <Compile Include="Event.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201608110733242_FinalDataLayer.cs" />
-    <Compile Include="Migrations\201608110733242_FinalDataLayer.Designer.cs">
-      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,14 +122,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608110733242_FinalDataLayer.resx">
-      <DependentUpon>201608110733242_FinalDataLayer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611231820567_init.resx">
+      <DependentUpon>201611231820567_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610251656434_OrganizationAdds.resx">
-      <DependentUpon>201610251656434_OrganizationAdds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611021510371_removed nullable in org model.resx">
-      <DependentUpon>201611021510371_removed nullable in org model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611232020111_addedKeyToAPIToken.resx">
+      <DependentUpon>201611232020111_addedKeyToAPIToken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

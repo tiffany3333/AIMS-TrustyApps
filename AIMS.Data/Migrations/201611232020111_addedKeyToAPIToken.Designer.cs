@@ -7,13 +7,13 @@ namespace AIMS.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class OrganizationAdds : IMigrationMetadata
+    public sealed partial class addedKeyToAPIToken : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OrganizationAdds));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedKeyToAPIToken));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610251656434_OrganizationAdds"; }
+            get { return "201611232020111_addedKeyToAPIToken"; }
         }
         
         string IMigrationMetadata.Source

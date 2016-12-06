@@ -109,24 +109,38 @@ namespace AIMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SurveyViewModel surveyViewModel = _surveySvc.Value.GetSurvey(surveyId);
-            List<AssignUserViewModel> myUsers = _surveySvc.Value.GetUsersAssignments(surveyId);
+            List<AssignUserViewModel> assignUserVMs = _surveySvc.Value.GetUsersAssignments(surveyId);
             ViewBag.surveyId = surveyId;
             ViewBag.surveyName = surveyViewModel.Name;
             
-            if (surveyViewModel == null || myUsers == null)
+            if (surveyViewModel == null || assignUserVMs == null)
             {
                 return HttpNotFound();
             }
-            return View(myUsers);
+            return View(assignUserVMs);
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Assign(List<AssignUserViewModel> assignUserVMs)
+        {
+            if (ModelState.IsValid)
+            {
+                bool success = _surveySvc.Value.AssignSurvey(assignUserVMs);
+
+                return RedirectToAction("Index");
+            }
+            return View(assignUserVMs);
+
+        }
+
+            //protected override void Dispose(bool disposing)
+            //{
+            //    if (disposing)
+            //    {
+            //        db.Dispose();
+            //    }
+            //    base.Dispose(disposing);
+            //}
+        }
 }

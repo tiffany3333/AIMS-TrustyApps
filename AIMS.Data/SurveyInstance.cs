@@ -9,7 +9,8 @@ namespace AIMS.Data
 {
     public class SurveyInstance
     {
-        public int Id { get; set; }
+        [Key]
+        public int SurveyInstanceId { get; set; }
 
         public int SurveyId { get; set; }
 

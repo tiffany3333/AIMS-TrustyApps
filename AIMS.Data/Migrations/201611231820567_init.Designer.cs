@@ -7,13 +7,13 @@ namespace AIMS.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FinalDataLayer : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FinalDataLayer));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608110733242_FinalDataLayer"; }
+            get { return "201611231820567_init"; }
         }
         
         string IMigrationMetadata.Source
