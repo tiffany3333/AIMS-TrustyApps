@@ -77,6 +77,7 @@ namespace AIMS.Services
             using (var ctx = new AIMSDbContext())
             {
                 //Create a new entity
+                bool retVal = false;
                 int entityId = _entitySvc.Value.CreateEntity(MemberTypeEnum.User);
 
                 var newUser =
@@ -102,7 +103,7 @@ namespace AIMS.Services
                 //Create Default Entity Roles with RoleId = 1, and GroupId = 2 if not specified by user input
                 _entityRoleSvc.Value.CreateEntityRole(entityId, registerVM.RoleId ?? 1, registerVM.ReferredEntityId ?? 2);
 
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 1; 
 
             }
         }   

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AIMS.Models;
 
 namespace AIMS.Services
@@ -127,21 +125,36 @@ namespace AIMS.Services
 
                     myUsers.Add(assignUserVM);
                 }
-
                 return myUsers;
             }
         }
 
         //Assign / deassign survey(s) to user(s)
-        public bool AssignSurvey(List<AssignUserViewModel> assignUserVMs)
+        public bool AssignSurvey(int surveyId, List<int> userIDListAssign, List<int> userIDListUnAssign)
         {
-            List<AssignUserViewModel> changedAssignUserVMs = assignUserVMs.Where(a => a.assignmentChanged == true).ToList();
-            if (changedAssignUserVMs != null)
+            //TODO if we toggled assign/unassign, resolve the lists
+            
+            using (var ctx = new AIMSDbContext())
             {
-                //holy cow stop and test
-                int i = 0;
+                if (userIDListAssign != null)
+                {
+                    foreach (var item in userIDListAssign)
+                    {
+                        SurveyInstance surveyInstance = new SurveyInstance();
+                        surveyInstance.CreatedAt = DateTimeOffset.UtcNow;
+                        surveyInstance.IsCompleted = false;
+                        surveyInstance.SurveyId = surveyId;
+                        surveyInstance.UserId = item;
+                        ctx.SurveyInstances.Add(surveyInstance);
+                    }
+                }
+                if (userIDListUnAssign != null)
+                {
+                    foreach (var item in userIDListUnAssign)
+                    { }
+                }
+                ctx.SaveChanges();
             }
-
             return true;
         }
 

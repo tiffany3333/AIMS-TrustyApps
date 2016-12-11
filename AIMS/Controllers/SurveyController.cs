@@ -11,6 +11,7 @@ namespace AIMS.Controllers
     public class SurveyController : BaseController
     {
         private readonly Lazy<SurveyService> _surveySvc = new Lazy<SurveyService>();
+        private readonly Lazy<UserService> _usrSvc = new Lazy<UserService>();
 
         //// GET: Survey
         public ActionResult Index()
@@ -120,27 +121,24 @@ namespace AIMS.Controllers
             return View(assignUserVMs);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Assign(List<AssignUserViewModel> assignUserVMs)
+        public ActionResult AssignPost(int surveyID, List<int> userIDListAssign, List<int> userIDListUnAssign)
         {
             if (ModelState.IsValid)
             {
-                bool success = _surveySvc.Value.AssignSurvey(assignUserVMs);
-
-                return RedirectToAction("Index");
+                _surveySvc.Value.AssignSurvey(surveyID, userIDListAssign, userIDListUnAssign);
+                
+                return RedirectToAction("/../Survey/Index");
             }
-            return View(assignUserVMs);
+            return View();
+    }
 
-        }
-
-            //protected override void Dispose(bool disposing)
-            //{
-            //    if (disposing)
-            //    {
-            //        db.Dispose();
-            //    }
-            //    base.Dispose(disposing);
-            //}
-        }
+    //protected override void Dispose(bool disposing)
+    //{
+    //    if (disposing)
+    //    {
+    //        db.Dispose();
+    //    }
+    //    base.Dispose(disposing);
+    //}
+}
 }

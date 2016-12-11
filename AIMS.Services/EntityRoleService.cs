@@ -22,6 +22,7 @@ namespace AIMS.Services
                 };
                 ctx.EntityRoles.Add(newEntityRole);
                 return ctx.SaveChanges() == 1;
+                
             }
         }
     }

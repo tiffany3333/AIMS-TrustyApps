@@ -27,35 +27,12 @@
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
         </tr>
-        @for (int i = 0; i < Model.Count(); i++)
+        @foreach (var item in Model) 
         {
-            @Html.Hidden("AssignmentChanged"+i, Model.ElementAt(i).assignmentChanged)
-            @Html.Hidden("num", i)
-
             <tr>
                 <td>
-                    @Html.EditorFor(modelItem => Model.ElementAt(i).IsAssigned, new { htmlAttributes = new { @onclick = "assignmentChanged(document.getElementById('num').value)" } })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).UserType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).CreatedAt)
-                </td>
-            </tr>
-        }
-        @*@foreach (var item in Model)
-        {
-           
-            <tr>
-                <td>
-                    @Html.EditorFor(modelItem => item.IsAssigned, new { htmlAttributes = new { @onclick = "assignmentChanged(item)"}})
+                    @Html.EditorFor(modelItem => item.IsAssigned, new { htmlAttributes = new { @id = "@item.UserId", @onclick = "assignmentChanged('@item.UserId')" } })
+                    @*<input id="@item.UserId" type="checkbox" onclick="assignmentChanged('@item.UserId')" />*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
@@ -68,14 +45,14 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>       
+                </td>
             </tr>
-        }*@
-
+        }
+        
     </table>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn-aims-submit" /><br />
+            <input type="button" value="Save" class="btn-aims-submit" onclick="submitMe('@ViewBag.surveyId')"/><br />
             <button class="btn-aims-submit" onclick="location.href='@Url.Action("Index")'">Go Back</button>
         </div>
     </div>
@@ -84,16 +61,39 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function assignmentChanged(i)
+        var userIdListAssign = [];
+        var userIdListUnAssign = [];
+
+        function assignmentChanged(userId)
         {
-            if (document.getElementById('AssignmentChanged' + i).value == false) {
-                alert("toggled to true");
-                document.getElementById('AssignmentChanged' + i).value = true;
+            if (document.getElementById(userId).checked == false) {
+                alert("toggled to false - unassign");
+                userIdListUnAssign.push(userId);
             }
             else {
-                alert("toggled to false");
-                document.getElementById('AssignmentChanged' + i).value = false;
+                alert("toggled to true - assign");
+                userIdListAssign.push(userId);
             }
+        }
+
+        function submitMe(surveyId) 
+        {
+            //console.log("aoIDList[0] = " + aoIDList[0]);
+        
+            $.ajax({
+                url: '/Survey/AssignPost/',
+                traditional: true,
+                data: {surveyID: surveyId, userIDListAssign: userIdListAssign, userIDListUnAssign: userIdListUnAssign}, 
+                success: function(data){
+                    //alert(data.data);
+                    //alert(data.location);
+                    //alert(data.arguments);
+                    //alert(data);
+                
+                    //window.location = data.redirectUrl;
+                    window.location = "/../Survey/Index/";
+                }
+            });
         }
     </script>
 }
