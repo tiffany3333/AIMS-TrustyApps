@@ -8,6 +8,8 @@ namespace AIMS.Services
 {
     public class SurveyInstanceService
     {
+        private readonly Lazy<SurveyService> _surveySvc = new Lazy<SurveyService>();
+
         public SurveyInstanceService()
         {
 
@@ -28,6 +30,26 @@ namespace AIMS.Services
                 }
 
                 return surveyInstanceIds;
+            }
+        }
+        public string GetSurveyName(int surveyInstanceId)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                string retVal = null;
+
+                SurveyInstance surveyInstance = ctx.SurveyInstances.Where(i => i.SurveyInstanceId == surveyInstanceId).SingleOrDefault();
+
+                if (surveyInstance != null)
+                {
+                    SurveyViewModel survey = _surveySvc.Value.GetSurvey(surveyInstance.SurveyId);
+                    if (survey != null)
+                    {
+                        retVal = survey.Name;
+                    }
+                }
+
+                return retVal;
             }
         }
     }

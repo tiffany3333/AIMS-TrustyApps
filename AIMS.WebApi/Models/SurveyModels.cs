@@ -10,23 +10,33 @@ namespace AIMS.WebApi.Models
 
     public class SurveyResponseJSON
     {
-        public int survey_id { get; set; }
+        public int survey_instance_id { get; set; }
 
-        public string name { get; set; }
+        public string survey_name { get; set; }
 
-        public int question_id { get; set; }
+        public SurveyQuestionResponseJSON[] survey_questions;
+    }
+
+    public class SurveyQuestionResponseJSON
+    {
+        public int survey_question_id { get; set; }
+
+        public string survey_question_text { get; set; }
+
+        public response_types response_type { get; set; }
 
         public enum response_types
         {
             MultipleChoice = 0,
-            Paragraph =1
+            Paragraph = 1
         }
 
-        public response_types response_type { get; set; }
+        public SurveyResponseResponseJSON[] survey_responses;
+    }
+    public class SurveyResponseResponseJSON
+    {
+        public int survey_response_id { get; set; }
 
-        [MaxLength(256)]
-        public string text { get; set; }
-
-        public string[] choices { get; set; }
+        public string survey_response_text { get; set; }
     }
 }

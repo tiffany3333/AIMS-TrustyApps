@@ -21,16 +21,19 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Security;
+using System.Web.Http.Controllers;
+using AIMS.WebApi.Services;
 
 namespace AIMS.WebApi.Controllers
 {
-    [Authorize]
+    
     [RoutePrefix("api/v1")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private AIMSDbContext _db = new AIMSDbContext();
+        private readonly Lazy<CommonServices> _svcs = new Lazy<CommonServices>();
 
         public AccountController()
         {
@@ -59,12 +62,14 @@ namespace AIMS.WebApi.Controllers
 
         // POST api/v1/logout
         [Route("logout")]
+        [AllowAnonymous]
         public IHttpActionResult Logout()
         {
-            if (!ValidateToken())
+            if (!_svcs.Value.ValidateToken(this.Request.Headers))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
+            //TODO remove token
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
@@ -91,11 +96,13 @@ namespace AIMS.WebApi.Controllers
                 AIMS.Services.UserService _userSvc = new AIMS.Services.UserService();
                 int userId = _userSvc.GetUserId(info.Username);
 
+                //TODO should I actually log them in or no?
+
                 var repsonse = new LoginResponseJSON { Token = "Bearer " + user.Id.ToString() + "-" + userId, Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
                 return Ok(repsonse);
             }
             else
-                return Ok("Either your username or password is incorrect. Please try again!");
+                return BadRequest("Either your username or password is incorrect. Please try again!");
         }
 
         
@@ -132,16 +139,8 @@ namespace AIMS.WebApi.Controllers
             return Ok();
         }
 
-        private bool ValidateToken()
-        {
-            HttpRequestHeaders httpHeaders = this.Request.Headers;
-            if (httpHeaders.Contains("Bearer"))
-                //TODO create more meaningful auth here
-                //check if guid is valid and that it's not expired
-                return true;
-            else
-                return false;
-        }
+        
+
 
         /////////////////////////////// UNUSED API CALLS FOR NOW ///////////////////////////////
 
@@ -555,4 +554,15 @@ namespace AIMS.WebApi.Controllers
 
         #endregion
     }
+
+    public class MyAuthorizeAttribut: AuthorizeAttribute
+    {
+        protected override bool IsAuthorized(HttpActionContext actionContext)
+        {
+            //TODO Maybe move validatetoken routine here
+            return true;
+            //return base.IsAuthorized(actionContext);
+        }
+    }
 }
+

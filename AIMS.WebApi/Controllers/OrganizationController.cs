@@ -39,7 +39,7 @@ namespace AIMS.WebApi.Controllers
                 return Ok(response);
             }
 
-            else return Ok("Unable to retrieve Organizations.");
+            else return BadRequest("Unable to retrieve Organizations.");
 
         }
 
@@ -59,7 +59,7 @@ namespace AIMS.WebApi.Controllers
                 OrganizationDetailsResponseJSON response = new OrganizationDetailsResponseJSON(org);
                 return Ok(response);
             }
-            else return Ok("Unable to retrieve Organization.");
+            else return BadRequest("Unable to retrieve Organization.");
         }
     }
 }

@@ -7,7 +7,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    <h3><font color="red">Issue on this page.  you can't unassign, and the checkboxes don't reflect what is already assigned... BUT if you check the box, a survey WILL get assigned</font></h3>
     <h4>Survey Name - @ViewBag.surveyName</h4>
     <table class="table">
         <tr>
@@ -31,8 +31,8 @@
         {
             <tr>
                 <td>
-                    @Html.EditorFor(modelItem => item.IsAssigned, new { htmlAttributes = new { @id = "@item.UserId", @onclick = "assignmentChanged('@item.UserId')" } })
-                    @*<input id="@item.UserId" type="checkbox" onclick="assignmentChanged('@item.UserId')" />*@
+                    @*@Html.EditorFor(modelItem => item.IsAssigned, new { htmlAttributes = new { @id = "@item.UserId", @onclick = "assignmentChanged('@item.UserId')" } })*@
+                    <input id="@item.UserId" type="checkbox" onclick="assignmentChanged('@item.UserId')" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
@@ -64,14 +64,23 @@
         var userIdListAssign = [];
         var userIdListUnAssign = [];
 
+        window.onload = function updateCheckboxes()
+        {
+            //I REALLY want to use EditorFor instead of manually doing this, 
+            //but EditorFor won't let me use variables for id / javascript params
+            //hence I'm here...  
+            //TODO either finish this so that checkbox settings persist 
+            //OR figure out Editor For with variables...
+        }
+
         function assignmentChanged(userId)
         {
             if (document.getElementById(userId).checked == false) {
-                alert("toggled to false - unassign");
+                alert("toggled to false - unassign" + userId);
                 userIdListUnAssign.push(userId);
             }
             else {
-                alert("toggled to true - assign");
+                alert("toggled to true - assign" + userId);
                 userIdListAssign.push(userId);
             }
         }

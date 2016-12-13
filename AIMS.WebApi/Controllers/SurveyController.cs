@@ -1,8 +1,10 @@
 ﻿using AIMS.Data;
 using AIMS.Services;
 using AIMS.WebApi.Models;
+using AIMS.WebApi.Services;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
@@ -12,6 +14,7 @@ namespace AIMS.WebApi.Controllers
     {
 
         private AIMSDbContext _db = new AIMSDbContext();
+        private readonly Lazy<CommonServices> _svcs = new Lazy<CommonServices>();
         private readonly Lazy<UserService> _userService = new Lazy<UserService>();
         private readonly Lazy<SurveyInstanceService> _surveyInstanceService = new Lazy<SurveyInstanceService>();
 
@@ -20,14 +23,17 @@ namespace AIMS.WebApi.Controllers
         [Route("surveys")]
         public IHttpActionResult GetUsersSurveys(int user_id)
         {
+            if (!_svcs.Value.ValidateToken(this.Request.Headers))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
             List<int> surveyInstanceIds = null;
             List<SurveysResponseJSON> response = new List<SurveysResponseJSON>();
 
             if (!ModelState.IsValid)
             {
                 //return BadRequest(ModelState);
-                return Ok("Unable to retrieve Surveys.");
-            }
+                return BadRequest("Unable to retrieve Surveys.");            }
 
             AIMS.Data.User user = _userService.Value.GetUser(user_id);
             if (user != null)
@@ -43,33 +49,45 @@ namespace AIMS.WebApi.Controllers
                         response.Add(resp);
                     }
                 }
-                else return Ok("Unable to retrieve Surveys, none assigned to user.");
+                else return BadRequest("Unable to retrieve Surveys, none assigned to user.");
             }
-            else return Ok("Unable to retrieve Surveys, user is null.");
+            else return BadRequest("Unable to retrieve Surveys, user is null.");
 
             return Ok(response);
         }
 
-        //// GET api/v1/surveys/{survey_id}
-        //[Route("survey/{survey_id:int}")]
-        //public IHttpActionResult GetSurvey(SurveyModels model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // GET api/v1/surveys/{survey_id}
+        [Route("survey")]
+        public IHttpActionResult GetSurveyInstanceDetails(int survey_instance_id)
+        {
+            if (!_svcs.Value.ValidateToken(this.Request.Headers))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
 
-        //    var survey = _db.Surveys.Where(s => s.Id == model.survey_id).SingleOrDefault();
-        //    var surveyQuestions = _db.SurveyQuestions.Where(q => q.Id == survey.Id).ToArray();
-        //    var surveyResponses = surveyQuestions.Select(e => new SurveyResponse surveryResponse.Re)
+            SurveyResponseJSON response = new SurveyResponseJSON();
+            List<SurveyQuestionResponseJSON> resp_question;
+            List<SurveyResponseResponseJSON> resp_response;
 
-        //    if (survey != null)
-        //    {
-        //        var repsonse = new SurveyResponseJSON { survey_id = survey.Id, name = survey.Name, question_id = surveyQuestions.Id, response_type = };
-        //        return Ok(repsonse);
-        //    }
+            response.survey_instance_id = survey_instance_id;
+            string survey_name = _surveyInstanceService.Value.GetSurveyName(survey_instance_id);
+            if (survey_name == null)
+            {
+                return BadRequest("Survey Name is null for this survey, something went wrong");
+            }
+            response.survey_name = survey_name;
 
-        //}
+            //var survey = _db.Surveys.Where(s => s.Id == model.survey_id).SingleOrDefault();
+            //var surveyQuestions = _db.SurveyQuestions.Where(q => q.Id == survey.Id).ToArray();
+            //var surveyResponses = surveyQuestions.Select(e => new SurveyResponse surveryResponse.Re)
+
+            //if (survey != null)
+            //{
+            //    var repsonse = new SurveyResponseJSON { survey_id = survey.Id, name = survey.Name, question_id = surveyQuestions.Id, response_type = };
+            //    return Ok(repsonse);
+            //}
+            return Ok(response);
+        }
 
     }
 }

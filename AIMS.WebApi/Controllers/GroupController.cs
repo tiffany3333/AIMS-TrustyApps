@@ -40,7 +40,7 @@ namespace AIMS.WebApi.Controllers
             }
             else
             {
-                return Ok("Make sure you have a valid Organization Id.");
+                return BadRequest("Make sure you have a valid Organization Id.");
             }
         }
     }
