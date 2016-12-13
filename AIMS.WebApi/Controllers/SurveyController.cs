@@ -1,24 +1,54 @@
-﻿using System.Web.Http;
+﻿using AIMS.Data;
+using AIMS.Services;
+using AIMS.WebApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
 {
+    [RoutePrefix("api/v1")]
     public class SurveyController : ApiController
     {
 
-        //private AIMSDbContext _db = new AIMSDbContext();
-        //private readonly UserService _userService;
+        private AIMSDbContext _db = new AIMSDbContext();
+        private readonly Lazy<UserService> _userService = new Lazy<UserService>();
+        private readonly Lazy<SurveyInstanceService> _surveyInstanceService = new Lazy<SurveyInstanceService>();
 
-        //// GET api/v1/surveys/{user_id}
+        // GET api/v1/surveys/{user_id}
         //[Route("surveys/{user_id:int}")]
-        //public IHttpActionResult GetUsersSurveys(SurveyModels model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [Route("surveys")]
+        public IHttpActionResult GetUsersSurveys(int user_id)
+        {
+            List<int> surveyInstanceIds = null;
+            List<SurveysResponseJSON> response = new List<SurveysResponseJSON>();
 
-        //    var user = _userService.GetUser(model.user_id);
-        //}
+            if (!ModelState.IsValid)
+            {
+                //return BadRequest(ModelState);
+                return Ok("Unable to retrieve Surveys.");
+            }
+
+            AIMS.Data.User user = _userService.Value.GetUser(user_id);
+            if (user != null)
+            {
+                surveyInstanceIds =_surveyInstanceService.Value.GetSurveyInstances(user_id);
+
+                if (surveyInstanceIds != null)
+                {
+                    foreach (int surveyInstanceId in surveyInstanceIds)
+                    {
+                        SurveysResponseJSON resp = new SurveysResponseJSON();
+                        resp.survey_instance_id = surveyInstanceId;
+                        response.Add(resp);
+                    }
+                }
+                else return Ok("Unable to retrieve Surveys, none assigned to user.");
+            }
+            else return Ok("Unable to retrieve Surveys, user is null.");
+
+            return Ok(response);
+        }
 
         //// GET api/v1/surveys/{survey_id}
         //[Route("survey/{survey_id:int}")]

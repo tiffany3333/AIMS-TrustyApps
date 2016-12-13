@@ -38,6 +38,11 @@ namespace AIMS.Services
             _userName = userName;
         }
 
+        public UserService()
+        {
+
+        }
+
         //Because the e-mail - username in this case is unique so it will return only one unique userId
         public int? getCurrentUserId()
         {
@@ -52,6 +57,24 @@ namespace AIMS.Services
             using (var ctx = new AIMSDbContext())
             {
                 return ctx.User.SingleOrDefault(c => c.UserId == id);
+            }
+        }
+
+        public int GetUserId(string userName)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                //username is email address
+                Contact contact = ctx.Contacts.SingleOrDefault(c => c.ContactDetail == userName);
+                if (contact != null)
+                {
+                    User myUser = ctx.User.SingleOrDefault(e => e.Entity.Id == contact.EntityId);
+                    return myUser.UserId;
+                }
+                else
+                {
+                    return -1;
+                }
             }
         }
 

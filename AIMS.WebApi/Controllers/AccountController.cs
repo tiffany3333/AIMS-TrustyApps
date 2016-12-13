@@ -85,10 +85,13 @@ namespace AIMS.WebApi.Controllers
             if (user != null)
             {
                 //the user has been granted a login token that expires in 10 days.  
-                //store that fact in the token param in the db.
-                //when a user logs out this entry in the token db will be deleted.
-                
-                var repsonse = new LoginResponseJSON { Token = "Bearer " + user.Id.ToString(), Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
+                //TODO store that fact in the token param in the db.
+                //TODO when a user logs out this entry in the token db will be deleted.
+
+                AIMS.Services.UserService _userSvc = new AIMS.Services.UserService();
+                int userId = _userSvc.GetUserId(info.Username);
+
+                var repsonse = new LoginResponseJSON { Token = "Bearer " + user.Id.ToString() + "-" + userId, Expiration = DateTimeOffset.UtcNow.AddDays(10.00) };
                 return Ok(repsonse);
             }
             else

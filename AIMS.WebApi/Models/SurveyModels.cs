@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AIMS.WebApi.Models
 {
-    public class SurveyModels
+    public class SurveysResponseJSON
     {
-        public int user_id { get; set; }
-
-        public int survey_id { get; set; }
+        public int survey_instance_id { get; set; }
     }
 
     public class SurveyResponseJSON
