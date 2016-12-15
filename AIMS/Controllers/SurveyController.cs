@@ -33,7 +33,7 @@ namespace AIMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse)
+        public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse, int[] dynamicResponseValue)
         {
             //TODO Cannot create survey unless you're an admin user
 
@@ -48,14 +48,12 @@ namespace AIMS.Controllers
                 int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[i]);
                 while (k < repsoneNum[i])
                 {
-                    //TODO handle paragraph questions
-                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count]);
+                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count], dynamicResponseValue[count]);
                     count++;
                     k++;
                 }
             }
-
-                       
+       
             return RedirectToAction("../Survey/Index");
         }
 

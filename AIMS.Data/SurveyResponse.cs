@@ -17,6 +17,8 @@ namespace AIMS.Data
         [MaxLength(512)]
         public string TextResponse { get; set; }
 
+        public int ValueResponse { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset? UpdatedAt { get; set; }

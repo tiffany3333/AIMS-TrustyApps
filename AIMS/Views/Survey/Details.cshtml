@@ -59,7 +59,8 @@
                 </p>
                 @foreach (var response in question.SurveyResponses)
                 {
-                    <p>@response.TextResponse</p>
+                    <p>Text:  @response.TextResponse</p>
+                    <p>Value: @response.ValueResponse</p>
                 }
             </div>
         }

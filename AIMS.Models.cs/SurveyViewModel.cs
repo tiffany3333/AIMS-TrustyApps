@@ -29,6 +29,7 @@ namespace AIMS.Models
             this.SurveyQuestions = survey.SurveyQuestions;
             foreach (SurveyQuestion question in this.SurveyQuestions)
             {
+                //TODO is this needed???  
                 this.SurveyResponses = question.SurveyResponses;
             }
         }

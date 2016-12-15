@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AIMS.WebApi.Models
@@ -14,7 +15,7 @@ namespace AIMS.WebApi.Models
 
         public string survey_name { get; set; }
 
-        public SurveyQuestionResponseJSON[] survey_questions;
+        public List<SurveyQuestionResponseJSON> survey_questions;
     }
 
     public class SurveyQuestionResponseJSON
@@ -23,7 +24,7 @@ namespace AIMS.WebApi.Models
 
         public string survey_question_text { get; set; }
 
-        public response_types response_type { get; set; }
+        public response_types survey_response_type { get; set; }
 
         public enum response_types
         {
@@ -31,12 +32,17 @@ namespace AIMS.WebApi.Models
             Paragraph = 1
         }
 
-        public SurveyResponseResponseJSON[] survey_responses;
+        public List<SurveyResponseResponseJSON> survey_responses;
     }
     public class SurveyResponseResponseJSON
     {
         public int survey_response_id { get; set; }
 
+        [MaxLength(512)]
         public string survey_response_text { get; set; }
+
+        public int survey_response_value { get; set; }
+
+        //public base64 survey_response_image
     }
 }

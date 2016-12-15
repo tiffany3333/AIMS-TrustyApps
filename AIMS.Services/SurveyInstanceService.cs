@@ -32,6 +32,16 @@ namespace AIMS.Services
                 return surveyInstanceIds;
             }
         }
+
+        public SurveyInstance GetSurveyInstance(int surveyInstanceId)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                SurveyInstance surveyInstance = ctx.SurveyInstances.Where(i => i.SurveyInstanceId == surveyInstanceId).SingleOrDefault();
+
+                return surveyInstance;
+            }
+        }
         public string GetSurveyName(int surveyInstanceId)
         {
             using (var ctx = new AIMSDbContext())

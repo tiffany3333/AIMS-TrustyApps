@@ -46,7 +46,7 @@
                 //Hidden field to store number of responses for each question
                 $('<input id =1 type="hidden" name="repsoneNum" value="' + repsoneNum + '"/>').appendTo(questions);
                 for (i = 0; i < repsoneNum; i++) {
-                    $('<input type="text" name="dynamicResponse" required />&nbsp;<a href="/"><img alt="Add Image" src="../../img/icon-image.jpg" height="45" width="45" /></a><br/>').appendTo(questions);
+                    $('<input type="text" name="dynamicResponse" required />&nbsp;<input type="number" name="dynamicResponseValue" required />&nbsp;<a href="/"><img alt="Add Image" src="../../img/icon-image.jpg" height="45" width="45" /></a><br/>').appendTo(questions);
                 }
             });
             $('#btnAddQuestionParagraph').click(function (e) {
@@ -55,8 +55,7 @@
                 $('<input type="text" name="dynamicQuestion" required />').appendTo(questions);
                 //Hidden field to store number of responses for each question
                 $('<input id =1 type="hidden" name="repsoneNum" value="1"/><br/>').appendTo(questions);
-                $('<input type="hidden" name="dynamicResponse" value="paragraph" /><br/>').appendTo(questions);
-                
+                $('<input type="hidden" name="dynamicResponse" value="paragraph" /><input type="hidden" name="dynamicResponseValue" value="" /><br/>').appendTo(questions);
             });
         });
     </script>

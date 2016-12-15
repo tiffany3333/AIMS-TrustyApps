@@ -17,6 +17,7 @@ namespace AIMS.WebApi.Controllers
         private readonly Lazy<CommonServices> _svcs = new Lazy<CommonServices>();
         private readonly Lazy<UserService> _userService = new Lazy<UserService>();
         private readonly Lazy<SurveyInstanceService> _surveyInstanceService = new Lazy<SurveyInstanceService>();
+        private readonly Lazy<SurveyService> _surveyService = new Lazy<SurveyService>();
 
         // GET api/v1/surveys/{user_id}
         //[Route("surveys/{user_id:int}")]
@@ -56,7 +57,7 @@ namespace AIMS.WebApi.Controllers
             return Ok(response);
         }
 
-        // GET api/v1/surveys/{survey_id}
+        // GET api/v1/survey/{survey_id}
         [Route("survey")]
         public IHttpActionResult GetSurveyInstanceDetails(int survey_instance_id)
         {
@@ -66,26 +67,51 @@ namespace AIMS.WebApi.Controllers
             }
 
             SurveyResponseJSON response = new SurveyResponseJSON();
-            List<SurveyQuestionResponseJSON> resp_question;
-            List<SurveyResponseResponseJSON> resp_response;
+            List<SurveyQuestionResponseJSON> resp_questions = new List<SurveyQuestionResponseJSON>();
+            
+            SurveyInstance surveyInstance = _surveyInstanceService.Value.GetSurveyInstance(survey_instance_id);
+            if (surveyInstance == null)
+            {
+                return BadRequest("Survey Instance is null, something went wrong");
+            }
+            AIMS.Models.SurveyViewModel survey = _surveyService.Value.GetSurvey(surveyInstance.SurveyId);
+
+            if (survey == null)
+            {
+                return BadRequest("Survey is null, something went wrong");
+            }
 
             response.survey_instance_id = survey_instance_id;
-            string survey_name = _surveyInstanceService.Value.GetSurveyName(survey_instance_id);
-            if (survey_name == null)
+            response.survey_name = survey.Name;
+
+            foreach (SurveyQuestion question in survey.SurveyQuestions)
             {
-                return BadRequest("Survey Name is null for this survey, something went wrong");
+                SurveyQuestionResponseJSON resp_question = new SurveyQuestionResponseJSON();
+                resp_question.survey_question_id = question.Id;
+                resp_question.survey_question_text = question.Question;
+                resp_question.survey_response_type = SurveyQuestionResponseJSON.response_types.MultipleChoice;
+
+                //assume multiple choice for now, we might change it once we look at the first response.
+                List<SurveyResponseResponseJSON> resp_responses = new List<SurveyResponseResponseJSON>();
+
+                foreach (SurveyResponse surveyResponse in question.SurveyResponses)
+                {
+                    if (surveyResponse.TextResponse.Equals("paragraph", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        resp_question.survey_response_type = SurveyQuestionResponseJSON.response_types.Paragraph;
+                        break;
+                    }
+                    SurveyResponseResponseJSON resp_response = new SurveyResponseResponseJSON();
+                    resp_response.survey_response_id = surveyResponse.Id;
+                    resp_response.survey_response_text = surveyResponse.TextResponse;
+                    resp_response.survey_response_value = surveyResponse.ValueResponse;
+                    resp_responses.Add(resp_response);
+                }
+                resp_question.survey_responses = resp_responses;
+                resp_questions.Add(resp_question);
             }
-            response.survey_name = survey_name;
+            response.survey_questions = resp_questions;
 
-            //var survey = _db.Surveys.Where(s => s.Id == model.survey_id).SingleOrDefault();
-            //var surveyQuestions = _db.SurveyQuestions.Where(q => q.Id == survey.Id).ToArray();
-            //var surveyResponses = surveyQuestions.Select(e => new SurveyResponse surveryResponse.Re)
-
-            //if (survey != null)
-            //{
-            //    var repsonse = new SurveyResponseJSON { survey_id = survey.Id, name = survey.Name, question_id = surveyQuestions.Id, response_type = };
-            //    return Ok(repsonse);
-            //}
             return Ok(response);
         }
 

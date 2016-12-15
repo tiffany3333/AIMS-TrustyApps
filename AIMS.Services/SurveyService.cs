@@ -40,7 +40,7 @@ namespace AIMS.Services
             }
         }
 
-        public bool CreateResponse(int questionId, string textResponse)
+        public bool CreateResponse(int questionId, string textResponse, int valueResponse)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -48,6 +48,7 @@ namespace AIMS.Services
                 {
                     SurveyQuestionId = questionId,
                     TextResponse = textResponse,
+                    ValueResponse = valueResponse,
                     CreatedAt = DateTimeOffset.UtcNow,
                 };
                 ctx.SurveyResponses.Add(surveyResponse);
@@ -102,6 +103,13 @@ namespace AIMS.Services
                 survey.UpdatedAt = DateTimeOffset.UtcNow;
 
                 ctx.Entry(survey).State = System.Data.Entity.EntityState.Modified;
+
+                //now go remove any incompleted instances of this survey from user's queues
+                List<SurveyInstance> surveyInstancesNotCompleted = ctx.SurveyInstances.Where(s => s.SurveyId == survey.Id).ToList();
+                foreach (SurveyInstance item in surveyInstancesNotCompleted)
+                {
+                    ctx.SurveyInstances.Remove(item);
+                }
                 ctx.SaveChanges();
 
                 //TODO need some error handling / logging here

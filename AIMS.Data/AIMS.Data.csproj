@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201611232020111_addedKeyToAPIToken.Designer.cs">
       <DependentUpon>201611232020111_addedKeyToAPIToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612151331559_added a value parameter to the SurveyResponse model.cs" />
+    <Compile Include="Migrations\201612151331559_added a value parameter to the SurveyResponse model.Designer.cs">
+      <DependentUpon>201612151331559_added a value parameter to the SurveyResponse model.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurveyInstance.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Entity.cs" />
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611232020111_addedKeyToAPIToken.resx">
       <DependentUpon>201611232020111_addedKeyToAPIToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612151331559_added a value parameter to the SurveyResponse model.resx">
+      <DependentUpon>201612151331559_added a value parameter to the SurveyResponse model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
