@@ -45,4 +45,25 @@ namespace AIMS.WebApi.Models
 
         //public base64 survey_response_image
     }
+
+    public class SurveySubmitResponseJSON
+    {
+        public int survey_instance_id { get; set; }
+
+        public string survey_name { get; set; }
+
+        public List<SurveyAnswersResponseJSON> survey_answers;
+    }
+
+    public class SurveyAnswersResponseJSON
+    {
+        public int survey_question_id;
+
+        public int survey_response_id;
+
+        [MaxLength(512)]
+        public string survey_response_text;
+
+        public int survey_response_value;
+    }
 }

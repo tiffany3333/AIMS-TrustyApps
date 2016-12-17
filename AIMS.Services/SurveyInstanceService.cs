@@ -62,5 +62,12 @@ namespace AIMS.Services
                 return retVal;
             }
         }
+
+        //public string CaptureAnswers(SurveyInstance surveyInstance, AIMS.WebApi.Models.SurveySubmitResponseJSON submittedSurvey)
+        //{
+        //    string returnMessage = "";
+
+        //    return returnMessage;
+        //}
     }
 }

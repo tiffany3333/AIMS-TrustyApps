@@ -22,6 +22,7 @@ namespace AIMS.WebApi.Controllers
         // GET api/v1/surveys/{user_id}
         //[Route("surveys/{user_id:int}")]
         [Route("surveys")]
+        [HttpGet]
         public IHttpActionResult GetUsersSurveys(int user_id)
         {
             if (!_svcs.Value.ValidateToken(this.Request.Headers))
@@ -59,6 +60,7 @@ namespace AIMS.WebApi.Controllers
 
         // GET api/v1/survey/{survey_id}
         [Route("survey")]
+        [HttpGet]
         public IHttpActionResult GetSurveyInstanceDetails(int survey_instance_id)
         {
             if (!_svcs.Value.ValidateToken(this.Request.Headers))
@@ -114,6 +116,53 @@ namespace AIMS.WebApi.Controllers
 
             return Ok(response);
         }
+
+        // POST api/v1/survey
+        [Route("survey")]
+        [HttpPost]
+        public IHttpActionResult SurveyPost(SurveySubmitResponseJSON submittedSurvey)
+        {
+            //find the survey instance
+            //mark it as completed
+            //and capture the answers
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("The submitted JSON structure or values are invalid");
+            }
+            if (submittedSurvey.survey_instance_id == null)
+            {
+                return BadRequest("Null survey_instance_id");
+            }
+            //find the survey instance
+            SurveyInstance surveyInstance = _surveyInstanceService.Value.GetSurveyInstance(submittedSurvey.survey_instance_id);
+            if (surveyInstance == null)
+            {
+                return BadRequest("Cannont locate survey instance");
+            }
+            //mark it as complete
+            surveyInstance.IsCompleted = true;
+            surveyInstance.UpdatedAt = DateTimeOffset.UtcNow;
+
+            ////capture the answers
+            //foreach (SurveyAnswersResponseJSON answer in submittedSurvey.survey_answers)
+            //{
+            //    SurveyResponse surveyAnswer = new SurveyResponse();
+            //    surveyAnswer.CreatedAt = DateTimeOffset.UtcNow;
+            //    surveyAnswer.SurveyQuestionId = answer.survey_question_id;
+            //    if (answer.survey_response_id != null)
+            //    {
+
+            //    }
+            //}
+
+
+
+            string returnMessage = "Successfully submitted survey";
+            //string returnMessage = _surveyInstanceService.Value.CaptureAnswers(surveyInstance, submittedSurvey);
+
+            return Ok(returnMessage);
+        }
+
 
     }
 }
