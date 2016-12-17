@@ -12,7 +12,7 @@ namespace AIMS.WebApi.Controllers
     [RoutePrefix("api/v1")]
     public class SurveyController : ApiController
     {
-
+        public static string TAG = "AIMS.API-SurveyController ";
         private AIMSDbContext _db = new AIMSDbContext();
         private readonly Lazy<CommonServices> _svcs = new Lazy<CommonServices>();
         private readonly Lazy<UserService> _userService = new Lazy<UserService>();
@@ -122,9 +122,6 @@ namespace AIMS.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult SurveyPost(SurveySubmitResponseJSON submittedSurvey)
         {
-            //find the survey instance
-            //mark it as completed
-            //and capture the answers
             if (!ModelState.IsValid)
             {
                 return BadRequest("The submitted JSON structure or values are invalid");
@@ -133,36 +130,39 @@ namespace AIMS.WebApi.Controllers
             {
                 return BadRequest("Null survey_instance_id");
             }
-            //find the survey instance
-            SurveyInstance surveyInstance = _surveyInstanceService.Value.GetSurveyInstance(submittedSurvey.survey_instance_id);
-            if (surveyInstance == null)
+
+            //capture the answers
+            List<SurveyAnswer> surveyAnswers = new List<SurveyAnswer>();
+
+            foreach (SurveyAnswersResponseJSON answer in submittedSurvey.survey_answers)
             {
-                return BadRequest("Cannont locate survey instance");
+                SurveyAnswer surveyAnswer = new SurveyAnswer();
+                surveyAnswer.CreatedAt = DateTimeOffset.UtcNow;
+                //all answers should have a question id
+                if (answer.survey_question_id == null)
+                {
+                    return BadRequest("All survey_answers require a survey_question_id field");
+                }
+                
+                surveyAnswer.SurveyQuestionId = answer.survey_question_id;
+
+                if (answer.survey_response_text != null)
+                {
+                    surveyAnswer.TextResponse = answer.survey_response_text;
+                }
+                if (answer.survey_response_value != 0)
+                {
+                    surveyAnswer.ValueResponse = answer.survey_response_value;
+                }
+                surveyAnswers.Add(surveyAnswer);
             }
-            //mark it as complete
-            surveyInstance.IsCompleted = true;
-            surveyInstance.UpdatedAt = DateTimeOffset.UtcNow;
+            
+            if (!(_surveyInstanceService.Value.CaptureAnswers(submittedSurvey.survey_instance_id, surveyAnswers)))
+            {
+                return BadRequest("Something went wrong, maybe survey_instance_id is invalid.");
+            }
+            return Ok("Sucessfully submitted survey");
 
-            ////capture the answers
-            //foreach (SurveyAnswersResponseJSON answer in submittedSurvey.survey_answers)
-            //{
-            //    SurveyResponse surveyAnswer = new SurveyResponse();
-            //    surveyAnswer.CreatedAt = DateTimeOffset.UtcNow;
-            //    surveyAnswer.SurveyQuestionId = answer.survey_question_id;
-            //    if (answer.survey_response_id != null)
-            //    {
-
-            //    }
-            //}
-
-
-
-            string returnMessage = "Successfully submitted survey";
-            //string returnMessage = _surveyInstanceService.Value.CaptureAnswers(surveyInstance, submittedSurvey);
-
-            return Ok(returnMessage);
         }
-
-
     }
 }

@@ -87,6 +87,11 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="APIToken.cs" />
+    <Compile Include="Migrations\201612171610343_udpated db to include surveyanswers.cs" />
+    <Compile Include="Migrations\201612171610343_udpated db to include surveyanswers.Designer.cs">
+      <DependentUpon>201612171610343_udpated db to include surveyanswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyAnswer.cs" />
     <Compile Include="Migrations\201611231820567_init.cs" />
     <Compile Include="Migrations\201611231820567_init.Designer.cs">
       <DependentUpon>201611231820567_init.cs</DependentUpon>
@@ -134,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612151331559_added a value parameter to the SurveyResponse model.resx">
       <DependentUpon>201612151331559_added a value parameter to the SurveyResponse model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612171610343_udpated db to include surveyanswers.resx">
+      <DependentUpon>201612171610343_udpated db to include surveyanswers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

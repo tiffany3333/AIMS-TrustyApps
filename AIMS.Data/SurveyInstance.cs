@@ -22,6 +22,6 @@ namespace AIMS.Data
 
         public DateTimeOffset? UpdatedAt { get; set; }
 
-        public virtual ICollection<SurveyResponse> SurveyResponses { get; set; }
+        public virtual ICollection<SurveyAnswer> SurveyAnswers { get; set; }
     }
 }

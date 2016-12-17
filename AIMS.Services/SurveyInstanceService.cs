@@ -63,11 +63,28 @@ namespace AIMS.Services
             }
         }
 
-        //public string CaptureAnswers(SurveyInstance surveyInstance, AIMS.WebApi.Models.SurveySubmitResponseJSON submittedSurvey)
-        //{
-        //    string returnMessage = "";
+        public bool CaptureAnswers(int surveyInstanceId, List<SurveyAnswer> surveyAnswers)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                SurveyInstance surveyInstanceInDB = ctx.SurveyInstances.Find(surveyInstanceId);
 
-        //    return returnMessage;
-        //}
+                if (surveyInstanceInDB == null)
+                    return false;
+
+                surveyInstanceInDB.IsCompleted = true;
+                surveyInstanceInDB.UpdatedAt = DateTimeOffset.UtcNow;
+
+                foreach (SurveyAnswer answer in surveyAnswers)
+                {
+                    surveyInstanceInDB.SurveyAnswers.Add(answer);
+                }
+                
+                ctx.Entry(surveyInstanceInDB).State = System.Data.Entity.EntityState.Modified;
+                ctx.SaveChanges();
+
+                return true;
+            }
+        }
     }
 }
