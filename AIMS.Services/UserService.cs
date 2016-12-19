@@ -130,5 +130,23 @@ namespace AIMS.Services
 
             }
         }   
+
+        public List<Contact> GetContacts(int userId)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                //FYI, userId = entityId
+                List<Contact> myContactRecord = ctx.Contacts.Where(e => e.EntityId == userId).ToList();
+
+                if (myContactRecord != null)
+                {
+                    return myContactRecord;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

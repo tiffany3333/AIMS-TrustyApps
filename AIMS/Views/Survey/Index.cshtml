@@ -43,7 +43,7 @@
             @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { surveyId = item.Id }) | @Html.ActionLink("Assign", "Assign", new { surveyId = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { surveyId = item.Id }) | @Html.ActionLink("Assign", "Assign", new { surveyId = item.Id }) | @Html.ActionLink("View Results", "../SurveyInstances/Report", new { surveyId = item.Id})
         </td>
         
     </tr>

@@ -1,0 +1,92 @@
+﻿@model AIMS.Models.SurveyReportAnswerDetailVM
+
+@{
+    ViewBag.Title = "Answers";
+}
+
+<h2>@ViewBag.SurveyName</h2>
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.ActionLink(Model.UserId.ToString(), "../User/Details", new { id = Model.UserId })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+        <hr />
+        <table class="=table">
+            <tr>
+                <th>
+                    Question
+                </th>
+                <th>
+                    Answer Text
+                </th>
+                <th>
+                    Answer Value
+                </th>
+                <th>
+                    Answer Image
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.SurveyAnswers.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Model.SurveyQuestions.ElementAt(i).Question
+                    </td>
+                    <td>
+                        @Model.SurveyAnswers.ElementAt(i).TextResponse
+                    </td>
+                    <td>
+                        @Model.SurveyAnswers.ElementAt(i).ValueResponse
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

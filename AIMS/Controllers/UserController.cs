@@ -42,6 +42,9 @@ namespace AIMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Contacts = _userSvc.Value.GetContacts(id);
+
             return View(user);
         }
 

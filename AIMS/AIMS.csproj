@@ -178,6 +178,7 @@
     <Compile Include="Controllers\StudentPortalController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\SurveyGroupsController.cs" />
+    <Compile Include="Controllers\SurveyInstancesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -282,6 +283,12 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Survey\Assign.cshtml" />
+    <Content Include="Views\SurveyInstances\Create.cshtml" />
+    <Content Include="Views\SurveyInstances\Delete.cshtml" />
+    <Content Include="Views\SurveyInstances\Details.cshtml" />
+    <Content Include="Views\SurveyInstances\Edit.cshtml" />
+    <Content Include="Views\SurveyInstances\Index.cshtml" />
+    <Content Include="Views\SurveyInstances\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
