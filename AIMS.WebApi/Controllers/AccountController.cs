@@ -26,8 +26,6 @@ using AIMS.WebApi.Services;
 
 namespace AIMS.WebApi.Controllers
 {
-    
-    [RoutePrefix("api/v1")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -61,7 +59,8 @@ namespace AIMS.WebApi.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // POST api/v1/logout
-        [Route("logout")]
+        [Route("api/v1/logout")]
+        [Route("api/v2/logout")]
         [AllowAnonymous]
         public IHttpActionResult Logout()
         {
@@ -75,7 +74,8 @@ namespace AIMS.WebApi.Controllers
         }
 
         // POST api/v1/login
-        [Route("login")]
+        [Route("api/v1/login")]
+        [Route("api/v2/login")]
         [AllowAnonymous]
         [ResponseType(typeof(LoginResponseJSON))]
         public IHttpActionResult Login(LoginInformation info)
@@ -105,10 +105,9 @@ namespace AIMS.WebApi.Controllers
                 return BadRequest("Either your username or password is incorrect. Please try again!");
         }
 
-        
         // POST api/v1/Register
         [AllowAnonymous]
-        [Route("Register")]
+        [Route("api/v1/Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -139,7 +138,44 @@ namespace AIMS.WebApi.Controllers
             return Ok();
         }
 
-        
+        // POST api/v1/Register
+        [AllowAnonymous]
+        [Route("api/v2/Register")]
+        public async Task<IHttpActionResult> RegisterV2(RegisterBindingModelV2 model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //TODO see if user exists
+            //TODO see if email exists
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            AIMS.Models.RegisterUserViewModel registerVM = new AIMS.Models.RegisterUserViewModel();
+            registerVM.Password = model.Password;
+            registerVM.ConfirmPassword = model.ConfirmPassword;
+            registerVM.EmailContactDetail = model.Email;
+            registerVM.FirstName = model.FirstName;
+            registerVM.LastName = model.LastName;
+            registerVM.UserType = Data.User.UserTypeEnum.Pending;
+            AIMS.Services.UserService _userSvc = new AIMS.Services.UserService(model.Email);
+
+            //TODO, we still need to add them to their requested organizaiton (with no privledges)
+            _userSvc.CreateUser(registerVM);
+
+            return Ok();
+        }
+
+
 
 
         /////////////////////////////// UNUSED API CALLS FOR NOW ///////////////////////////////

@@ -171,7 +171,7 @@ namespace AIMS.Services
         {
             using (var ctx = new AIMSDbContext())
             {
-                SurveyInstance surveyInstance = ctx.SurveyInstances.Where(s => s.SurveyId == surveyId).Where(u => u.UserId == userId).SingleOrDefault();
+                SurveyInstance surveyInstance = ctx.SurveyInstances.Where(s => s.SurveyId == surveyId).Where(u => u.UserId == userId).FirstOrDefault();
                 if (surveyInstance == null)
                     return false;
                 else

@@ -95,7 +95,7 @@ namespace AIMS.Services
         }
 
         //Keep in mind, when a new user is created, a new entity must be created first, and via the wireframes, a new phone contact, email contact, and address must be created too
-        public bool CreateUser(RegisterUserViewModel registerVM)
+        public int CreateUser(RegisterUserViewModel registerVM)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -126,10 +126,12 @@ namespace AIMS.Services
                 //Create Default Entity Roles with RoleId = 1, and GroupId = 2 if not specified by user input
                 _entityRoleSvc.Value.CreateEntityRole(entityId, registerVM.RoleId ?? 1, registerVM.ReferredEntityId ?? 2);
 
-                return ctx.SaveChanges() == 1; 
+                ctx.SaveChanges();
+
+                return entityId;
 
             }
-        }   
+        }
 
         public List<Contact> GetContacts(int userId)
         {
