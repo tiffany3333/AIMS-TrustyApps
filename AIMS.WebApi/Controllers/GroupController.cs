@@ -6,14 +6,14 @@ using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
 {
-    [RoutePrefix("api/v1")]
     public class GroupController : ApiController
     {
 
         private AIMSDbContext _db = new AIMSDbContext();
 
         // GET api/v1/groups
-        [Route("groups")]
+        [Route("api/v1/groups")]
+        [Route("api/v2/groups")]
         public IHttpActionResult GetGroups(int organizationId)
         {
             if (!ModelState.IsValid)

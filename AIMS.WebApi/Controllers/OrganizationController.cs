@@ -7,14 +7,14 @@ using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
 {
-    [RoutePrefix("api/v1")]
     public class OrganizationController : ApiController
     {
 
         private AIMSDbContext _db = new AIMSDbContext();
 
         //GET api/v1/organizations
-        [Route("organizations")]
+        [Route("api/v1/organizations")]
+        [Route("api/v2/organizations")]
         public IHttpActionResult GetOrganizations()
         {
             if (!ModelState.IsValid)
@@ -44,7 +44,8 @@ namespace AIMS.WebApi.Controllers
         }
 
         //GET api/v1/organization
-        [Route("organization")]
+        [Route("api/v1/organization")]
+        [Route("api/v2/organization")]
         public IHttpActionResult GetOrganization(int organizationId)
         {
             if (!ModelState.IsValid)

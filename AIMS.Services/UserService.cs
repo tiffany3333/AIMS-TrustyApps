@@ -117,11 +117,17 @@ namespace AIMS.Services
                 //Create Email Contact
                 _contactSvc.Value.CreateContact(entityId, registerVM.EmailContactDetail, registerVM.EmailLabel, registerVM.Type);
 
-                //Create Phone Contact
-                _contactSvc.Value.CreateContact(entityId, registerVM.PhoneContactDetail, registerVM.PhoneLabel, registerVM.Type);
+                if (registerVM.PhoneContactDetail != null)
+                {
+                    //Create Phone Contact
+                    _contactSvc.Value.CreateContact(entityId, registerVM.PhoneContactDetail, registerVM.PhoneLabel, registerVM.Type);
+                }
 
-                //Create Address
-                _addressSvc.Value.CreateAddress(entityId, registerVM.Address1, registerVM.Address2, registerVM.Address3, registerVM.City, registerVM.Country, registerVM.State, registerVM.Zipcode);
+                if ((registerVM.Address1 != null) || (registerVM.City != null) || (registerVM.State != null))
+                {
+                    //Create Address
+                    _addressSvc.Value.CreateAddress(entityId, registerVM.Address1, registerVM.Address2, registerVM.Address3, registerVM.City, registerVM.Country, registerVM.State, registerVM.Zipcode);
+                }
 
                 //Create Default Entity Roles with RoleId = 1, and GroupId = 2 if not specified by user input
                 _entityRoleSvc.Value.CreateEntityRole(entityId, registerVM.RoleId ?? 1, registerVM.ReferredEntityId ?? 2);

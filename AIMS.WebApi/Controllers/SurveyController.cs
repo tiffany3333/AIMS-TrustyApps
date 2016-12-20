@@ -9,7 +9,6 @@ using System.Web.Http;
 
 namespace AIMS.WebApi.Controllers
 {
-    [RoutePrefix("api/v1")]
     public class SurveyController : ApiController
     {
         public static string TAG = "AIMS.API-SurveyController ";
@@ -21,7 +20,8 @@ namespace AIMS.WebApi.Controllers
 
         // GET api/v1/surveys/{user_id}
         //[Route("surveys/{user_id:int}")]
-        [Route("surveys")]
+        [Route("api/v1/surveys")]
+        [Route("api/v2/surveys")]
         [HttpGet]
         public IHttpActionResult GetUsersSurveys(int user_id)
         {
@@ -59,7 +59,8 @@ namespace AIMS.WebApi.Controllers
         }
 
         // GET api/v1/survey/{survey_id}
-        [Route("survey")]
+        [Route("api/v1/survey")]
+        [Route("api/v2/survey")]
         [HttpGet]
         public IHttpActionResult GetSurveyInstanceDetails(int survey_instance_id)
         {
@@ -118,7 +119,8 @@ namespace AIMS.WebApi.Controllers
         }
 
         // POST api/v1/survey
-        [Route("survey")]
+        [Route("api/v1/survey")]
+        [Route("api/v2/survey")]
         [HttpPost]
         public IHttpActionResult SurveyPost(SurveySubmitResponseJSON submittedSurvey)
         {
