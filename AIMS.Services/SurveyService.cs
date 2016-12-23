@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AIMS.Models;
+using System.Web;
+using System.IO;
 
 namespace AIMS.Services
 {
@@ -40,7 +42,7 @@ namespace AIMS.Services
             }
         }
 
-        public bool CreateResponse(int questionId, string textResponse, int valueResponse)
+        public bool CreateResponse(int questionId, string textResponse, int valueResponse, HttpPostedFileBase imageResponse)
         {
             using (var ctx = new AIMSDbContext())
             {
@@ -190,6 +192,19 @@ namespace AIMS.Services
                 mySurveyVM = new SurveyViewModel(ctx.Surveys.Find(surveyId));
             }
             return mySurveyVM;
+        }
+
+        public string uploadImage(HttpPostedFileBase uploadFile)
+        {
+            string filePath = null;
+
+            //if (uploadFile != null && uploadFile.ContentLength > 0)
+            //{
+            //    filePath = Path.Combine(Server.MapPath("/Temp"), Path.GetFileName(uploadFile.FileName));
+            //    uploadFile.SaveAs(filePath);
+            //}
+
+            return filePath;
         }
     }
 }

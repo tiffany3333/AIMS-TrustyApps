@@ -58,12 +58,20 @@ namespace AIMS.WebApi.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // POST api/v1/logout
+        // POST /logout
         [Route("api/v1/logout")]
         [Route("api/v2/logout")]
         [AllowAnonymous]
         public IHttpActionResult Logout()
         {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
+        }
+
+        [Route("api/v3/logout")]
+        public IHttpActionResult LogoutV3()
+        {
+            // API v3 added validation on the header auth
             if (!_svcs.Value.ValidateToken(this.Request.Headers))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
@@ -73,9 +81,10 @@ namespace AIMS.WebApi.Controllers
             return Ok();
         }
 
-        // POST api/v1/login
+        // POST /login
         [Route("api/v1/login")]
         [Route("api/v2/login")]
+        [Route("api/v3/login")]
         [AllowAnonymous]
         [ResponseType(typeof(LoginResponseJSON))]
         public IHttpActionResult Login(LoginInformation info)
@@ -105,7 +114,7 @@ namespace AIMS.WebApi.Controllers
                 return BadRequest("Either your username or password is incorrect. Please try again!");
         }
 
-        // POST api/v1/Register
+        // POST /Register
         [AllowAnonymous]
         [Route("api/v1/Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -115,8 +124,9 @@ namespace AIMS.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            //TODO see if user exists
-            //TODO see if email exists
+            //TODO check if user exists
+            //if (UserNameExists(model.Email))
+            //    return BadRequest("The user name is not available");
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
@@ -127,6 +137,7 @@ namespace AIMS.WebApi.Controllers
                 return GetErrorResult(result);
             }
 
+            //Identity has now been created, now create the AIMS User as well
             AIMS.Models.RegisterUserViewModel registerVM = new AIMS.Models.RegisterUserViewModel();
             registerVM.Password = model.Password;
             registerVM.ConfirmPassword = model.ConfirmPassword;
@@ -138,9 +149,10 @@ namespace AIMS.WebApi.Controllers
             return Ok();
         }
 
-        // POST api/v1/Register
+        // POST /Register
         [AllowAnonymous]
         [Route("api/v2/Register")]
+        [Route("api/v3/Register")]
         public async Task<IHttpActionResult> RegisterV2(RegisterBindingModelV2 model)
         {
             if (!ModelState.IsValid)
@@ -175,7 +187,10 @@ namespace AIMS.WebApi.Controllers
             return Ok();
         }
 
-
+        //private bool UserNameExists(string userName)
+        //{
+        //    return db.EFABudgetUsers.Count(e => e.username.Equals(userName, StringComparison.OrdinalIgnoreCase)) > 0;
+        //}
 
 
         /////////////////////////////// UNUSED API CALLS FOR NOW ///////////////////////////////

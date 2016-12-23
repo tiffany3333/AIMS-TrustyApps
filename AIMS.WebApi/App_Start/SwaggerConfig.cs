@@ -111,13 +111,13 @@ namespace AIMS.WebApi
                     // hold additional metadata for an API. Version and title are required but you can also provide
                     // additional fields by chaining methods off SingleApiVersion.
                     //
-                    c.SingleApiVersion("v1", "AIMS.Api");
+                    c.SingleApiVersion("v3", "AIMS.Api");
 
                     // Enable adding the Authorization header to [Authorize]d endpoints.
                     c.OperationFilter(() => new AddAuthorizationHeaderParameterOperationFilter());
 
                     // Show the programmatically generated /token endpoint in the UI.
-                    c.DocumentFilter<AuthTokenEndpointOperation>();
+                    //c.DocumentFilter<AuthTokenEndpointOperation>();
 
                     // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                     // In this case, you must provide a lambda that tells Swashbuckle which actions should be
@@ -276,6 +276,7 @@ namespace AIMS.WebApi
                     // "Logical Name" is passed to the method as shown above.
                     //
                     //c.InjectJavaScript(thisAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testScript1.js");
+                    c.InjectJavaScript(thisAssembly, "AIMS.WebApi.CustomContent.basic-auth.js");
 
                     // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
                     // strings as the possible choices. You can use this option to change these to something else,
@@ -330,6 +331,7 @@ namespace AIMS.WebApi
                     // "apiKeyIn" can either be "query" or "header"                                                
                     //
                     //c.EnableApiKeySupport("apiKey", "header");
+                    
                 });
         }
     }

@@ -5,8 +5,8 @@
 }
 
 <div class="container">
-    <div class="col-md-6 col-md-offset-3">
-        @using (Html.BeginForm())
+    <div class="col-md-9 col-md-offset-3">
+        @using (Html.BeginForm("Create", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div>
@@ -27,7 +27,7 @@
             </div>
             <div>
                 <br /><br />
-                <button class="btn-aims-submit">Done</button>
+                <button type="submit" class="btn-aims-submit">Done</button>
             </div>
         }
     </div>
@@ -42,17 +42,18 @@
                 e.preventDefault();
                 var repsoneNum = $('#responseNum').val()
                 questions.append('Question - Muliple Choice: <br/>');
-                $('<input type="text" name="dynamicQuestion" required /><br/>Responses<br/>').appendTo(questions);
+                $('<input type="text" name="dynamicQuestion" placeholder="question" required /><br/>Responses<br/>').appendTo(questions);
                 //Hidden field to store number of responses for each question
                 $('<input id =1 type="hidden" name="repsoneNum" value="' + repsoneNum + '"/>').appendTo(questions);
                 for (i = 0; i < repsoneNum; i++) {
-                    $('<input type="text" name="dynamicResponse" required />&nbsp;<input type="number" name="dynamicResponseValue" required />&nbsp;<a href="/"><img alt="Add Image" src="../../img/icon-image.jpg" height="45" width="45" /></a><br/>').appendTo(questions);
+                    @*$('<input type="text" name="dynamicResponse" placeholder="text" required />&nbsp;<input type="number" name="dynamicResponseValue" placeholder="value" required />&nbsp;<label for="file-input"><img alt="Add Image" src="../../img/icon-image.jpg" height="45" width="45" /></label><input style="display:none;" id="file-input" type="file"/><br/>').appendTo(questions);*@
+                    $('<input type="text" name="dynamicResponse" placeholder="text" required />&nbsp;<input type="number" name="dynamicResponseValue" placeholder="value" required />&nbsp;<input type="file" name="dynamicResponseImage" id="dynamicResponseImage" style="display:inline;"/><br/>').appendTo(questions);
                 }
             });
             $('#btnAddQuestionParagraph').click(function (e) {
                 e.preventDefault();
                 questions.append('Question - Paragraph: <br/>');
-                $('<input type="text" name="dynamicQuestion" required />').appendTo(questions);
+                $('<input type="text" name="dynamicQuestion" placeholder="question" required />').appendTo(questions);
                 //Hidden field to store number of responses for each question
                 $('<input id =1 type="hidden" name="repsoneNum" value="1"/><br/>').appendTo(questions);
                 $('<input type="hidden" name="dynamicResponse" value="paragraph" /><input type="hidden" name="dynamicResponseValue" value="" /><br/>').appendTo(questions);

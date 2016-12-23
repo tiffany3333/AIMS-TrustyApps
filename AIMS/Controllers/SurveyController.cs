@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Net;
 using AIMS.Data;
+using System.Web;
+using System.IO;
 
 namespace AIMS.Controllers
 {
@@ -33,7 +35,7 @@ namespace AIMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse, int[] dynamicResponseValue)
+        public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse, int[] dynamicResponseValue, HttpPostedFileBase[] dynamicResponseImage)
         {
             //TODO Cannot create survey unless you're an admin user
 
@@ -48,7 +50,20 @@ namespace AIMS.Controllers
                 int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[i]);
                 while (k < repsoneNum[i])
                 {
-                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count], dynamicResponseValue[count]);
+                    HttpPostedFileBase responseImage = null;
+
+
+                    if (dynamicResponseImage != null)
+                    {
+                        if (dynamicResponseImage[count] != null)
+                        {
+                            //var fileName = Path.GetFileName(dynamicResponseImage[count].FileName);
+                            responseImage = dynamicResponseImage[count];
+                        }
+                    }
+
+                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count], dynamicResponseValue[count], responseImage);
+
                     count++;
                     k++;
                 }
