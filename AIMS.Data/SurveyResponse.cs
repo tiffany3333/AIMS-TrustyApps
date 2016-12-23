@@ -19,6 +19,8 @@ namespace AIMS.Data
 
         public int ValueResponse { get; set; }
 
+        public string ImageFilenameRepsonse { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset? UpdatedAt { get; set; }

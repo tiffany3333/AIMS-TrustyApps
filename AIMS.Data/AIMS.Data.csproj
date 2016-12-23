@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201612171610343_udpated db to include surveyanswers.Designer.cs">
       <DependentUpon>201612171610343_udpated db to include surveyanswers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612231935046_added ImageFilenameResponse to SurveyResponse.cs" />
+    <Compile Include="Migrations\201612231935046_added ImageFilenameResponse to SurveyResponse.Designer.cs">
+      <DependentUpon>201612231935046_added ImageFilenameResponse to SurveyResponse.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurveyAnswer.cs" />
     <Compile Include="Migrations\201611231820567_init.cs" />
     <Compile Include="Migrations\201611231820567_init.Designer.cs">
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612171610343_udpated db to include surveyanswers.resx">
       <DependentUpon>201612171610343_udpated db to include surveyanswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231935046_added ImageFilenameResponse to SurveyResponse.resx">
+      <DependentUpon>201612231935046_added ImageFilenameResponse to SurveyResponse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

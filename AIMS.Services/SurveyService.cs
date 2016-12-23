@@ -52,6 +52,7 @@ namespace AIMS.Services
                     TextResponse = textResponse,
                     ValueResponse = valueResponse,
                     CreatedAt = DateTimeOffset.UtcNow,
+                    ImageFilenameRepsonse = uploadImage(imageResponse),
                 };
                 ctx.SurveyResponses.Add(surveyResponse);
                 
@@ -198,11 +199,27 @@ namespace AIMS.Services
         {
             string filePath = null;
 
-            //if (uploadFile != null && uploadFile.ContentLength > 0)
-            //{
-            //    filePath = Path.Combine(Server.MapPath("/Temp"), Path.GetFileName(uploadFile.FileName));
-            //    uploadFile.SaveAs(filePath);
-            //}
+            if (uploadFile != null && uploadFile.ContentLength > 0)
+            {
+                int MaxContentLength = 1024 * 1024 * 3; //3 MB
+                string[] AllowedFileExtensions = new string[] { ".jpg", ".gif", ".png", ".pdf" };
+
+                if (!AllowedFileExtensions.Contains(uploadFile.FileName.Substring(uploadFile.FileName.LastIndexOf('.'))))
+                {
+                    //TODO better error tracking here "Please file of type: " + string.Join(", ", AllowedFileExtensions)
+                }
+
+                else if (uploadFile.ContentLength > MaxContentLength)
+                {
+                    //TODO better error tracking here "Your file is too large, maximum allowed size is: " + MaxContentLength + " MB"
+                }
+                else
+                {
+                    var fileName = Path.GetFileName(uploadFile.FileName);
+                    filePath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Content/Upload"), fileName);
+                    uploadFile.SaveAs(filePath);                    
+                }
+            }
 
             return filePath;
         }
