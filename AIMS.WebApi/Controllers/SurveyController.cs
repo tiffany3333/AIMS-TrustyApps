@@ -163,8 +163,8 @@ namespace AIMS.WebApi.Controllers
                 return StatusCode(HttpStatusCode.Forbidden);
             }
 
-            SurveyResponseJSON response = new SurveyResponseJSON();
-            List<SurveyQuestionResponseJSON> resp_questions = new List<SurveyQuestionResponseJSON>();
+            SurveyResponseJSONV3 response = new SurveyResponseJSONV3();
+            List<SurveyQuestionResponseJSONV3> resp_questions = new List<SurveyQuestionResponseJSONV3>();
 
             SurveyInstance surveyInstance = _surveyInstanceService.Value.GetSurveyInstance(survey_instance_id);
             if (surveyInstance == null)
@@ -183,25 +183,26 @@ namespace AIMS.WebApi.Controllers
 
             foreach (SurveyQuestion question in survey.SurveyQuestions)
             {
-                SurveyQuestionResponseJSON resp_question = new SurveyQuestionResponseJSON();
+                SurveyQuestionResponseJSONV3 resp_question = new SurveyQuestionResponseJSONV3();
                 resp_question.survey_question_id = question.Id;
                 resp_question.survey_question_text = question.Question;
-                resp_question.survey_response_type = SurveyQuestionResponseJSON.response_types.MultipleChoice;
+                resp_question.survey_response_type = SurveyQuestionResponseJSONV3.response_types.MultipleChoice;
 
                 //assume multiple choice for now, we might change it once we look at the first response.
-                List<SurveyResponseResponseJSON> resp_responses = new List<SurveyResponseResponseJSON>();
+                List<SurveyResponseResponseJSONV3> resp_responses = new List<SurveyResponseResponseJSONV3>();
 
                 foreach (SurveyResponse surveyResponse in question.SurveyResponses)
                 {
                     if (surveyResponse.TextResponse.Equals("paragraph", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        resp_question.survey_response_type = SurveyQuestionResponseJSON.response_types.Paragraph;
+                        resp_question.survey_response_type = SurveyQuestionResponseJSONV3.response_types.Paragraph;
                         break;
                     }
-                    SurveyResponseResponseJSON resp_response = new SurveyResponseResponseJSON();
+                    SurveyResponseResponseJSONV3 resp_response = new SurveyResponseResponseJSONV3();
                     resp_response.survey_response_id = surveyResponse.Id;
                     resp_response.survey_response_text = surveyResponse.TextResponse;
                     resp_response.survey_response_value = surveyResponse.ValueResponse;
+                    resp_response.survey_response_image_url = surveyResponse.ImageFilenameRepsonse;
                     resp_responses.Add(resp_response);
                 }
                 resp_question.survey_responses = resp_responses;

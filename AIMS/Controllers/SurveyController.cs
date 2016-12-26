@@ -31,8 +31,11 @@ namespace AIMS.Controllers
         }
 
         // POST: Survey/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //
+        // This method creates the survey
+        // There are currently 2 types of questions, multiple choice and paragraph.  
+        // Paragraph question have a default value of "paragraph" hardcoded in their dynamicResponse field
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string surveyName, string[] dynamicQuestion, int[] repsoneNum, string[] dynamicResponse, int[] dynamicResponseValue, HttpPostedFileBase[] dynamicResponseImage)
@@ -43,29 +46,30 @@ namespace AIMS.Controllers
 
             //TODO now that the survey has been created, tie it to the user's group via the survey_groups
 
-            int count = 0;
-            for (int i = 0; i < dynamicQuestion.Length; i++)
+            int responseArrayCount = 0;
+            int responseImageArrayCount = 0;
+
+            for (int questionNum = 0; questionNum < dynamicQuestion.Length; questionNum++)
             {
-                int k = 0;
-                int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[i]);
-                while (k < repsoneNum[i])
+                int responseNum = 0;
+                int questionId = _surveySvc.Value.CreateQuestion(surveyId, dynamicQuestion[questionNum]);
+                while (responseNum < repsoneNum[questionNum])
                 {
                     HttpPostedFileBase responseImage = null;
 
-
-                    if (dynamicResponseImage != null)
+                    if ( (!dynamicResponse[responseArrayCount].Equals("paragraph")) && (dynamicResponseImage != null))
                     {
-                        if (dynamicResponseImage[count] != null)
+                        if (dynamicResponseImage[responseImageArrayCount] != null)
                         {
-                            //var fileName = Path.GetFileName(dynamicResponseImage[count].FileName);
-                            responseImage = dynamicResponseImage[count];
+                            responseImage = dynamicResponseImage[responseImageArrayCount];
                         }
+                        responseImageArrayCount++;
                     }
 
-                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[count], dynamicResponseValue[count], responseImage);
+                    _surveySvc.Value.CreateResponse(questionId, dynamicResponse[responseArrayCount], dynamicResponseValue[responseArrayCount], responseImage);
 
-                    count++;
-                    k++;
+                    responseArrayCount++;
+                    responseNum++;
                 }
             }
        
