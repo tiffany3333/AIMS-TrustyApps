@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignUserViewModel.cs" />
+    <Compile Include="EntityPropertyViewModel.cs" />
     <Compile Include="GroupViewModel.cs" />
     <Compile Include="OrganizationViewModel.cs" />
     <Compile Include="RegisterUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SurveyReportAnswerDetailVM.cs" />
     <Compile Include="SurveyViewModel.cs" />
+    <Compile Include="UserDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.Data\AIMS.Data.csproj">

@@ -55,6 +55,7 @@ namespace AIMS.WebApi.Controllers
         }
 
         [Route("api/v3/surveys")]
+        [Route("api/v4/surveys")]
         [HttpGet]
         public IHttpActionResult GetUsersSurveysV3(int user_id)
         {
@@ -154,6 +155,7 @@ namespace AIMS.WebApi.Controllers
         }
 
         [Route("api/v3/survey")]
+        [Route("api/v4/survey")]
         [HttpGet]
         public IHttpActionResult GetSurveyInstanceDetailsV3(int survey_instance_id)
         {
@@ -262,6 +264,7 @@ namespace AIMS.WebApi.Controllers
         }
 
         [Route("api/v3/survey")]
+        [Route("api/v4/survey")]
         [HttpPost]
         public IHttpActionResult SurveyPostV3(SurveySubmitResponseJSON submittedSurvey)
         {

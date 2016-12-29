@@ -60,6 +60,16 @@ namespace AIMS.Services
             }
         }
 
+        public UserDetailsViewModel GetUserVM(int userId)
+        {
+            using (var ctx = new AIMSDbContext())
+            {
+                User myUser = ctx.User.SingleOrDefault(c => c.UserId == userId);
+                return new UserDetailsViewModel(myUser);
+            }
+
+        }
+
         public int GetUserId(string userName)
         {
             using (var ctx = new AIMSDbContext())

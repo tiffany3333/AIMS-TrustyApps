@@ -16,6 +16,7 @@ namespace AIMS.WebApi.Controllers
         [Route("api/v1/organizations")]
         [Route("api/v2/organizations")]
         [Route("api/v3/organizations")]
+        [Route("api/v4/organizations")]
         public IHttpActionResult GetOrganizations()
         {
             if (!ModelState.IsValid)
@@ -48,6 +49,7 @@ namespace AIMS.WebApi.Controllers
         [Route("api/v1/organization")]
         [Route("api/v2/organization")]
         [Route("api/v3/organization")]
+        [Route("api/v4/organization")]
         public IHttpActionResult GetOrganization(int organizationId)
         {
             if (!ModelState.IsValid)

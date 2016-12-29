@@ -15,6 +15,7 @@ namespace AIMS.WebApi.Controllers
         [Route("api/v1/groups")]
         [Route("api/v2/groups")]
         [Route("api/v3/groups")]
+        [Route("api/v4/groups")]
         public IHttpActionResult GetGroups(int organizationId)
         {
             if (!ModelState.IsValid)

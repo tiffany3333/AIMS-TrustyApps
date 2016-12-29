@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminPortalController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EntityPropertiesController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -319,6 +320,11 @@
     <Content Include="Views\SurveyInstances\Edit.cshtml" />
     <Content Include="Views\SurveyInstances\Index.cshtml" />
     <Content Include="Views\SurveyInstances\Report.cshtml" />
+    <Content Include="Views\EntityProperties\Create.cshtml" />
+    <Content Include="Views\EntityProperties\Delete.cshtml" />
+    <Content Include="Views\EntityProperties\Details.cshtml" />
+    <Content Include="Views\EntityProperties\Edit.cshtml" />
+    <Content Include="Views\EntityProperties\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

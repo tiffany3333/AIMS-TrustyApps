@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressService.cs" />
+    <Compile Include="EntityPropertyService.cs" />
     <Compile Include="SurveyInstanceService.cs" />
     <Compile Include="GroupService.cs" />
     <Compile Include="ContactService.cs" />

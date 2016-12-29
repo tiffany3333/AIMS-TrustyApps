@@ -4,13 +4,13 @@ using System.Web.Mvc;
 using AIMS.Data;
 using AIMS.Services;
 using Microsoft.AspNet.Identity;
+using System.Net;
+using AIMS.Models;
 
 namespace AIMS.Controllers
 {
     public class UserController : Controller
     {
-        private AIMSDbContext db = new AIMSDbContext();
-
         private readonly Lazy<UserService> _userSvc;
 
         public UserController()
@@ -31,22 +31,35 @@ namespace AIMS.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int userId)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            User user = _userSvc.Value.GetUser(id);
-            if (user == null)
+            if (userId == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.Contacts = _userSvc.Value.GetContacts(id);
+            ViewBag.Contacts = _userSvc.Value.GetContacts(userId);
 
-            return View(user);
+            UserDetailsViewModel userVM = _userSvc.Value.GetUserVM(userId);
+
+            return View(userVM);
         }
+
+        //// GET: User/Edit/5
+        //public ActionResult Edit(int? userId)
+        //{
+        //    if (userId == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    User user = db.User.Find(userId);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.UserId = new SelectList(db.Entities, "Id", "Id", user.UserId);
+        //    return View(user);
+        //}
 
         //// GET: User/Create
         //public ActionResult Create()
@@ -69,22 +82,6 @@ namespace AIMS.Controllers
         //        return RedirectToAction("Index");
         //    }
 
-        //    ViewBag.UserId = new SelectList(db.Entities, "Id", "Id", user.UserId);
-        //    return View(user);
-        //}
-
-        //// GET: User/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = db.User.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
         //    ViewBag.UserId = new SelectList(db.Entities, "Id", "Id", user.UserId);
         //    return View(user);
         //}

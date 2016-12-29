@@ -1,4 +1,4 @@
-﻿@model AIMS.Data.User
+﻿@model AIMS.Models.UserDetailsViewModel
 
 @{
     ViewBag.Title = "User Details";
@@ -11,7 +11,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.UserId)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.UserId)
         </dd>
@@ -65,10 +64,47 @@
         <dd>
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn-aims-submit" onclick="location.href='@Url.Action("Edit", "User", new { userId = Model.UserId }, null)'">Edit</button> | 
+    <button class="btn-aims-submit" onclick="location.href='@Url.Action("Index")'">Go Back</button> | 
+    <button class="btn-aims-submit" onclick="location.href='@Url.Action("Delete", "User", new { userId = Model.UserId }, null)'">Edit</button>
 </p>
+<hr />
+<h4>Properties</h4>
+<p>
+    <button class="btn-aims-submit" onclick="location.href='@Url.Action("Create", "EntityProperties", new { entityId = Model.Entity.Id }, null)'">Create New</button>
+</p>
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Link</th>
+        <th>Image URL</th>
+        <th></th>
+    </tr>
+    @if (Model.EntityProperties != null)
+    {
+        foreach (var property in Model.EntityProperties)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@property.Title, "Edit", "EntityProperties", new { propertyId = property.EntityPropertyId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => property.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => property.Link)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => property.ImageURL)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "EntityProperties", new { propertyId = property.EntityPropertyId }, null)
+                </td>
+            </tr>
+        }
+    }
+</table>

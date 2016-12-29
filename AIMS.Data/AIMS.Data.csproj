@@ -95,6 +95,14 @@
     <Compile Include="Migrations\201612231935046_added ImageFilenameResponse to SurveyResponse.Designer.cs">
       <DependentUpon>201612231935046_added ImageFilenameResponse to SurveyResponse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612281536230_altered EntityProperty.cs" />
+    <Compile Include="Migrations\201612281536230_altered EntityProperty.Designer.cs">
+      <DependentUpon>201612281536230_altered EntityProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612291653358_Removed PropertyDef.cs" />
+    <Compile Include="Migrations\201612291653358_Removed PropertyDef.Designer.cs">
+      <DependentUpon>201612291653358_Removed PropertyDef.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurveyAnswer.cs" />
     <Compile Include="Migrations\201611231820567_init.cs" />
     <Compile Include="Migrations\201611231820567_init.Designer.cs">
@@ -149,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612231935046_added ImageFilenameResponse to SurveyResponse.resx">
       <DependentUpon>201612231935046_added ImageFilenameResponse to SurveyResponse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612281536230_altered EntityProperty.resx">
+      <DependentUpon>201612281536230_altered EntityProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291653358_Removed PropertyDef.resx">
+      <DependentUpon>201612291653358_Removed PropertyDef.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

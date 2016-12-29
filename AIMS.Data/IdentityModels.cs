@@ -40,7 +40,7 @@ namespace AIMS.Data
         public DbSet<Event> Events { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Organization> Organizations { get; set; }
-        public DbSet<PropertyDef> PropertyDefs { get; set; }
+        //public DbSet<PropertyDef> PropertyDefs { get; set; }
         public DbSet<Role> UserRoles { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveyGroup> SurveyGroups { get; set; }
